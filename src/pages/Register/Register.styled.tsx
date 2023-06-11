@@ -8,9 +8,7 @@ import bgDesktop from "assets/images/desktop/bg.jpg";
 import bgDesktop2x from "assets/images/desktop/bg.jpg";
 
 export const Section = styled.section`
-  margin: 0 auto;
   padding: 32px 0;
-  min-width: 310px;
   max-width: ${({ theme }) => theme.breakpoints.tablet};
 
   background-color: ${({ theme }) => theme.colors.primaryOverlay};

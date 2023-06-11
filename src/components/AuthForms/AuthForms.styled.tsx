@@ -2,11 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PrimaryInput } from "components/Common.styled";
 
-export const Form = styled.form`
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 280px;
-`;
+export const Form = styled.form``;
 
 export const Label = styled.label`
   display: block;
