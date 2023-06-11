@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PrimaryContainer } from "components/Common.styled";
 import bgMobile from "assets/images/mobile/bg.jpg";
 import bgMobile2x from "assets/images/mobile/bg.jpg";
 import bgTablet from "assets/images/tablet/bg.jpg";
@@ -9,6 +10,7 @@ import bgDesktop2x from "assets/images/desktop/bg.jpg";
 export const Section = styled.section`
   margin: 0 auto;
   padding: 32px 0;
+  min-width: 310px;
   max-width: ${({ theme }) => theme.breakpoints.tablet};
 
   background-color: ${({ theme }) => theme.colors.primaryOverlay};
@@ -76,3 +78,5 @@ export const Section = styled.section`
     }
   }
 `;
+
+export const Container = styled(PrimaryContainer)``;

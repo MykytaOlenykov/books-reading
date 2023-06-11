@@ -12,13 +12,13 @@ export const Button = styled.button`
   min-height: 40px;
 
   font-family: ${({ theme }) => theme.fontFamily.googleTextBtn};
-  font-style: normal;
   font-weight: 700;
-  font-size: ${({ theme }) => theme.fontSizes.common.googleTextBtn};
+  font-size: ${({ theme }) => theme.fontSizes.authForm.textBtn};
   line-height: 2.38;
   color: ${({ theme }) => theme.colors.googleTextBtn};
 
   background-color: ${({ theme }) => theme.colors.googleBgBtn};
   border: none;
   box-shadow: ${({ theme }) => theme.boxShadow.googleBtn};
+  cursor: pointer;
 `;

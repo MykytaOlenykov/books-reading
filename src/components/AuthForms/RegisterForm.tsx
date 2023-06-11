@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { GoogleBtn } from "components/GoogleBtn";
 import { formPatterns, errorFormMessages } from "constants/";
-// import * as S from "./RegisterForm.styled";
+import * as S from "./AuthForms.styled";
 
 const schema = yup.object({
   name: yup
@@ -43,47 +43,46 @@ export const RegisterForm: React.FC = () => {
   });
 
   return (
-    <form noValidate autoComplete="off">
+    <S.Form noValidate autoComplete="off">
       <GoogleBtn />
 
-      <label>
-        <span>
-          Ім’я <span>*</span>
-        </span>
-        <input {...register("name")} type="text" placeholder="..." />
-      </label>
+      <S.Label>
+        <S.LabelText>
+          Ім’я <S.Star>*</S.Star>
+        </S.LabelText>
+        <S.Input {...register("name")} type="text" placeholder="..." />
+      </S.Label>
 
-      <label>
-        <span>
-          Електронна адреса <span>*</span>
-        </span>
-        <input
+      <S.Label>
+        <S.LabelText>
+          Електронна адреса <S.Star>*</S.Star>
+        </S.LabelText>
+        <S.Input
           {...register("email")}
           type="email"
           placeholder="your@email.com"
         />
-      </label>
+      </S.Label>
 
-      <label>
-        <span>
-          Пароль <span>*</span>
-        </span>
-        <input {...register("password")} type="password" placeholder="..." />
-      </label>
+      <S.Label>
+        <S.LabelText>
+          Пароль <S.Star>*</S.Star>
+        </S.LabelText>
+        <S.Input {...register("password")} type="password" placeholder="..." />
+      </S.Label>
 
-      <label>
-        <span>
-          Підтвердити пароль <span>*</span>
-        </span>
-        <input {...register("password")} type="password" placeholder="..." />
-      </label>
+      <S.Label>
+        <S.LabelText>
+          Підтвердити пароль <S.Star>*</S.Star>
+        </S.LabelText>
+        <S.Input {...register("password")} type="password" placeholder="..." />
+      </S.Label>
 
-      <button type="submit">Зареєструватися</button>
+      <S.Button type="submit">Зареєструватися</S.Button>
 
-      <p>
-        Вже з нами?
-        {/* <a href="#">Увійти</a> */}
-      </p>
-    </form>
+      <S.FormText>
+        Вже з нами? <S.RedirectLink to="/login">Увійти</S.RedirectLink>
+      </S.FormText>
+    </S.Form>
   );
 };

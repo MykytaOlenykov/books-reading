@@ -27,6 +27,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-  
+    font-family: ${({ theme }) => theme.fontFamily.primary};
+    font-weight: 500;
+    font-size:  ${({ theme }) => theme.fontSizes.common.primary};
+    color:  ${({ theme }) => theme.colors.primary};
   }
 `;

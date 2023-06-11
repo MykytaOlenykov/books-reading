@@ -1,19 +1,18 @@
 import React from "react";
-import { Container } from "components/Container";
 import { HiddenComponent } from "components/HiddenComponent";
-import { RegisterForm } from "components/RegisterForm";
+import { RegisterForm } from "components/AuthForms";
 import * as S from "./Register.styled";
 
 const Register: React.FC = () => (
   <main>
     <S.Section>
-      <Container>
+      <S.Container>
         <HiddenComponent>
           <h1>Сторінка реєстрації</h1>
         </HiddenComponent>
 
         <RegisterForm />
-      </Container>
+      </S.Container>
     </S.Section>
   </main>
 );

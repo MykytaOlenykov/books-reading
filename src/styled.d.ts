@@ -4,33 +4,47 @@ import "styled-components";
 // and extend them!
 declare module "styled-components" {
   export interface DefaultTheme {
-    colors: {
-      primary: string;
-      primaryBg: string;
-      secondaryBg: string;
-      primaryOverlay: string;
-      accent: string;
-      googleBgBtn: string;
-      googleTextBtn: string;
+    readonly colors: {
+      readonly primary: string;
+      readonly primaryBg: string;
+      readonly secondaryBg: string;
+      readonly lightText: string;
+      readonly primaryOverlay: string;
+      readonly accent: string;
+      readonly googleBgBtn: string;
+      readonly googleTextBtn: string;
+      readonly inputBg: string;
+      readonly required: string;
+      readonly placeholder: string;
+      readonly formText: string;
     };
-    fontFamily: {
-      logo: string;
-      googleTextBtn: string;
+    readonly fontFamily: {
+      readonly primary: string;
+      readonly logo: string;
+      readonly googleTextBtn: string;
     };
-    fontSizes: {
-      common: {
-        logo: string;
-        googleTextBtn: string;
+    readonly fontSizes: {
+      readonly header: {
+        readonly logo: string;
+      };
+      readonly authForm: {
+        readonly primary: string;
+        readonly textBtn: string;
+      };
+      readonly common: {
+        readonly primary: string;
       };
     };
-    boxShadow: {
-      header: string;
-      googleBtn: string;
+    readonly boxShadow: {
+      readonly header: string;
+      readonly googleBtn: string;
+      readonly input: string;
+      readonly btn: string;
     };
-    breakpoints: {
-      mobile: string;
-      tablet: string;
-      dekstop: string;
+    readonly breakpoints: {
+      readonly mobile: string;
+      readonly tablet: string;
+      readonly dekstop: string;
     };
   }
 }
