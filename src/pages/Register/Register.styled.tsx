@@ -17,8 +17,7 @@ export const Section = styled(BgImgSection)`
   min-width: 310px;
   max-width: ${({ theme }) => theme.breakpoints.tablet};
 
-  @media screen and (min-width: calc(${({ theme }) =>
-      theme.breakpoints.mobile} + 1px)) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 64px 0;
   }
 

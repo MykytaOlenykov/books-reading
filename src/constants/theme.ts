@@ -13,6 +13,7 @@ export const theme = {
     required: "#F25137",
     placeholder: "#A6ABB9",
     formText: "#898F9F",
+    line: "rgba(36, 42, 55, 0.5)",
   },
   fontFamily: {
     primary: "Montserrat",
@@ -30,6 +31,11 @@ export const theme = {
     info: {
       logo: "34px",
       title: "20px",
+    },
+    quote: {
+      primary: "13px",
+      secondary: "24px",
+      author: "20px",
     },
     common: {
       primary: "14px",

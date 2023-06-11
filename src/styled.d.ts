@@ -18,6 +18,7 @@ declare module "styled-components" {
       readonly required: string;
       readonly placeholder: string;
       readonly formText: string;
+      readonly line: string;
     };
     readonly fontFamily: {
       readonly primary: string;
@@ -35,6 +36,11 @@ declare module "styled-components" {
       readonly info: {
         readonly logo: string;
         readonly title: string;
+      };
+      readonly quote: {
+        readonly primary: string;
+        readonly secondary: string;
+        readonly author: string;
       };
       readonly common: {
         readonly primary: string;
