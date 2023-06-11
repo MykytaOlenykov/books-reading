@@ -22,17 +22,4 @@ export const PrimaryInput = styled.input`
   color: ${({ theme }) => theme.colors.primary};
 `;
 
-export const PrimaryButton = styled.button`
-  font-weight: 600;
-  text-align: center;
-  color: ${({ theme }) => theme.colors.lightText};
-
-  background-color: ${({ theme }) => theme.colors.accent};
-  border: none;
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    box-shadow: ${({ theme }) => theme.boxShadow.btn};
-  }
-`;
+export const PrimaryButton = styled.button``;

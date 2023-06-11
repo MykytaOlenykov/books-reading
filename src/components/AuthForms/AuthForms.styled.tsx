@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { PrimaryInput, PrimaryButton } from "components/Common.styled";
+import { PrimaryInput } from "components/Common.styled";
 
 export const Form = styled.form`
   margin-left: auto;
@@ -40,13 +40,27 @@ export const Input = styled(PrimaryInput)`
   }
 `;
 
-export const Button = styled(PrimaryButton)`
+export const Button = styled.button`
   margin-bottom: 20px;
   padding: 20px 0;
   width: 100%;
 
+  font-weight: 600;
   font-size: ${({ theme }) => theme.fontSizes.authForm.textBtn};
   line-height: 1.25;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.lightText};
+
+  background-color: ${({ theme }) => theme.colors.accent};
+  border: none;
+  cursor: pointer;
+
+  transition: box-shadow ${({ theme }) => theme.timingFunction.btn} linear;
+
+  &:hover,
+  &:focus {
+    box-shadow: ${({ theme }) => theme.boxShadow.btn};
+  }
 `;
 
 export const FormText = styled.p`
