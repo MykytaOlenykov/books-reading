@@ -5,10 +5,26 @@ import { ReactComponent as InfoIcon } from "assets/icons/info-arrow.svg";
 
 export const Section = styled.section`
   padding: 32px 0 40px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 64px 0 88px;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    padding: 0;
+  }
 `;
 
 export const Container = styled(PrimaryContainer)`
   padding: 0 25px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 0 145px;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    padding: 0 127px;
+  }
 `;
 
 export const SectionTitle = styled.h2`
@@ -32,10 +48,18 @@ export const Title = styled.h3`
 export const List = styled.ul`
   &.mb--s {
     margin-bottom: 24px;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      margin-bottom: 32px;
+    }
   }
 
   &.mb--b {
     margin-bottom: 60px;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      margin-bottom: 0;
+    }
   }
 `;
 
@@ -66,6 +90,10 @@ export const Text = styled.p`
 export const BtnContainer = styled(PrimaryContainer)`
   display: flex;
   justify-content: space-between;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
 `;
 
 export const PrimaryBtn = styled.a`

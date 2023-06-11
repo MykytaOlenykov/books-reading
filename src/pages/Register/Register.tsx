@@ -5,7 +5,7 @@ import { InfoSection } from "components/InfoSection";
 import * as S from "./Register.styled";
 
 const Register: React.FC = () => (
-  <main>
+  <S.Main>
     <S.Section>
       <S.Container>
         <HiddenComponent>
@@ -17,7 +17,7 @@ const Register: React.FC = () => (
     </S.Section>
 
     <InfoSection />
-  </main>
+  </S.Main>
 );
 
 export default Register;

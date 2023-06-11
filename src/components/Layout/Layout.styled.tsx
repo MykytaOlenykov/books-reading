@@ -29,4 +29,8 @@ export const Logo = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.header.logo};
   line-height: 1.35;
   text-align: center;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    text-align: start;
+  }
 `;

@@ -2,7 +2,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PrimaryInput } from "components/Common.styled";
 
-export const Form = styled.form``;
+export const Form = styled.form`
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 400px;
+
+    background-color: ${({ theme }) => theme.colors.secondaryBg};
+  }
+`;
 
 export const Label = styled.label`
   display: block;
@@ -16,6 +24,11 @@ export const LabelText = styled.span`
   font-weight: 600;
   line-height: 1.21;
   color: ${({ theme }) => theme.colors.secondaryBg};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.primaryText};
+  }
 `;
 
 export const Star = styled.span`
