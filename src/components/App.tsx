@@ -15,6 +15,8 @@ export const App: React.FC = () => {
         <Route index element={<HomePage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LogInPage />} />
+        <Route path="library" element={<p>Library</p>} />
+        <Route path="training" element={<p>Training</p>} />
       </Route>
     </Routes>
   );

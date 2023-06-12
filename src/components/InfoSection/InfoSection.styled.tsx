@@ -9,10 +9,6 @@ export const Section = styled.section`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 64px 0 88px;
   }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    padding: 0;
-  }
 `;
 
 export const Container = styled(PrimaryContainer)`

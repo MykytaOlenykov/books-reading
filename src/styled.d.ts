@@ -8,6 +8,7 @@ declare module "styled-components" {
       readonly primary: string;
       readonly primaryBg: string;
       readonly secondaryBg: string;
+      readonly activeBg: string;
       readonly primaryText: string;
       readonly lightText: string;
       readonly primaryOverlay: string;
@@ -19,6 +20,8 @@ declare module "styled-components" {
       readonly placeholder: string;
       readonly formText: string;
       readonly line: string;
+      readonly navLine: string;
+      readonly icon: string;
     };
     readonly fontFamily: {
       readonly primary: string;
@@ -53,6 +56,7 @@ declare module "styled-components" {
       readonly btn: string;
     };
     readonly timingFunction: {
+      readonly navLink: string;
       readonly btn: string;
     };
     readonly breakpoints: {

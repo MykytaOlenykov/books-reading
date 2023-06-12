@@ -3,6 +3,7 @@ export const theme = {
     primary: "#242A37",
     primaryBg: "#F6F7FB",
     secondaryBg: "#FFFFFF",
+    activeBg: "#f5f7fa",
     primaryText: "#898f9f",
     lightText: "#FFFFFF",
     primaryOverlay: "rgba(9, 30, 63, 0.8)",
@@ -14,6 +15,8 @@ export const theme = {
     placeholder: "#A6ABB9",
     formText: "#898F9F",
     line: "rgba(36, 42, 55, 0.5)",
+    navLine: "#E0E5EB",
+    icon: "#A6ABB9",
   },
   fontFamily: {
     primary: "Montserrat",
@@ -48,6 +51,7 @@ export const theme = {
     btn: "0px 2px 4px rgba(0, 0, 0, 0.25)",
   },
   timingFunction: {
+    navLink: "250ms",
     btn: "250ms",
   },
   breakpoints: {

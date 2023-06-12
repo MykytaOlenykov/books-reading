@@ -18,11 +18,13 @@ export const Header = styled.header`
 export const Container = styled(PrimaryContainer)`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 60px;
 `;
 
 export const Logo = styled.span`
-  width: 100%;
+  display: block;
+  /* flex-grow: 1; */
 
   font-family: ${({ theme }) => theme.fontFamily.logo};
   font-weight: 400;
@@ -33,4 +35,9 @@ export const Logo = styled.span`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     text-align: start;
   }
+`;
+
+export const NavBox = styled.div`
+  display: flex;
+  gap: 22px;
 `;
