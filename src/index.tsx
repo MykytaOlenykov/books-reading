@@ -6,11 +6,7 @@ import { App } from "components/App";
 import { GlobalStyle } from "components/GlobalStyle";
 import { theme } from "constants/";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-
-root.render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
