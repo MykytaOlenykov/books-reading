@@ -1,22 +1,45 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "components/Layout";
-
-const HomePage = React.lazy(() => import("pages/Home"));
+import { PrivateRoute } from "components/PrivateRoute";
+import { RestrictedRoute } from "components/RestrictedRoute";
 
 const RegisterPage = React.lazy(() => import("pages/Register/Register"));
 
 const LogInPage = React.lazy(() => import("pages/LogIn/LogIn"));
 
+const LibraryPage = React.lazy(() => import("pages/Library/Library"));
+
+const TrainingPage = React.lazy(() => import("pages/Training/Training"));
+
 export const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LogInPage />} />
-        <Route path="library" element={<p>Library</p>} />
-        <Route path="training" element={<p>Training</p>} />
+        <Route
+          path="register"
+          element={
+            <RestrictedRoute component={RegisterPage} redirectTo="/library" />
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <RestrictedRoute component={LogInPage} redirectTo="/library" />
+          }
+        />
+        <Route
+          path="library"
+          element={
+            <PrivateRoute component={LibraryPage} redirectTo="/register" />
+          }
+        />
+        <Route
+          path="training"
+          element={
+            <PrivateRoute component={TrainingPage} redirectTo="/register" />
+          }
+        />
       </Route>
     </Routes>
   );

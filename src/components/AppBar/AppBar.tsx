@@ -1,18 +1,25 @@
 import React from "react";
+import { useAuth } from "hooks";
 import { Navigation } from "components/Navigation";
 import { UserMenu } from "components/UserMenu";
 import * as S from "./AppBar.styled";
 
-export const AppBar: React.FC = () => (
-  <S.Header>
-    <S.Container>
-      <S.Logo>BR</S.Logo>
+export const AppBar: React.FC = () => {
+  const { isLoggedIn } = useAuth();
 
-      <S.NavBox>
-        <Navigation />
+  return (
+    <S.Header>
+      <S.Container>
+        <S.Logo isLoggedIn={isLoggedIn}>BR</S.Logo>
 
-        <UserMenu />
-      </S.NavBox>
-    </S.Container>
-  </S.Header>
-);
+        {isLoggedIn && (
+          <S.NavBox>
+            <Navigation />
+
+            <UserMenu />
+          </S.NavBox>
+        )}
+      </S.Container>
+    </S.Header>
+  );
+};

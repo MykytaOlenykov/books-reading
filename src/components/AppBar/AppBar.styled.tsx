@@ -22,9 +22,9 @@ export const Container = styled(PrimaryContainer)`
   min-height: 60px;
 `;
 
-export const Logo = styled.span`
+export const Logo = styled.span<{ isLoggedIn: boolean }>`
   display: block;
-  /* flex-grow: 1; */
+  flex-grow: ${({ isLoggedIn }) => (isLoggedIn ? 0 : 1)};
 
   font-family: ${({ theme }) => theme.fontFamily.logo};
   font-weight: 400;

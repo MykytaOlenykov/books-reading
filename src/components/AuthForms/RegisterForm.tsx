@@ -1,9 +1,13 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { toast } from "react-hot-toast";
+import { useAppDispatch, useAuth } from "hooks";
+import { register as registerUser } from "redux/auth/operations";
+import { clearError } from "redux/auth/slice";
 import { GoogleBtn } from "components/GoogleBtn";
-import { formPatterns, errorFormMessages } from "constants/";
+import { formPatterns, errorFormMessages, errorAPIMessages } from "constants/";
 import * as S from "./AuthForms.styled";
 
 const schema = yup.object({
@@ -51,14 +55,41 @@ export const RegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
+  const dispatch = useAppDispatch();
+  const { isError, error } = useAuth();
+
+  useEffect(() => {
+    if (isError) {
+      if (error.status === 409) {
+        toast.error(errorAPIMessages[error.status]);
+        dispatch(clearError());
+        return;
+      }
+
+      toast.error(errorAPIMessages.common);
+      dispatch(clearError());
+    }
+  }, [isError, error, dispatch]);
+
+  const onSubmit: SubmitHandler<FormData> = ({ name, email, password }) => {
+    const normalizedName = name.trim();
+
+    dispatch(registerUser({ name: normalizedName, email, password }));
+    reset();
+  };
 
   return (
-    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(console.log)}>
+    <S.Form
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit((data) => onSubmit(data))}
+    >
       <GoogleBtn />
 
       <S.Label>
