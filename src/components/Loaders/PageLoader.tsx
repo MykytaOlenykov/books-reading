@@ -1,5 +1,5 @@
 import React from "react";
-import { MutatingDots } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 import { theme } from "constants/";
 
@@ -12,15 +12,13 @@ const Container = styled.div`
 
 export const PageLoader: React.FC = () => (
   <Container>
-    <MutatingDots
-      height="100"
-      width="100"
+    <ThreeDots
+      height="80"
+      width="80"
+      radius="9"
       color={theme.colors.accent}
-      secondaryColor={theme.colors.accent}
-      radius="12.5"
-      ariaLabel="mutating-dots-loading"
+      ariaLabel="three-dots-loading"
       wrapperStyle={{}}
-      wrapperClass=""
       visible={true}
     />
   </Container>
