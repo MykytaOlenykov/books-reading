@@ -13,9 +13,6 @@ const HomePage = () => (
       <Link to="/register">register</Link>
       <Link to="/login">login</Link>
     </header>
-    <div>
-      <Outlet />
-    </div>
   </div>
 );
 
