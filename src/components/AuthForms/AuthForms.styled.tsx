@@ -83,3 +83,17 @@ export const RedirectLink = styled(Link)`
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.accent};
 `;
+
+export const ErrorText = styled.span`
+  display: block;
+  margin-top: 4px;
+  padding: 2px 4px;
+  width: 100%;
+
+  font-size: ${({ theme }) => theme.fontSizes.authForm.primary};
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.required};
+
+  background-color: ${({ theme }) => theme.colors.inputBg};
+  border-radius: 0;
+`;

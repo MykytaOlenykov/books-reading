@@ -9,16 +9,16 @@ import * as S from "./AuthForms.styled";
 const schema = yup.object({
   email: yup
     .string()
-    .min(4)
-    .max(255)
-    .matches(formPatterns.email, errorFormMessages.email)
-    .required(),
+    .min(4, errorFormMessages.email.minLength)
+    .max(255, errorFormMessages.email.maxLength)
+    .matches(formPatterns.email, errorFormMessages.email.matches)
+    .required(errorFormMessages.email.required),
   password: yup
     .string()
-    .min(8)
-    .max(255)
-    .matches(formPatterns.password, errorFormMessages.password)
-    .required(),
+    .min(8, errorFormMessages.password.minLength)
+    .max(255, errorFormMessages.password.maxLength)
+    .matches(formPatterns.password, errorFormMessages.password.matches)
+    .required(errorFormMessages.password.required),
 });
 
 const initialValues = {
@@ -51,7 +51,7 @@ export const LogInForm: React.FC = () => {
           type="email"
           placeholder="your@email.com"
         />
-        {errors.email && <p>{errors.email?.message}</p>}
+        {errors.email && <S.ErrorText>{errors.email?.message}</S.ErrorText>}
       </S.Label>
 
       <S.Label>
@@ -63,7 +63,9 @@ export const LogInForm: React.FC = () => {
           type="password"
           placeholder="Пароль"
         />
-        {errors.password && <p>{errors.password?.message}</p>}
+        {errors.password && (
+          <S.ErrorText>{errors.password?.message}</S.ErrorText>
+        )}
       </S.Label>
 
       <S.Button type="submit">Увійти</S.Button>

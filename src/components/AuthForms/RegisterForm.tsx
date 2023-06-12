@@ -10,28 +10,39 @@ const schema = yup.object({
   name: yup
     .string()
     .trim()
-    .min(4)
-    .max(255)
-    .matches(formPatterns.name, errorFormMessages.name)
-    .required(),
+    .min(2, errorFormMessages.name.minLength)
+    .max(255, errorFormMessages.name.maxLength)
+    .matches(formPatterns.name, errorFormMessages.name.matches)
+    .required(errorFormMessages.name.required),
   email: yup
     .string()
-    .min(4)
-    .max(255)
-    .matches(formPatterns.email, errorFormMessages.email)
-    .required(),
+    .min(4, errorFormMessages.email.minLength)
+    .max(255, errorFormMessages.email.maxLength)
+    .matches(formPatterns.email, errorFormMessages.email.matches)
+    .required(errorFormMessages.email.required),
   password: yup
     .string()
-    .min(8)
-    .max(255)
-    .matches(formPatterns.password, errorFormMessages.password)
-    .required(),
+    .min(8, errorFormMessages.password.minLength)
+    .max(255, errorFormMessages.password.maxLength)
+    .matches(formPatterns.password, errorFormMessages.password.matches)
+    .required(errorFormMessages.password.required),
+  confirmPassword: yup
+    .string()
+    .test(
+      "passwords-match",
+      errorFormMessages.confirmPassword.test,
+      function (value) {
+        return this.parent.password === value;
+      }
+    )
+    .required(errorFormMessages.confirmPassword.required),
 });
 
 const initialValues = {
   name: "",
   email: "",
   password: "",
+  confirmPassword: "",
 };
 
 type FormData = yup.InferType<typeof schema>;
@@ -55,7 +66,7 @@ export const RegisterForm: React.FC = () => {
           Ім’я <S.Star>*</S.Star>
         </S.LabelText>
         <S.Input {...register("name")} type="text" placeholder="..." />
-        {errors.name && <p>{errors.name?.message}</p>}
+        {errors.name && <S.ErrorText>{errors.name?.message}</S.ErrorText>}
       </S.Label>
 
       <S.Label>
@@ -67,7 +78,7 @@ export const RegisterForm: React.FC = () => {
           type="email"
           placeholder="your@email.com"
         />
-        {errors.email && <p>{errors.email?.message}</p>}
+        {errors.email && <S.ErrorText>{errors.email?.message}</S.ErrorText>}
       </S.Label>
 
       <S.Label>
@@ -75,15 +86,23 @@ export const RegisterForm: React.FC = () => {
           Пароль <S.Star>*</S.Star>
         </S.LabelText>
         <S.Input {...register("password")} type="password" placeholder="..." />
-        {errors.password && <p>{errors.password?.message}</p>}
+        {errors.password && (
+          <S.ErrorText>{errors.password?.message}</S.ErrorText>
+        )}
       </S.Label>
 
       <S.Label>
         <S.LabelText>
           Підтвердити пароль <S.Star>*</S.Star>
         </S.LabelText>
-        <S.Input {...register("password")} type="password" placeholder="..." />
-        {errors.password && <p>{errors.password?.message}</p>}
+        <S.Input
+          {...register("confirmPassword")}
+          type="password"
+          placeholder="..."
+        />
+        {errors.confirmPassword && (
+          <S.ErrorText>{errors.confirmPassword?.message}</S.ErrorText>
+        )}
       </S.Label>
 
       <S.Button type="submit">Зареєструватися</S.Button>
