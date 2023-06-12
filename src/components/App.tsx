@@ -17,6 +17,18 @@ export const App: React.FC = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route
+          index
+          element={
+            <PrivateRoute component={LibraryPage} redirectTo="/register" />
+          }
+        />
+        <Route
+          path="training"
+          element={
+            <PrivateRoute component={TrainingPage} redirectTo="/register" />
+          }
+        />
+        <Route
           path="register"
           element={
             <RestrictedRoute component={RegisterPage} redirectTo="/library" />
@@ -26,18 +38,6 @@ export const App: React.FC = () => {
           path="login"
           element={
             <RestrictedRoute component={LogInPage} redirectTo="/library" />
-          }
-        />
-        <Route
-          path="library"
-          element={
-            <PrivateRoute component={LibraryPage} redirectTo="/register" />
-          }
-        />
-        <Route
-          path="training"
-          element={
-            <PrivateRoute component={TrainingPage} redirectTo="/register" />
           }
         />
       </Route>
