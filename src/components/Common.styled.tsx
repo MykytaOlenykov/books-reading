@@ -93,6 +93,8 @@ export const PrimaryInput = styled.input`
   width: 100%;
 
   color: ${({ theme }) => theme.colors.primary};
+
+  border-radius: 0;
 `;
 
 export const PrimaryButton = styled.button``;
