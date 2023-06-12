@@ -37,13 +37,17 @@ const initialValues = {
 type FormData = yup.InferType<typeof schema>;
 
 export const RegisterForm: React.FC = () => {
-  const { register } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
     defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
 
   return (
-    <S.Form noValidate autoComplete="off">
+    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(console.log)}>
       <GoogleBtn />
 
       <S.Label>
@@ -51,6 +55,7 @@ export const RegisterForm: React.FC = () => {
           Ім’я <S.Star>*</S.Star>
         </S.LabelText>
         <S.Input {...register("name")} type="text" placeholder="..." />
+        {errors.name && <p>{errors.name?.message}</p>}
       </S.Label>
 
       <S.Label>
@@ -62,6 +67,7 @@ export const RegisterForm: React.FC = () => {
           type="email"
           placeholder="your@email.com"
         />
+        {errors.email && <p>{errors.email?.message}</p>}
       </S.Label>
 
       <S.Label>
@@ -69,6 +75,7 @@ export const RegisterForm: React.FC = () => {
           Пароль <S.Star>*</S.Star>
         </S.LabelText>
         <S.Input {...register("password")} type="password" placeholder="..." />
+        {errors.password && <p>{errors.password?.message}</p>}
       </S.Label>
 
       <S.Label>
@@ -76,6 +83,7 @@ export const RegisterForm: React.FC = () => {
           Підтвердити пароль <S.Star>*</S.Star>
         </S.LabelText>
         <S.Input {...register("password")} type="password" placeholder="..." />
+        {errors.password && <p>{errors.password?.message}</p>}
       </S.Label>
 
       <S.Button type="submit">Зареєструватися</S.Button>

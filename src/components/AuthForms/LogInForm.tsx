@@ -29,13 +29,17 @@ const initialValues = {
 type FormData = yup.InferType<typeof schema>;
 
 export const LogInForm: React.FC = () => {
-  const { register } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
     defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
 
   return (
-    <S.Form noValidate autoComplete="off">
+    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(console.log)}>
       <GoogleBtn />
 
       <S.Label>
@@ -47,6 +51,7 @@ export const LogInForm: React.FC = () => {
           type="email"
           placeholder="your@email.com"
         />
+        {errors.email && <p>{errors.email?.message}</p>}
       </S.Label>
 
       <S.Label>
@@ -58,6 +63,7 @@ export const LogInForm: React.FC = () => {
           type="password"
           placeholder="Пароль"
         />
+        {errors.password && <p>{errors.password?.message}</p>}
       </S.Label>
 
       <S.Button type="submit">Увійти</S.Button>
