@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
-import { PageLoader } from "components/Loaders";
+// import { PageLoader } from "components/Loaders";
 import * as S from "./Layout.styled";
 
 export const Layout: React.FC = () => (
@@ -11,8 +11,6 @@ export const Layout: React.FC = () => (
       </S.Container>
     </S.Header>
 
-    <Suspense fallback={<PageLoader />}>
-      <Outlet />
-    </Suspense>
+    <Outlet />
   </>
 );
