@@ -2,39 +2,46 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { AxiosError } from "axios";
 import { RootState } from "redux/store";
-import { IAuth, ILogInReq, ILogInRes, IRegisterReq, IRegisterRes } from "types";
+import {
+  ISecurityData,
+  ILogInReq,
+  ILogInRes,
+  IRefreshRes,
+  IRegisterReq,
+  IRegisterRes,
+} from "types";
+
+const setAuthApiHeader = (token: string): void => {
+  authApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+const clearAuthApiHeader = (): void => {
+  authApi.defaults.headers.common.Authorization = "";
+};
+
+const setRefreshAuthApiAuthHeader = (refreshToken: string): void => {
+  refreshAuthApi.defaults.headers.common.Authorization = `Bearer ${refreshToken}`;
+};
+
+const clearRefreshAuthApiAuthHeader = (): void => {
+  refreshAuthApi.defaults.headers.common.Authorization = "";
+};
 
 const API_URL = "https://bookread-backend.goit.global";
 
-const api = axios.create({
+const authApi = axios.create({
   baseURL: API_URL,
 });
 
-const refreshAPI = axios.create({
+const refreshAuthApi = axios.create({
   baseURL: API_URL,
 });
-
-const setAuthHeader = (token: string): void => {
-  api.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-const clearAuthHeader = (): void => {
-  api.defaults.headers.common.Authorization = "";
-};
-
-const setRefreshAPIAuthHeader = (refreshToken: string): void => {
-  refreshAPI.defaults.headers.common.Authorization = `Bearer ${refreshToken}`;
-};
-
-const clearRefreshAPIAuthHeader = (): void => {
-  refreshAPI.defaults.headers.common.Authorization = "";
-};
 
 export const register = createAsyncThunk<IRegisterRes, IRegisterReq>(
   "auth/register",
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await api.post<IRegisterRes>(
+      const { data } = await authApi.post<IRegisterRes>(
         "auth/register",
         credentials
       );
@@ -54,10 +61,10 @@ export const logIn = createAsyncThunk<ILogInRes, ILogInReq>(
   "auth/logIn",
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await api.post<ILogInRes>("auth/login", credentials);
+      const { data } = await authApi.post<ILogInRes>("auth/login", credentials);
 
-      setAuthHeader(data.accessToken);
-      setRefreshAPIAuthHeader(data.refreshToken);
+      setAuthApiHeader(data.accessToken);
+      setRefreshAuthApiAuthHeader(data.refreshToken);
       return data;
     } catch (axiosError) {
       const error = axiosError as AxiosError;
@@ -73,10 +80,42 @@ export const logOut = createAsyncThunk<void, void>(
   "auth/logOut",
   async (_, { rejectWithValue }) => {
     try {
-      await api.post("auth/logout");
+      await authApi.post("auth/logout");
 
-      clearAuthHeader();
-      clearRefreshAPIAuthHeader();
+      clearAuthApiHeader();
+      clearRefreshAuthApiAuthHeader();
+    } catch (axiosError) {
+      const error = axiosError as AxiosError;
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
+    }
+  }
+);
+
+export const refreshUser = createAsyncThunk<NonNullable<ISecurityData>, void>(
+  "auth/refresh",
+  async (_, { getState, rejectWithValue }) => {
+    const { auth } = getState() as RootState;
+    const refreshToken = auth.securityData.refreshToken;
+
+    if (!refreshToken) {
+      return rejectWithValue("");
+    }
+
+    try {
+      setRefreshAuthApiAuthHeader(refreshToken);
+
+      const { data } = await refreshAuthApi.post<IRefreshRes>("auth/refresh", {
+        sid: auth.securityData.sid,
+      });
+
+      return {
+        accessToken: data.newAccessToken,
+        refreshToken: data.newRefreshToken,
+        sid: data.newSid,
+      };
     } catch (axiosError) {
       const error = axiosError as AxiosError;
       return rejectWithValue({

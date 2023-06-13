@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register, logIn, logOut } from "./operations";
+import { register, logIn, logOut, refreshUser } from "./operations";
 import { PayloadAction, CaseReducer, AnyAction } from "@reduxjs/toolkit";
-import { IUser, IAuth, IRegisterRes, ILogInRes } from "types";
+import { IUser, ISecurityData, IRegisterRes, ILogInRes } from "types";
 
 export interface IInitialState {
   user: IUser;
-  auth: IAuth;
+  securityData: ISecurityData;
   error: { message: string | null; status: number | null };
   isRegistered: boolean;
   isLoading: boolean;
@@ -38,7 +38,7 @@ const initialState: IInitialState = {
     currentlyReading: [],
     finishedReading: [],
   },
-  auth: {
+  securityData: {
     accessToken: null,
     refreshToken: null,
     sid: null,
@@ -55,6 +55,13 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    saveSecurityData: (state, action) => {
+      state.securityData = {
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
+        sid: action.payload.sid,
+      };
+    },
     clearError: (state) => {
       state.isError = false;
       state.error = { message: null, status: null };
@@ -77,7 +84,7 @@ export const authSlice = createSlice({
         state.user = action.payload.userData;
         state.isLoggedIn = true;
         state.isLoading = false;
-        state.auth = {
+        state.securityData = {
           accessToken: action.payload.accessToken,
           refreshToken: action.payload.refreshToken,
           sid: action.payload.sid,
@@ -94,20 +101,35 @@ export const authSlice = createSlice({
           currentlyReading: [],
           finishedReading: [],
         };
-        state.auth = {
+        state.securityData = {
           accessToken: null,
           refreshToken: null,
           sid: null,
         };
       })
+      .addCase(
+        refreshUser.fulfilled,
+        (state, action: PayloadAction<NonNullable<ISecurityData>>) => {
+          state.securityData = action.payload;
+          state.isLoggedIn = true;
+          state.isRefreshing = false;
+        }
+      )
       .addCase(register.pending, handlePending)
       .addCase(logIn.pending, handlePending)
       .addCase(logOut.pending, handlePending)
+      .addCase(refreshUser.pending, (state) => {
+        state.isRefreshing = true;
+      })
       .addCase(register.rejected, handleRejected)
       .addCase(logIn.rejected, handleRejected)
-      .addCase(logOut.rejected, handleRejected);
+      .addCase(logOut.rejected, handleRejected)
+      .addCase(refreshUser.rejected, (state) => {
+        state.isRefreshing = false;
+      });
   },
 });
 
-export const { clearError, clearIsRegistered } = authSlice.actions;
+export const { saveSecurityData, clearError, clearIsRegistered } =
+  authSlice.actions;
 export const authReducer = authSlice.reducer;

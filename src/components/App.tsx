@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "components/Layout";
 import { PrivateRoute } from "components/PrivateRoute";
 import { RestrictedRoute } from "components/RestrictedRoute";
+import { useAppDispatch, useAuth } from "hooks";
+import { refreshUser } from "redux/auth/operations";
 
 const RegisterPage = React.lazy(() => import("pages/Register/Register"));
 
@@ -13,7 +15,14 @@ const LibraryPage = React.lazy(() => import("pages/Library/Library"));
 const TrainingPage = React.lazy(() => import("pages/Training/Training"));
 
 export const App: React.FC = () => {
-  return (
+  const dispatch = useAppDispatch();
+  const { isRefreshing } = useAuth();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return !isRefreshing ? (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route
@@ -38,5 +47,5 @@ export const App: React.FC = () => {
         />
       </Route>
     </Routes>
-  );
+  ) : null;
 };
