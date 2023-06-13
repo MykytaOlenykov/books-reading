@@ -68,3 +68,21 @@ export const logIn = createAsyncThunk<ILogInRes, ILogInReq>(
     }
   }
 );
+
+export const logOut = createAsyncThunk<void, void>(
+  "auth/logOut",
+  async (_, { rejectWithValue }) => {
+    try {
+      await api.post("auth/logout");
+
+      clearAuthHeader();
+      clearRefreshAPIAuthHeader();
+    } catch (axiosError) {
+      const error = axiosError as AxiosError;
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
+    }
+  }
+);

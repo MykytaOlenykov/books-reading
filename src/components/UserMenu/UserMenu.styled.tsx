@@ -17,6 +17,7 @@ export const LogOutBtn = styled.button`
 
   background-color: transparent;
   border: none;
+  cursor: pointer;
 
   transition: color ${({ theme }) => theme.timingFunction.btn} linear;
 
@@ -36,12 +37,16 @@ export const LogOutBtn = styled.button`
       linear;
   }
 
-  &:hover,
-  &:focus {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
     color: ${({ theme }) => theme.colors.accent};
 
     &::after {
       background-color: ${({ theme }) => theme.colors.accent};
     }
+  }
+
+  &:disabled {
+    opacity: 0.7;
   }
 `;

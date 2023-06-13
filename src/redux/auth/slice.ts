@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register, logIn } from "./operations";
+import { register, logIn, logOut } from "./operations";
 import { PayloadAction, CaseReducer, AnyAction } from "@reduxjs/toolkit";
 import { IUser, IAuth, IRegisterRes, ILogInRes } from "types";
 
@@ -83,10 +83,29 @@ export const authSlice = createSlice({
           sid: action.payload.sid,
         };
       })
+      .addCase(logOut.fulfilled, (state) => {
+        state.isLoggedIn = false;
+        state.isLoading = false;
+        state.user = {
+          id: null,
+          name: null,
+          email: null,
+          goingToRead: [],
+          currentlyReading: [],
+          finishedReading: [],
+        };
+        state.auth = {
+          accessToken: null,
+          refreshToken: null,
+          sid: null,
+        };
+      })
       .addCase(register.pending, handlePending)
       .addCase(logIn.pending, handlePending)
+      .addCase(logOut.pending, handlePending)
       .addCase(register.rejected, handleRejected)
-      .addCase(logIn.rejected, handleRejected);
+      .addCase(logIn.rejected, handleRejected)
+      .addCase(logOut.rejected, handleRejected);
   },
 });
 
