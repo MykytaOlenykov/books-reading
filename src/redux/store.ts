@@ -16,7 +16,7 @@ import { authReducer, IInitialState } from "./auth/slice";
 const persistConfig = {
   key: "auth",
   storage,
-  whitelist: ["auth"],
+  whitelist: ["securityData"],
 };
 
 const persistedReducer = persistReducer<IInitialState>(
