@@ -9,7 +9,7 @@ interface IProps {
 
 export const RestrictedRoute: React.FC<IProps> = ({
   component: Component,
-  redirectTo = "/register",
+  redirectTo = "/",
 }) => {
   const { isLoggedIn } = useAuth();
 

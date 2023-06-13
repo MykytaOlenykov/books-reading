@@ -2,39 +2,65 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { AxiosError } from "axios";
 import { RootState } from "redux/store";
+import { IAuth, ILogInReq, ILogInRes, IRegisterReq, IRegisterRes } from "types";
 
-interface IAuthData {
-  name: string;
-  email: string;
-  password: string;
-}
+const API_URL = "https://bookread-backend.goit.global";
 
-axios.defaults.baseURL = "https://bookread-backend.goit.global";
+const api = axios.create({
+  baseURL: API_URL,
+});
+
+const refreshAPI = axios.create({
+  baseURL: API_URL,
+});
 
 const setAuthHeader = (token: string): void => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  api.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const clearAuthHeader = (): void => {
-  axios.defaults.headers.common.Authorization = "";
+  api.defaults.headers.common.Authorization = "";
 };
 
-type RegisterResponse = { id: string; email: string };
+const setRefreshAPIAuthHeader = (refreshToken: string): void => {
+  refreshAPI.defaults.headers.common.Authorization = `Bearer ${refreshToken}`;
+};
 
-export const register = createAsyncThunk<RegisterResponse, IAuthData>(
+const clearRefreshAPIAuthHeader = (): void => {
+  refreshAPI.defaults.headers.common.Authorization = "";
+};
+
+export const register = createAsyncThunk<IRegisterRes, IRegisterReq>(
   "auth/register",
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post<RegisterResponse>(
+      const { data } = await api.post<IRegisterRes>(
         "auth/register",
         credentials
       );
 
-      console.log(data);
       return data;
     } catch (axiosError) {
       const error = axiosError as AxiosError;
-      console.log(error);
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
+    }
+  }
+);
+
+export const logIn = createAsyncThunk<ILogInRes, ILogInReq>(
+  "auth/logIn",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post<ILogInRes>("auth/login", credentials);
+
+      setAuthHeader(data.accessToken);
+      setRefreshAPIAuthHeader(data.refreshToken);
+      return data;
+    } catch (axiosError) {
+      const error = axiosError as AxiosError;
       return rejectWithValue({
         message: error.message,
         status: error.response?.status,

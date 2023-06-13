@@ -1,9 +1,10 @@
 import { useAppSelector } from "./useAppSelector";
 import {
   selectUser,
+  selectError,
+  selectIsRegistered,
   selectIsLoggedIn,
   selectIsError,
-  selectError,
   selectIsLoading,
   selectIsRefreshing,
 } from "redux/auth/selectors";
@@ -11,9 +12,10 @@ import {
 export const useAuth = () => {
   return {
     user: useAppSelector(selectUser),
+    error: useAppSelector(selectError),
+    isRegistered: useAppSelector(selectIsRegistered),
     isLoggedIn: useAppSelector(selectIsLoggedIn),
     isError: useAppSelector(selectIsError),
-    error: useAppSelector(selectError),
     isLoading: useAppSelector(selectIsLoading),
     isRefreshing: useAppSelector(selectIsRefreshing),
   };

@@ -66,9 +66,13 @@ export const Button = styled.button`
 
   transition: box-shadow ${({ theme }) => theme.timingFunction.btn} linear;
 
-  &:hover,
-  &:focus {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
     box-shadow: ${({ theme }) => theme.boxShadow.btn};
+  }
+
+  &:disabled {
+    opacity: 0.7;
   }
 `;
 

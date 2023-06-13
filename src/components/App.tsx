@@ -30,15 +30,11 @@ export const App: React.FC = () => {
         />
         <Route
           path="register"
-          element={
-            <RestrictedRoute component={RegisterPage} redirectTo="/library" />
-          }
+          element={<RestrictedRoute component={RegisterPage} />}
         />
         <Route
           path="login"
-          element={
-            <RestrictedRoute component={LogInPage} redirectTo="/library" />
-          }
+          element={<RestrictedRoute component={LogInPage} />}
         />
       </Route>
     </Routes>

@@ -1,45 +1,56 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { toast } from "react-hot-toast";
+import { useAppDispatch, useAuth } from "hooks";
+import { logIn as logInUser } from "redux/auth/operations";
+import { clearError } from "redux/auth/slice";
 import { GoogleBtn } from "components/GoogleBtn";
-import { formPatterns, errorFormMessages } from "constants/";
+import { errorAPIMessages } from "constants/";
+import { logInSchema } from "schemas";
 import * as S from "./AuthForms.styled";
-
-const schema = yup.object({
-  email: yup
-    .string()
-    .min(4, errorFormMessages.email.minLength)
-    .max(255, errorFormMessages.email.maxLength)
-    .matches(formPatterns.email, errorFormMessages.email.matches)
-    .required(errorFormMessages.email.required),
-  password: yup
-    .string()
-    .min(8, errorFormMessages.password.minLength)
-    .max(255, errorFormMessages.password.maxLength)
-    .matches(formPatterns.password, errorFormMessages.password.matches)
-    .required(errorFormMessages.password.required),
-});
 
 const initialValues = {
   email: "",
   password: "",
 };
 
-type FormData = yup.InferType<typeof schema>;
+type FormData = yup.InferType<typeof logInSchema>;
 
 export const LogInForm: React.FC = () => {
+  const { state } = useLocation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: initialValues,
-    resolver: yupResolver(schema),
+    defaultValues: { ...initialValues, email: state?.email ?? "" },
+    resolver: yupResolver(logInSchema),
   });
+  const dispatch = useAppDispatch();
+  const { isLoading, isError, error } = useAuth();
+
+  useEffect(() => {
+    if (isError) {
+      if (error.status === 403) {
+        toast.error(errorAPIMessages[error.status]);
+        dispatch(clearError());
+        return;
+      }
+
+      toast.error(errorAPIMessages.common);
+      dispatch(clearError());
+    }
+  }, [isError, error, dispatch]);
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    dispatch(logInUser(data));
+  };
 
   return (
-    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(console.log)}>
+    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <GoogleBtn />
 
       <S.Label>
@@ -68,7 +79,9 @@ export const LogInForm: React.FC = () => {
         )}
       </S.Label>
 
-      <S.Button type="submit">Увійти</S.Button>
+      <S.Button type="submit" disabled={isLoading}>
+        Увійти
+      </S.Button>
 
       <S.FormText>
         <S.RedirectLink to="/register">Реєстрація</S.RedirectLink>

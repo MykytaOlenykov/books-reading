@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register } from "./operations";
+import { register, logIn } from "./operations";
 import { PayloadAction, CaseReducer, AnyAction } from "@reduxjs/toolkit";
+import { IUser, IAuth, IRegisterRes, ILogInRes } from "types";
 
 export interface IInitialState {
-  user: { id: string | null; email: string | null };
-  token: string | null;
+  user: IUser;
+  auth: IAuth;
+  error: { message: string | null; status: number | null };
+  isRegistered: boolean;
   isLoading: boolean;
   isError: boolean;
-  error: { message: string | null; status: number | null };
   isLoggedIn: boolean;
   isRefreshing: boolean;
 }
@@ -22,16 +24,29 @@ const handleRejected: CaseReducer<IInitialState, AnyAction> = (
   state,
   action
 ) => {
+  state.isLoading = false;
   state.isError = true;
   state.error = action.payload;
 };
 
 const initialState: IInitialState = {
-  user: { id: null, email: null },
-  token: null,
+  user: {
+    id: null,
+    name: null,
+    email: null,
+    goingToRead: [],
+    currentlyReading: [],
+    finishedReading: [],
+  },
+  auth: {
+    accessToken: null,
+    refreshToken: null,
+    sid: null,
+  },
+  error: { message: null, status: null },
+  isRegistered: false,
   isLoading: false,
   isError: false,
-  error: { message: null, status: null },
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -44,21 +59,36 @@ export const authSlice = createSlice({
       state.isError = false;
       state.error = { message: null, status: null };
     },
+    clearIsRegistered: (state) => {
+      state.isRegistered = false;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(
         register.fulfilled,
-        (state, action: PayloadAction<{ id: string; email: string }>) => {
-          state.user = action.payload;
-          state.isLoggedIn = true;
+        (state, action: PayloadAction<IRegisterRes>) => {
+          state.user = { ...state.user, ...action.payload };
+          state.isRegistered = true;
           state.isLoading = false;
         }
       )
+      .addCase(logIn.fulfilled, (state, action: PayloadAction<ILogInRes>) => {
+        state.user = action.payload.userData;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+        state.auth = {
+          accessToken: action.payload.accessToken,
+          refreshToken: action.payload.refreshToken,
+          sid: action.payload.sid,
+        };
+      })
       .addCase(register.pending, handlePending)
-      .addCase(register.rejected, handleRejected);
+      .addCase(logIn.pending, handlePending)
+      .addCase(register.rejected, handleRejected)
+      .addCase(logIn.rejected, handleRejected);
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, clearIsRegistered } = authSlice.actions;
 export const authReducer = authSlice.reducer;

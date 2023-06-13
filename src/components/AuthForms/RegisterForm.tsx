@@ -1,46 +1,16 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
 import { useAppDispatch, useAuth } from "hooks";
 import { register as registerUser } from "redux/auth/operations";
-import { clearError } from "redux/auth/slice";
+import { clearError, clearIsRegistered } from "redux/auth/slice";
 import { GoogleBtn } from "components/GoogleBtn";
-import { formPatterns, errorFormMessages, errorAPIMessages } from "constants/";
+import { errorAPIMessages } from "constants/";
+import { registerSchema } from "schemas";
 import * as S from "./AuthForms.styled";
-
-const schema = yup.object({
-  name: yup
-    .string()
-    .trim()
-    .min(2, errorFormMessages.name.minLength)
-    .max(255, errorFormMessages.name.maxLength)
-    .matches(formPatterns.name, errorFormMessages.name.matches)
-    .required(errorFormMessages.name.required),
-  email: yup
-    .string()
-    .min(4, errorFormMessages.email.minLength)
-    .max(255, errorFormMessages.email.maxLength)
-    .matches(formPatterns.email, errorFormMessages.email.matches)
-    .required(errorFormMessages.email.required),
-  password: yup
-    .string()
-    .min(8, errorFormMessages.password.minLength)
-    .max(255, errorFormMessages.password.maxLength)
-    .matches(formPatterns.password, errorFormMessages.password.matches)
-    .required(errorFormMessages.password.required),
-  confirmPassword: yup
-    .string()
-    .test(
-      "passwords-match",
-      errorFormMessages.confirmPassword.test,
-      function (value) {
-        return this.parent.password === value;
-      }
-    )
-    .required(errorFormMessages.confirmPassword.required),
-});
 
 const initialValues = {
   name: "",
@@ -49,7 +19,7 @@ const initialValues = {
   confirmPassword: "",
 };
 
-type FormData = yup.InferType<typeof schema>;
+type FormData = yup.InferType<typeof registerSchema>;
 
 export const RegisterForm: React.FC = () => {
   const {
@@ -59,10 +29,11 @@ export const RegisterForm: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: initialValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerSchema),
   });
   const dispatch = useAppDispatch();
-  const { isError, error } = useAuth();
+  const { user, isRegistered, isLoading, isError, error } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isError) {
@@ -77,6 +48,13 @@ export const RegisterForm: React.FC = () => {
     }
   }, [isError, error, dispatch]);
 
+  useEffect(() => {
+    if (isRegistered) {
+      navigate("/login", { state: { email: user.email } });
+      dispatch(clearIsRegistered());
+    }
+  }, [user, isRegistered, navigate, dispatch]);
+
   const onSubmit: SubmitHandler<FormData> = ({ name, email, password }) => {
     const normalizedName = name.trim();
 
@@ -85,11 +63,7 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-    <S.Form
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit((data) => onSubmit(data))}
-    >
+    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <GoogleBtn />
 
       <S.Label>
@@ -136,7 +110,9 @@ export const RegisterForm: React.FC = () => {
         )}
       </S.Label>
 
-      <S.Button type="submit">Зареєструватися</S.Button>
+      <S.Button type="submit" disabled={isLoading}>
+        Зареєструватися
+      </S.Button>
 
       <S.FormText>
         Вже з нами? <S.RedirectLink to="/login">Увійти</S.RedirectLink>
