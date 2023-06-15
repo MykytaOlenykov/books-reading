@@ -97,4 +97,27 @@ export const PrimaryInput = styled.input`
   border-radius: 0;
 `;
 
-export const PrimaryButton = styled.button``;
+export const PrimaryButton = styled.button`
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 11px 0 12px;
+
+  font-family: ${({ theme }) => theme.fontFamily.primary};
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.lightText};
+
+  background-color: ${({ theme }) => theme.colors.accent};
+  border: none;
+  border-radius: 0;
+
+  transition: box-shadow ${({ theme }) => theme.timingFunction.btn} linear;
+
+  &:hover,
+  &:focus {
+    box-shadow: ${({ theme }) => theme.boxShadow.btn};
+  }
+`;

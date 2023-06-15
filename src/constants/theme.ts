@@ -40,6 +40,9 @@ export const theme = {
       secondary: "24px",
       author: "20px",
     },
+    tutorial: {
+      primary: "18px",
+    },
     common: {
       primary: "14px",
     },
@@ -49,6 +52,10 @@ export const theme = {
     googleBtn: "0px 2px 2px rgba(9, 30, 63, 0.15)",
     input: "inset 0px 1px 2px rgba(29, 29, 27, 0.15)",
     btn: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+    tutorial: "0px 2px 3px rgba(9, 30, 63, 0.1)",
+  },
+  filter: {
+    btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",
   },
   timingFunction: {
     navLink: "250ms",

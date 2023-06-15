@@ -2,7 +2,11 @@ import { createGlobalStyle } from "styled-components";
 import "modern-normalize/modern-normalize.css";
 import "assets/css/fonts.css";
 
-export const GlobalStyle = createGlobalStyle`
+interface IProps {
+  isSecondaryBg: boolean;
+}
+
+export const GlobalStyle = createGlobalStyle<IProps>`
   h1,
   h2,
   h3,
@@ -31,5 +35,8 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 500;
     font-size:  ${({ theme }) => theme.fontSizes.common.primary};
     color:  ${({ theme }) => theme.colors.primary};
+
+    background-color:  ${({ theme, isSecondaryBg }) =>
+      isSecondaryBg ? theme.colors.secondaryBg : theme.colors.primaryBg}
   }
 `;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const MOBILE_SCREEN = 320;
+// const MOBILE_SCREEN = 320;
 const TABLET_SCREEN = 768;
 const DESKTOP_SCREEN = 1280;
 

@@ -4,65 +4,72 @@ import "styled-components";
 // and extend them!
 declare module "styled-components" {
   export interface DefaultTheme {
-    readonly colors: {
-      readonly primary: string;
-      readonly primaryBg: string;
-      readonly secondaryBg: string;
-      readonly activeBg: string;
-      readonly primaryText: string;
-      readonly lightText: string;
-      readonly primaryOverlay: string;
-      readonly accent: string;
-      readonly googleBgBtn: string;
-      readonly googleTextBtn: string;
-      readonly inputBg: string;
-      readonly required: string;
-      readonly placeholder: string;
-      readonly formText: string;
-      readonly line: string;
-      readonly navLine: string;
-      readonly icon: string;
-    };
-    readonly fontFamily: {
-      readonly primary: string;
-      readonly logo: string;
-      readonly googleTextBtn: string;
-    };
-    readonly fontSizes: {
-      readonly header: {
-        readonly logo: string;
-      };
-      readonly authForm: {
-        readonly primary: string;
-        readonly textBtn: string;
-      };
-      readonly info: {
-        readonly logo: string;
-        readonly title: string;
-      };
-      readonly quote: {
-        readonly primary: string;
-        readonly secondary: string;
-        readonly author: string;
-      };
-      readonly common: {
-        readonly primary: string;
-      };
-    };
-    readonly boxShadow: {
-      readonly header: string;
-      readonly googleBtn: string;
-      readonly input: string;
-      readonly btn: string;
-    };
-    readonly timingFunction: {
-      readonly navLink: string;
-      readonly btn: string;
-    };
-    readonly breakpoints: {
-      readonly mobile: string;
-      readonly tablet: string;
-      readonly dekstop: string;
-    };
+    readonly colors: Readonly<{
+      primary: string;
+      primaryBg: string;
+      secondaryBg: string;
+      activeBg: string;
+      primaryText: string;
+      lightText: string;
+      primaryOverlay: string;
+      accent: string;
+      googleBgBtn: string;
+      googleTextBtn: string;
+      inputBg: string;
+      required: string;
+      placeholder: string;
+      formText: string;
+      line: string;
+      navLine: string;
+      icon: string;
+    }>;
+    readonly fontFamily: Readonly<{
+      primary: string;
+      logo: string;
+      googleTextBtn: string;
+    }>;
+    readonly fontSizes: Readonly<{
+      header: Readonly<{
+        logo: string;
+      }>;
+      authForm: Readonly<{
+        primary: string;
+        textBtn: string;
+      }>;
+      info: Readonly<{
+        logo: string;
+        title: string;
+      }>;
+      quote: Readonly<{
+        primary: string;
+        secondary: string;
+        author: string;
+      }>;
+      tutorial: Readonly<{
+        primary: string;
+      }>;
+      common: Readonly<{
+        primary: string;
+      }>;
+    }>;
+    readonly boxShadow: Readonly<{
+      header: string;
+      googleBtn: string;
+      input: string;
+      btn: string;
+      tutorial: string;
+    }>;
+    readonly filter: Readonly<{
+      btn: string;
+    }>;
+    readonly timingFunction: Readonly<{
+      navLink: string;
+      btn: string;
+    }>;
+    readonly breakpoints: Readonly<{
+      mobile: string;
+      tablet: string;
+      dekstop: string;
+    }>;
   }
 }

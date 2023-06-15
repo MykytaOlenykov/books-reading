@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BgImgSection, PrimaryContainer } from "components/Common.styled";
+import { BgImgSection } from "components/Common.styled";
 
 export const Main = styled.main`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
@@ -29,5 +29,3 @@ export const Section = styled(BgImgSection)`
     max-width: 549px;
   }
 `;
-
-export const Container = styled(PrimaryContainer)``;

@@ -1,17 +1,27 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AppBar } from "components/AppBar";
 import { PageLoader } from "components/Loaders";
+import { GlobalStyle } from "components/GlobalStyle";
 
-export const Layout: React.FC = () => (
-  <>
-    <AppBar />
+export const Layout: React.FC = () => {
+  const location = useLocation();
 
-    <React.Suspense fallback={<PageLoader />}>
-      <Outlet />
-    </React.Suspense>
+  const isSecondaryBg =
+    location.pathname === "/register" || location.pathname === "/login";
 
-    <Toaster position="top-center" reverseOrder={false} />
-  </>
-);
+  return (
+    <>
+      <GlobalStyle isSecondaryBg={isSecondaryBg} />
+
+      <AppBar />
+
+      <React.Suspense fallback={<PageLoader />}>
+        <Outlet />
+      </React.Suspense>
+
+      <Toaster position="top-center" reverseOrder={false} />
+    </>
+  );
+};

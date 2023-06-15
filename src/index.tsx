@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
 import { App } from "components/App";
-import { GlobalStyle } from "components/GlobalStyle";
 import { theme } from "constants/";
 import { store, persistor } from "redux/store";
 
@@ -15,7 +14,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <ThemeProvider theme={theme}>
-            <GlobalStyle />
             <App />
           </ThemeProvider>
         </BrowserRouter>
