@@ -18,11 +18,11 @@ interface MyAxiosRequestConfig extends AxiosRequestConfig {
   _isRetry?: boolean;
 }
 
-const setApiHeader = (token: string): void => {
+const setApiAuthHeader = (token: string): void => {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-const clearApiHeader = (): void => {
+const clearApiAuthHeader = (): void => {
   api.defaults.headers.common.Authorization = "";
 };
 
@@ -99,7 +99,7 @@ export const logIn = createAsyncThunk<ILogInRes, ILogInReq>(
       const { data } = await api.post<ILogInRes>("auth/login", credentials);
 
       LStorage.setData(storageKeys.SID_KEY_LS, data.sid);
-      setApiHeader(data.accessToken);
+      setApiAuthHeader(data.accessToken);
       setRefreshApiAuthHeader(data.refreshToken);
       return data;
     } catch (axiosError) {
@@ -125,7 +125,7 @@ export const logOut = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
       }
 
       LStorage.removeData(storageKeys.SID_KEY_LS);
-      clearApiHeader();
+      clearApiAuthHeader();
       clearRefreshApiAuthHeader();
     } catch (axiosError) {
       const error = axiosError as AxiosError;
