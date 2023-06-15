@@ -54,9 +54,9 @@ api.interceptors.response.use(
 
         return api.request(originalReq!);
       } catch (error) {}
-
-      throw err;
     }
+
+    throw err;
   }
 );
 
@@ -71,6 +71,8 @@ export const register = createAsyncThunk<IRegisterRes, IRegisterReq>(
 
       return data;
     } catch (axiosError) {
+      console.log(axiosError);
+
       const error = axiosError as AxiosError;
       return rejectWithValue({
         message: error.message,
