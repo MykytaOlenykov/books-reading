@@ -50,8 +50,6 @@ api.interceptors.response.use(
     const originalReq: MyAxiosRequestConfig | undefined = err.config;
 
     if (err.response?.status === 401 && originalReq && !originalReq._isRetry) {
-      console.log(1);
-
       try {
         originalReq._isRetry = true;
 
