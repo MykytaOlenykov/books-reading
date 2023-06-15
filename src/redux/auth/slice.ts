@@ -55,7 +55,10 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    saveSecurityData: (state, action) => {
+    saveSecurityData: (
+      state,
+      action: PayloadAction<NonNullable<ISecurityData>>
+    ) => {
       state.securityData = {
         accessToken: action.payload.accessToken,
         refreshToken: action.payload.refreshToken,
