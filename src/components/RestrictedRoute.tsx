@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "hooks";
+import { useUserData } from "hooks";
 
 interface IProps {
   component: React.LazyExoticComponent<React.FC>;
@@ -11,7 +11,7 @@ export const RestrictedRoute: React.FC<IProps> = ({
   component: Component,
   redirectTo = "/",
 }) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = useUserData();
 
   return isLoggedIn ? <Navigate to={redirectTo} /> : <Component />;
 };

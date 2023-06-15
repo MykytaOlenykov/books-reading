@@ -2,9 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 import { RootState, AppDispatch } from "redux/store";
-import { saveSecurityData } from "./slice";
+import { saveSecurityData } from "../slice";
+import { api, setApiAuthHeader, clearApiAuthHeader } from "services";
 import { LStorage } from "utils";
-import { storageKeys } from "constants/";
+import { storageKeys, API_URL } from "constants/";
 import {
   ISecurityData,
   ILogInReq,
@@ -13,18 +14,11 @@ import {
   IRegisterReq,
   IRegisterRes,
 } from "types";
+import { getUserData } from "redux/user/operations";
 
 interface MyAxiosRequestConfig extends AxiosRequestConfig {
   _isRetry?: boolean;
 }
-
-const setApiAuthHeader = (token: string): void => {
-  api.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-const clearApiAuthHeader = (): void => {
-  api.defaults.headers.common.Authorization = "";
-};
 
 const setRefreshApiAuthHeader = (refreshToken: string): void => {
   refreshApi.defaults.headers.common.Authorization = `Bearer ${refreshToken}`;
@@ -33,12 +27,6 @@ const setRefreshApiAuthHeader = (refreshToken: string): void => {
 const clearRefreshApiAuthHeader = (): void => {
   refreshApi.defaults.headers.common.Authorization = "";
 };
-
-const API_URL = "https://bookread-backend.goit.global";
-
-const api = axios.create({
-  baseURL: API_URL,
-});
 
 const refreshApi = axios.create({
   baseURL: API_URL,
@@ -137,34 +125,41 @@ export const logOut = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
   }
 );
 
-export const refreshUser = createAsyncThunk<NonNullable<ISecurityData>, void>(
-  "auth/refresh",
-  async (_, { getState, rejectWithValue }) => {
-    const { auth } = getState() as RootState;
-    const refreshToken = auth.securityData.refreshToken;
+export const refreshUser = createAsyncThunk<
+  NonNullable<ISecurityData>,
+  void,
+  { state: RootState; dispatch: AppDispatch }
+>("auth/refresh", async (_, { getState, rejectWithValue, dispatch }) => {
+  const { user } = getState();
+  const refreshToken = user.securityData.refreshToken;
 
-    if (!refreshToken) {
-      return rejectWithValue("");
-    }
-
-    try {
-      setRefreshApiAuthHeader(refreshToken);
-
-      const { data } = await refreshApi.post<IRefreshRes>("auth/refresh", {
-        sid: auth.securityData.sid,
-      });
-
-      return {
-        accessToken: data.newAccessToken,
-        refreshToken: data.newRefreshToken,
-        sid: data.newSid,
-      };
-    } catch (axiosError) {
-      const error = axiosError as AxiosError;
-      return rejectWithValue({
-        message: error.message,
-        status: error.response?.status,
-      });
-    }
+  if (!refreshToken) {
+    return rejectWithValue("");
   }
-);
+
+  try {
+    setRefreshApiAuthHeader(refreshToken);
+
+    const { data } = await refreshApi.post<IRefreshRes>("auth/refresh", {
+      sid: user.securityData.sid,
+    });
+
+    LStorage.setData(storageKeys.SID_KEY_LS, data.newSid);
+    setApiAuthHeader(data.newAccessToken);
+    setRefreshApiAuthHeader(data.newRefreshToken);
+
+    dispatch(getUserData());
+
+    return {
+      accessToken: data.newAccessToken,
+      refreshToken: data.newRefreshToken,
+      sid: data.newSid,
+    };
+  } catch (axiosError) {
+    const error = axiosError as AxiosError;
+    return rejectWithValue({
+      message: error.message,
+      status: error.response?.status,
+    });
+  }
+});

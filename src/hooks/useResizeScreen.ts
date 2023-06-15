@@ -10,15 +10,15 @@ export const useResizeScreen = () => {
   const [isDesktop, setDesktop] = useState(false);
 
   const handleResize = () => {
-    setMobile(window.innerWidth <= MOBILE_SCREEN);
-    setTablet(window.innerWidth <= TABLET_SCREEN);
-    setDesktop(window.innerWidth <= DESKTOP_SCREEN);
+    setMobile(window.innerWidth < TABLET_SCREEN);
+    setTablet(window.innerWidth < DESKTOP_SCREEN);
+    setDesktop(window.innerWidth >= DESKTOP_SCREEN);
   };
 
   useEffect(() => {
-    setMobile(window.innerWidth <= MOBILE_SCREEN);
-    setTablet(window.innerWidth <= TABLET_SCREEN);
-    setDesktop(window.innerWidth <= DESKTOP_SCREEN);
+    setMobile(window.innerWidth < TABLET_SCREEN);
+    setTablet(window.innerWidth < DESKTOP_SCREEN);
+    setDesktop(window.innerWidth >= DESKTOP_SCREEN);
   }, []);
 
   useEffect(() => {

@@ -4,10 +4,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
-import { useAppDispatch, useAuth } from "hooks";
+import { useAppDispatch, useUserData } from "hooks";
 import { logIn as logInUser } from "redux/auth/operations";
-import { clearError } from "redux/auth/slice";
-import { GoogleBtn } from "components/GoogleBtn";
+import { clearError } from "redux/slice";
+// import { GoogleBtn } from "components/GoogleBtn";
 import { errorAPIMessages } from "constants/";
 import { logInSchema } from "schemas";
 import * as S from "./AuthForms.styled";
@@ -30,7 +30,7 @@ export const LogInForm: React.FC = () => {
     resolver: yupResolver(logInSchema),
   });
   const dispatch = useAppDispatch();
-  const { isLoading, isError, error } = useAuth();
+  const { isLoading, isError, error } = useUserData();
 
   useEffect(() => {
     if (isError) {
@@ -51,7 +51,7 @@ export const LogInForm: React.FC = () => {
 
   return (
     <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-      <GoogleBtn />
+      {/* <GoogleBtn /> */}
 
       <S.Label>
         <S.LabelText>

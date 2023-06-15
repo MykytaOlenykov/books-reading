@@ -10,7 +10,7 @@ export const Navigation: React.FC = () => (
         </S.Link>
       </li>
       <li>
-        <S.Link to="/library">
+        <S.Link to="/">
           <S.HomePageIcon />
         </S.Link>
       </li>

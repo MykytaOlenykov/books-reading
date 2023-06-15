@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register, logIn, logOut, refreshUser } from "./operations";
 import { PayloadAction, CaseReducer, AnyAction } from "@reduxjs/toolkit";
+import { register, logIn, logOut, refreshUser } from "./auth/operations";
+import { getUserData } from "./user/operations";
 import { IUser, ISecurityData, IRegisterRes, ILogInRes } from "types";
 
 export interface IInitialState {
-  user: IUser;
+  userData: IUser;
   securityData: ISecurityData;
   error: { message: string | null; status: number | null };
   isRegistered: boolean;
@@ -30,7 +31,7 @@ const handleRejected: CaseReducer<IInitialState, AnyAction> = (
 };
 
 const initialState: IInitialState = {
-  user: {
+  userData: {
     id: null,
     name: null,
     email: null,
@@ -52,7 +53,7 @@ const initialState: IInitialState = {
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: "user",
   initialState,
   reducers: {
     saveSecurityData: (
@@ -78,13 +79,13 @@ export const authSlice = createSlice({
       .addCase(
         register.fulfilled,
         (state, action: PayloadAction<IRegisterRes>) => {
-          state.user = { ...state.user, ...action.payload };
+          state.userData = { ...state.userData, ...action.payload };
           state.isRegistered = true;
           state.isLoading = false;
         }
       )
       .addCase(logIn.fulfilled, (state, action: PayloadAction<ILogInRes>) => {
-        state.user = action.payload.userData;
+        state.userData = action.payload.userData;
         state.isLoggedIn = true;
         state.isLoading = false;
         state.securityData = {
@@ -96,7 +97,7 @@ export const authSlice = createSlice({
       .addCase(logOut.fulfilled, (state) => {
         state.isLoggedIn = false;
         state.isLoading = false;
-        state.user = {
+        state.userData = {
           id: null,
           name: null,
           email: null,
@@ -114,6 +115,12 @@ export const authSlice = createSlice({
         refreshUser.fulfilled,
         (state, action: PayloadAction<NonNullable<ISecurityData>>) => {
           state.securityData = action.payload;
+        }
+      )
+      .addCase(
+        getUserData.fulfilled,
+        (state, action: PayloadAction<NonNullable<Omit<IUser, "id">>>) => {
+          state.userData = { ...state.userData, ...action.payload };
           state.isLoggedIn = true;
           state.isRefreshing = false;
         }

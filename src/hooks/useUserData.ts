@@ -7,9 +7,9 @@ import {
   selectIsError,
   selectIsLoading,
   selectIsRefreshing,
-} from "redux/auth/selectors";
+} from "redux/selectors";
 
-export const useAuth = () => {
+export const useUserData = () => {
   return {
     user: useAppSelector(selectUser),
     error: useAppSelector(selectError),
