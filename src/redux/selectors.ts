@@ -1,6 +1,6 @@
 import { RootState } from "redux/store";
 
-export const selectUser = (state: RootState) => state.user.userData;
+export const selectUserData = (state: RootState) => state.user.userData;
 
 export const selectError = (state: RootState) => state.user.error;
 

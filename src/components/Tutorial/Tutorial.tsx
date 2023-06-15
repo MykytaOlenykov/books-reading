@@ -1,7 +1,11 @@
 import React from "react";
 import * as S from "./Tutorial.styled";
 
-export const Tutorial: React.FC = () => (
+interface IProps {
+  onCloseModal: () => void;
+}
+
+export const Tutorial: React.FC<IProps> = ({ onCloseModal }) => (
   <S.Container>
     <S.List>
       <S.Item>
@@ -43,6 +47,8 @@ export const Tutorial: React.FC = () => (
       </S.Item>
     </S.List>
 
-    <S.Button>Ok</S.Button>
+    <S.Button onClick={onCloseModal} type="button">
+      Ok
+    </S.Button>
   </S.Container>
 );

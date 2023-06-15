@@ -3,9 +3,9 @@ import { useUserData } from "hooks";
 import * as S from "./UserLabel.styled";
 
 export const UserLabel: React.FC = () => {
-  const { user } = useUserData();
+  const { userData } = useUserData();
 
-  const userTag = user.name![0].toUpperCase();
+  const userTag = userData.name![0].toUpperCase();
 
   return (
     <S.Container>
@@ -13,7 +13,7 @@ export const UserLabel: React.FC = () => {
         <S.UserIcon>{userTag}</S.UserIcon>
       </S.Thumb>
 
-      <S.UserName>{user.name!}</S.UserName>
+      <S.UserName>{userData.name!}</S.UserName>
     </S.Container>
   );
 };

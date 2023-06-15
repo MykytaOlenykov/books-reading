@@ -1,6 +1,6 @@
 import { useAppSelector } from "./useAppSelector";
 import {
-  selectUser,
+  selectUserData,
   selectError,
   selectIsRegistered,
   selectIsLoggedIn,
@@ -11,7 +11,7 @@ import {
 
 export const useUserData = () => {
   return {
-    user: useAppSelector(selectUser),
+    userData: useAppSelector(selectUserData),
     error: useAppSelector(selectError),
     isRegistered: useAppSelector(selectIsRegistered),
     isLoggedIn: useAppSelector(selectIsLoggedIn),

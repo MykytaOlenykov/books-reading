@@ -32,7 +32,7 @@ export const RegisterForm: React.FC = () => {
     resolver: yupResolver(registerSchema),
   });
   const dispatch = useAppDispatch();
-  const { user, isRegistered, isLoading, isError, error } = useUserData();
+  const { userData, isRegistered, isLoading, isError, error } = useUserData();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,10 +50,10 @@ export const RegisterForm: React.FC = () => {
 
   useEffect(() => {
     if (isRegistered) {
-      navigate("/login", { state: { email: user.email } });
+      navigate("/login", { state: { email: userData.email } });
       dispatch(clearIsRegistered());
     }
-  }, [user, isRegistered, navigate, dispatch]);
+  }, [userData, isRegistered, navigate, dispatch]);
 
   const onSubmit: SubmitHandler<FormData> = ({ name, email, password }) => {
     const normalizedName = name.trim();
