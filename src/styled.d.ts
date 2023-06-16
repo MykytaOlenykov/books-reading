@@ -17,6 +17,7 @@ declare module "styled-components" {
       googleTextBtn: string;
       inputBg: string;
       required: string;
+      inputBorder: string;
       placeholder: string;
       formText: string;
       line: string;

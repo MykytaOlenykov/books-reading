@@ -95,29 +95,59 @@ export const PrimaryInput = styled.input`
   color: ${({ theme }) => theme.colors.primary};
 
   border-radius: 0;
+  outline: none;
+
+  &::placeholder {
+    font-family: ${({ theme }) => theme.fontFamily.primary};
+    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSizes.common.primary};
+    line-height: 1.21;
+    color: ${({ theme }) => theme.colors.placeholder};
+  }
 `;
 
-export const PrimaryButton = styled.button`
+const Button = styled.button`
   display: block;
   margin-right: auto;
   margin-left: auto;
-  padding: 11px 0 12px;
 
-  font-family: ${({ theme }) => theme.fontFamily.primary};
   font-weight: 500;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.common.primary};
   line-height: 1.21;
   text-align: center;
+
+  border-radius: 0;
+  cursor: pointer;
+`;
+
+export const PrimaryButton = styled(Button)`
+  padding: 11px 0 12px;
+
   color: ${({ theme }) => theme.colors.lightText};
 
   background-color: ${({ theme }) => theme.colors.accent};
   border: none;
-  border-radius: 0;
 
   transition: box-shadow ${({ theme }) => theme.timingFunction.btn} linear;
 
   &:hover,
   &:focus {
     box-shadow: ${({ theme }) => theme.boxShadow.btn};
+  }
+`;
+
+export const SecondaryButton = styled(Button)`
+  padding: 10px 0 11px;
+
+  color: ${({ theme }) => theme.colors.primary};
+
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+
+  transition: filter ${({ theme }) => theme.timingFunction.btn} linear;
+
+  &:hover,
+  &:focus {
+    filter: ${({ theme }) => theme.filter.btn};
   }
 `;

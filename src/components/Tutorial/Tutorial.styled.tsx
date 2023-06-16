@@ -6,7 +6,6 @@ import { PrimaryButton } from "components/Common.styled";
 
 export const Container = styled.div`
   padding: 43px 20px 36px;
-  max-width: 280px;
 
   background-color: ${({ theme }) => theme.colors.secondaryBg};
   box-shadow: ${({ theme }) => theme.boxShadow.tutorial};

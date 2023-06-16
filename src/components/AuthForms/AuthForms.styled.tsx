@@ -39,14 +39,6 @@ export const Input = styled(PrimaryInput)`
   background-color: ${({ theme }) => theme.colors.inputBg};
   box-shadow: ${({ theme }) => theme.boxShadow.input};
   border: none;
-
-  &::placeholder {
-    font-family: ${({ theme }) => theme.fontFamily.primary};
-    font-weight: 400;
-    font-size: ${({ theme }) => theme.fontSizes.common.primary};
-    line-height: 1.21;
-    color: ${({ theme }) => theme.colors.placeholder};
-  }
 `;
 
 export const Button = styled.button`

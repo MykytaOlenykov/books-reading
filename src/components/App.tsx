@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Layout } from "components/Layout";
 import { PrivateRoute } from "components/PrivateRoute";
 import { RestrictedRoute } from "components/RestrictedRoute";
+import { BookAddSection } from "components/BookAddSection";
 import { useAppDispatch, useUserData } from "hooks";
 import { refreshUser } from "redux/auth/operations";
 
@@ -31,6 +32,7 @@ export const App: React.FC = () => {
             <PrivateRoute component={LibraryPage} redirectTo="/register" />
           }
         />
+        <Route path="add-book" element={<BookAddSection />} />
         <Route
           path="training"
           element={

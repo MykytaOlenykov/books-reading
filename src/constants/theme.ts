@@ -12,6 +12,7 @@ export const theme = {
     googleTextBtn: "#707375",
     inputBg: " #F5F7FA",
     required: "#F25137",
+    inputBorder: "#A6ABB9",
     placeholder: "#A6ABB9",
     formText: "#898F9F",
     line: "rgba(36, 42, 55, 0.5)",

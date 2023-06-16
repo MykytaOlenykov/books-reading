@@ -1,9 +1,25 @@
 import styled from "styled-components";
 
-export const Modal = styled.div`
-  margin-left: auto;
-  margin-right: auto;
-  padding: 93px 20px 70px;
+export const Backdrop = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
   min-width: 310px;
-  max-width: ${({ theme }) => theme.breakpoints.mobile};
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+`;
+
+export const Modal = styled.div`
+  position: absolute;
+  top: 153px;
+  left: 50%;
+
+  width: 280px;
+
+  transform: translateX(-50%);
+
+  pointer-events: visible;
 `;

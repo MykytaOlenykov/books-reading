@@ -10,8 +10,10 @@ interface IProps {
 
 export const TutorialModal: React.FC<IProps> = ({ onCloseModal }) =>
   createPortal(
-    <S.Modal>
-      <Tutorial onCloseModal={onCloseModal} />
-    </S.Modal>,
+    <S.Backdrop>
+      <S.Modal>
+        <Tutorial onCloseModal={onCloseModal} />
+      </S.Modal>
+    </S.Backdrop>,
     modalRoot
   );
