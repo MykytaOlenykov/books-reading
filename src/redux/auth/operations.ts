@@ -150,7 +150,7 @@ export const refreshUser = createAsyncThunk<
     setApiAuthHeader(data.newAccessToken);
     setRefreshApiAuthHeader(data.newRefreshToken);
 
-    dispatch(getUserData());
+    await dispatch(getUserData());
 
     return {
       accessToken: data.newAccessToken,
