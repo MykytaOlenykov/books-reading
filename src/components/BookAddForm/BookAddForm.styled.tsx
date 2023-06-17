@@ -53,6 +53,7 @@ export const LabelText = styled.span`
 `;
 
 export const Input = styled(PrimaryInput)`
+  padding: 11px 11px 12px;
   background-color: ${({ theme }) => theme.colors.primaryBg};
   border: 1px solid ${({ theme }) => theme.colors.inputBorder};
 
@@ -75,7 +76,6 @@ export const ErrorText = styled.span`
 
 export const Button = styled(SecondaryButton)`
   min-width: 172px;
-  min-height: 42px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     margin: 0;
