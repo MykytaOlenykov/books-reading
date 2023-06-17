@@ -53,7 +53,9 @@ api.interceptors.response.use(
         });
 
         return api.request(originalReq!);
-      } catch (error) {}
+      } catch (error) {
+        throw error;
+      }
     }
 
     throw err;

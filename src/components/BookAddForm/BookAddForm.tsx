@@ -52,7 +52,7 @@ export const BookAddForm: React.FC = () => {
   };
 
   return (
-    <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <S.Container>
         <S.Label>
           <S.LabelText>Назва книги</S.LabelText>
@@ -94,6 +94,6 @@ export const BookAddForm: React.FC = () => {
       <S.Button type="submit" disabled={isLoading}>
         Додати
       </S.Button>
-    </form>
+    </S.Form>
   );
 };

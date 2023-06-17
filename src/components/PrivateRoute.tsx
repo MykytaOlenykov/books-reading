@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { useUserData } from "hooks";
 
 interface IProps {
-  component: React.LazyExoticComponent<React.FC>;
+  component: React.LazyExoticComponent<React.FC> | React.FC;
   redirectTo?: string;
 }
 

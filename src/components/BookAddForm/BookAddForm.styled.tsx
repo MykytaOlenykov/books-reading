@@ -1,14 +1,48 @@
 import styled from "styled-components";
 import { PrimaryInput, SecondaryButton } from "components/Common.styled";
 
-export const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 40px;
+export const Form = styled.form`
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    display: flex;
+    gap: 48px;
+    align-items: end;
+  }
 `;
 
-export const Label = styled.label``;
+export const Container = styled.div`
+  display: grid;
+  gap: 20px;
+  margin-bottom: 40px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    row-gap: 24px;
+    column-gap: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    display: inline-grid;
+    gap: 16px;
+    grid-template-columns: 336px 250px 134px 134px;
+    grid-template-rows: 1fr;
+    margin-bottom: 0;
+  }
+`;
+
+export const Label = styled.label`
+  @media screen and (min-width: 768px) and (max-width: 1279px) {
+    &:nth-child(1) {
+      grid-column-start: 1;
+      grid-column-end: 5;
+    }
+
+    &:nth-child(2) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+  }
+`;
 
 export const LabelText = styled.span`
   display: inline-block;
@@ -41,4 +75,10 @@ export const ErrorText = styled.span`
 
 export const Button = styled(SecondaryButton)`
   min-width: 172px;
+  min-height: 42px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    margin: 0;
+    min-width: 181px;
+  }
 `;

@@ -6,10 +6,9 @@ import { PageLoader } from "components/Loaders";
 import { GlobalStyle } from "components/GlobalStyle";
 
 export const Layout: React.FC = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const isSecondaryBg =
-    location.pathname === "/register" || location.pathname === "/login";
+  const isSecondaryBg = pathname === "/register" || pathname === "/login";
 
   return (
     <>

@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./Tutorial.styled";
 
 interface IProps {
-  onCloseModal: () => void;
+  onCloseModal?: () => void;
 }
 
 export const Tutorial: React.FC<IProps> = ({ onCloseModal }) => (

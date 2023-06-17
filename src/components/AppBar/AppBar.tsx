@@ -7,7 +7,7 @@ import { UserLabel } from "components/UserLabel";
 
 export const AppBar: React.FC = () => {
   const { isLoggedIn } = useUserData();
-  const { isMobile, isTablet, isDesktop } = useResizeScreen();
+  const { isMobile } = useResizeScreen();
 
   return (
     <S.Header>
@@ -16,7 +16,7 @@ export const AppBar: React.FC = () => {
 
         {isLoggedIn && (
           <>
-            {!isMobile && (isTablet || isDesktop) && <UserLabel />}
+            {!isMobile && <UserLabel />}
 
             <S.NavBox>
               <Navigation />

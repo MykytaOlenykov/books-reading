@@ -43,6 +43,8 @@ export const theme = {
     },
     tutorial: {
       primary: "18px",
+      primaryTitle: "19px",
+      secondaryTitle: "16px",
     },
     common: {
       primary: "14px",

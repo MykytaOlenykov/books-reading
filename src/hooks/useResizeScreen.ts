@@ -5,7 +5,7 @@ const TABLET_SCREEN = 768;
 const DESKTOP_SCREEN = 1280;
 
 export const useResizeScreen = () => {
-  const [isMobile, setMobile] = useState(false);
+  const [isMobile, setMobile] = useState(true);
   const [isTablet, setTablet] = useState(false);
   const [isDesktop, setDesktop] = useState(false);
 

@@ -48,6 +48,8 @@ declare module "styled-components" {
       }>;
       tutorial: Readonly<{
         primary: string;
+        primaryTitle: string;
+        secondaryTitle: string;
       }>;
       common: Readonly<{
         primary: string;

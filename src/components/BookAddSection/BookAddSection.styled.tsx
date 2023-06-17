@@ -5,6 +5,10 @@ import { PrimaryContainer } from "components/Common.styled";
 
 export const Section = styled.section`
   padding: 68px 0 110px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 32px 0 20px;
+  }
 `;
 
 export const Container = styled(PrimaryContainer)`
