@@ -21,6 +21,28 @@ interface IErrorFormMessages {
     test: string;
     required: string;
   }>;
+  title: Readonly<{
+    minLength: string;
+    maxLength: string;
+    required: string;
+  }>;
+  author: Readonly<{
+    minLength: string;
+    maxLength: string;
+    required: string;
+  }>;
+  publishYear: Readonly<{
+    integer: string;
+    minValue: string;
+    maxValue: string;
+    required: string;
+  }>;
+  pagesTotal: Readonly<{
+    integer: string;
+    minValue: string;
+    maxValue: string;
+    required: string;
+  }>;
 }
 
 export const errorFormMessages: Readonly<IErrorFormMessages> = {
@@ -47,5 +69,30 @@ export const errorFormMessages: Readonly<IErrorFormMessages> = {
   confirmPassword: {
     test: "Паролі повинні збігатися.",
     required: "Це поле є обов'язковим.",
+  },
+  title: {
+    minLength: "Назва книги повинна містити принаймні 2 символи.",
+    maxLength: "Назва книги повинна містити не більше ніж 255 символів.",
+    required: "Назва книги є обов'язковим полем.",
+  },
+  author: {
+    minLength: "Автор повинен містити принаймні 2 символи.",
+    maxLength: "Автор повинен містити не більше ніж 255 символів.",
+    required: "Автор є обов'язковим полем.",
+  },
+  publishYear: {
+    integer: "Рік публікації повинен бути цілим числом.",
+    minValue: "Рік публікації повинен бути більшим або дорівнювати 1000.",
+    maxValue:
+      "Рік публікації повинен бути меншим або дорівнювати поточному року.",
+    required: "Рік публікації є обов'язковим полем.",
+  },
+  pagesTotal: {
+    integer: "Загальна кількість сторінок повинна бути цілим числом.",
+    minValue:
+      "Загальна кількість сторінок повинна бути більшою або дорівнювати 1.",
+    maxValue:
+      "Загальна кількість сторінок повинна бути меншою або дорівнювати 5000.",
+    required: "Загальна кількість сторінок є обов'язковим полем.",
   },
 };

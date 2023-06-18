@@ -5,9 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
 import { useAppDispatch, useUserData } from "hooks";
-import { register as registerUser } from "redux/auth/operations";
+import { addBook } from "redux/book/operations";
 import { clearError, clearIsRegistered } from "redux/slice";
-// import { GoogleBtn } from "components/GoogleBtn";
 import { errorAPIMessages } from "constants/";
 import { addBookSchema } from "schemas";
 import * as S from "./BookAddForm.styled";
@@ -19,7 +18,12 @@ const initialValues = {
   pagesTotal: "",
 };
 
-type FormData = yup.InferType<typeof addBookSchema>;
+type FormData = {
+  title: string;
+  author: string;
+  publishYear: string | number;
+  pagesTotal: string | number;
+};
 
 export const BookAddForm: React.FC = () => {
   const {

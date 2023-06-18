@@ -5,7 +5,6 @@ export const Form = styled.form`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     display: flex;
     gap: 48px;
-    align-items: end;
   }
 `;
 
@@ -69,7 +68,7 @@ export const ErrorText = styled.span`
   margin-top: 4px;
   padding: 2px 4px;
 
-  font-size: ${({ theme }) => theme.fontSizes.authForm.primary};
+  font-size: ${({ theme }) => theme.fontSizes.bookForm.errorMessage};
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.required};
 `;
@@ -80,5 +79,10 @@ export const Button = styled(SecondaryButton)`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     margin: 0;
     min-width: 181px;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    align-self: start;
+    transform: translateY(25px);
   }
 `;

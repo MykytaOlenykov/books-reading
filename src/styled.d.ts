@@ -51,6 +51,9 @@ declare module "styled-components" {
         primaryTitle: string;
         secondaryTitle: string;
       }>;
+      bookForm: Readonly<{
+        errorMessage: string;
+      }>;
       common: Readonly<{
         primary: string;
       }>;

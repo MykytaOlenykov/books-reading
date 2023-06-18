@@ -46,6 +46,9 @@ export const theme = {
       primaryTitle: "19px",
       secondaryTitle: "16px",
     },
+    bookForm: {
+      errorMessage: "11px",
+    },
     common: {
       primary: "14px",
     },

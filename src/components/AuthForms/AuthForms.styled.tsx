@@ -92,4 +92,8 @@ export const ErrorText = styled.span`
 
   background-color: ${({ theme }) => theme.colors.inputBg};
   border-radius: 0;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    background-color: transparent;
+  }
 `;
