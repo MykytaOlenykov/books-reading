@@ -49,7 +49,7 @@ const initialState: IInitialState = {
   isLoading: false,
   isError: false,
   isLoggedIn: false,
-  isRefreshing: false,
+  isRefreshing: true,
 };
 
 export const authSlice = createSlice({
