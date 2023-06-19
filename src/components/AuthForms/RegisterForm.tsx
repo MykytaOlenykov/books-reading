@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import { useAppDispatch, useUserData } from "hooks";
 import { register as registerUser } from "redux/auth/operations";
 import { clearError, clearIsRegistered } from "redux/slice";
-// import { GoogleBtn } from "components/GoogleBtn";
 import { errorAPIMessages } from "constants/";
 import { registerSchema } from "schemas";
 import * as S from "./AuthForms.styled";
@@ -64,8 +63,6 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-      {/* <GoogleBtn /> */}
-
       <S.Label>
         <S.LabelText>
           Ім’я <S.Star>*</S.Star>

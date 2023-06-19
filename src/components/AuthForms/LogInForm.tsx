@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import { useAppDispatch, useUserData } from "hooks";
 import { logIn as logInUser } from "redux/auth/operations";
 import { clearError } from "redux/slice";
-// import { GoogleBtn } from "components/GoogleBtn";
 import { errorAPIMessages } from "constants/";
 import { logInSchema } from "schemas";
 import * as S from "./AuthForms.styled";
@@ -51,8 +50,6 @@ export const LogInForm: React.FC = () => {
 
   return (
     <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-      {/* <GoogleBtn /> */}
-
       <S.Label>
         <S.LabelText>
           Електронна адреса <S.Star>*</S.Star>

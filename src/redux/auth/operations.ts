@@ -1,12 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import type { AxiosError, AxiosRequestConfig } from "axios";
+import type { AxiosError } from "axios";
 import { RootState, AppDispatch } from "redux/store";
 import { saveSecurityData } from "../slice";
 import { getUserData } from "redux/user/operations";
-import { api, setApiAuthHeader, clearApiAuthHeader } from "services";
+import {
+  api,
+  setApiAuthHeader,
+  clearApiAuthHeader,
+  refreshApi,
+  setRefreshApiAuthHeader,
+  clearRefreshApiAuthHeader,
+} from "services";
 import { LStorage } from "utils";
-import { storageKeys, API_URL } from "constants/";
+import { storageKeys } from "constants/";
 import {
   ISecurityData,
   ILogInReq,
@@ -15,52 +21,6 @@ import {
   IRegisterReq,
   IRegisterRes,
 } from "types";
-
-interface MyAxiosRequestConfig extends AxiosRequestConfig {
-  _isRetry?: boolean;
-}
-
-const setRefreshApiAuthHeader = (refreshToken: string): void => {
-  refreshApi.defaults.headers.common.Authorization = `Bearer ${refreshToken}`;
-};
-
-const clearRefreshApiAuthHeader = (): void => {
-  refreshApi.defaults.headers.common.Authorization = "";
-};
-
-const refreshApi = axios.create({
-  baseURL: API_URL,
-});
-
-api.interceptors.response.use(
-  (res) => res,
-  async (err: AxiosError) => {
-    const originalReq: MyAxiosRequestConfig | undefined = err.config;
-
-    if (err.response?.status === 401 && originalReq && !originalReq._isRetry) {
-      try {
-        originalReq._isRetry = true;
-
-        const sid = LStorage.getData(storageKeys.SID_KEY_LS);
-
-        const { data } = await refreshApi.post<IRefreshRes>("auth/refresh", {
-          sid,
-        });
-        LStorage.setData(storageKeys.SID_KEY_LS, data.newSid);
-        LStorage.setData(storageKeys.TMP_KEY_LS, {
-          accessToken: data.newAccessToken,
-          refreshToken: data.newRefreshToken,
-        });
-
-        return api.request(originalReq!);
-      } catch (error) {
-        throw error;
-      }
-    }
-
-    throw err;
-  }
-);
 
 export const register = createAsyncThunk<IRegisterRes, IRegisterReq>(
   "auth/register",

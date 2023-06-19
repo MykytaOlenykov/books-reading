@@ -50,9 +50,15 @@ export const Link = styled(NavLink)`
 `;
 
 export const HomePageIcon = styled(HomeIcon)`
+  width: 20px;
+  height: 17px;
+
   fill: currentColor;
 `;
 
 export const LibraryPageIcon = styled(LibraryIcon)`
+  width: 22px;
+  height: 17px;
+
   fill: currentColor;
 `;

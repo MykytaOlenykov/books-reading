@@ -31,6 +31,9 @@ export const Icon = styled(QuotesIcon)`
   top: 18px;
   left: 50%;
 
+  width: 25px;
+  height: 18px;
+
   fill: ${({ theme }) => theme.colors.accent};
 
   transform: translateX(-50%);

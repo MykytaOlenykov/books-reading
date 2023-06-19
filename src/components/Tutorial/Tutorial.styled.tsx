@@ -84,16 +84,25 @@ export const Text = styled.p`
 
 export const BookIcon = styled(LibraryIcon)`
   flex-shrink: 0;
+  width: 22px;
+  height: 17px;
+
   fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const FlagIcon = styled(Flag)`
   flex-shrink: 0;
+  width: 15px;
+  height: 17px;
+
   fill: ${({ theme }) => theme.colors.icon};
 `;
 
 export const ArrowIcon = styled(TutorialArrow)`
   flex-shrink: 0;
+  width: 10px;
+  height: 12px;
+
   fill: ${({ theme }) => theme.colors.accent};
 
   transform: translateY(3px);

@@ -1,8 +1,4 @@
-interface IFormPatterns {
-  name: RegExp;
-  email: RegExp;
-  password: RegExp;
-}
+import { IFormPatterns } from "types";
 
 export const formPatterns: Readonly<IFormPatterns> = {
   name: /^(?:(?!^\s+$)[\sa-zA-Zа-яА-ЯґҐєЄіІїЇ]+((['-][\sa-zA-Zа-яА-ЯґҐєЄіІїЇ]+)([ ]?[\sa-zA-Zа-яА-ЯґҐєЄіІїЇ]+))*)?$/,

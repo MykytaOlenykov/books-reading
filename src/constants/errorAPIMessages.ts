@@ -1,8 +1,4 @@
-interface IErrorAPIMessages {
-  403: string;
-  409: string;
-  common: string;
-}
+import { IErrorAPIMessages } from "types";
 
 export const errorAPIMessages: Readonly<IErrorAPIMessages> = {
   403: "Перевірте, чи правильно введені ваші адреса електронної пошти та пароль.",

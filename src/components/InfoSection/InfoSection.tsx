@@ -10,15 +10,15 @@ export const InfoSection: React.FC = () => (
 
       <S.List className="mb--s">
         <S.Item>
-          <S.Icon width="4" height="8" />
+          <S.Icon />
           <S.Text>Швидше сформулювати свою ціль і розпочати читати</S.Text>
         </S.Item>
         <S.Item>
-          <S.Icon width="4" height="8" />
+          <S.Icon />
           <S.Text>Пропорційно розподілити навантаження на кожний день</S.Text>
         </S.Item>
         <S.Item>
-          <S.Icon width="4" height="8" />
+          <S.Icon />
           <S.Text>Відстежувати особистий успіх</S.Text>
         </S.Item>
       </S.List>
@@ -27,17 +27,17 @@ export const InfoSection: React.FC = () => (
 
       <S.List className="mb--b">
         <S.Item>
-          <S.Icon width="4" height="8" />
+          <S.Icon />
           <S.Text>Формувати особисту думку незалежну від інших</S.Text>
         </S.Item>
         <S.Item>
-          <S.Icon width="4" height="8" />
+          <S.Icon />
           <S.Text>
             Підвищити свої професійні якості опираючись на нові знання
           </S.Text>
         </S.Item>
         <S.Item>
-          <S.Icon width="4" height="8" />
+          <S.Icon />
           <S.Text>Стати цікавим співрозмовником</S.Text>
         </S.Item>
       </S.List>

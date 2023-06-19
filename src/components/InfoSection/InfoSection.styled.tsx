@@ -70,6 +70,8 @@ export const Item = styled.li`
 
 export const Icon = styled(InfoIcon)`
   flex-shrink: 0;
+  width: 4px;
+  height: 8px;
 
   fill: ${({ theme }) => theme.colors.accent};
 
