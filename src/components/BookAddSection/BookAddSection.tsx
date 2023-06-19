@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import { TutorialModal } from "components/TutorialModal";
 import { Tutorial } from "components/Tutorial";
@@ -8,12 +8,11 @@ import * as S from "./BookAddSection.styled";
 
 export const BookAddSection: React.FC = () => {
   const { userData } = useUserData();
-  const [isOpenModal, setIsOpenModal] = useState(
-    () =>
-      !userData.goingToRead.length &&
-      !userData.currentlyReading.length &&
-      !userData.finishedReading.length
-  );
+  const isFirstVisit =
+    !userData.goingToRead.length &&
+    !userData.currentlyReading.length &&
+    !userData.finishedReading.length;
+  const [isOpenModal, setIsOpenModal] = useState(isFirstVisit);
   const { pathname } = useLocation();
   const { isMobile } = useResizeScreen();
 
@@ -40,7 +39,7 @@ export const BookAddSection: React.FC = () => {
           <TutorialModal onCloseModal={handleCloseModal} />
         )}
 
-        {!isMobile && <Tutorial />}
+        {!isMobile && isFirstVisit && <Tutorial />}
       </S.Container>
     </S.Section>
   );
