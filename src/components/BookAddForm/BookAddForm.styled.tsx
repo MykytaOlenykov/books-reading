@@ -30,7 +30,9 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
-  @media screen and (min-width: 768px) and (max-width: 1279px) {
+  @media screen and (min-width: calc(${({ theme }) =>
+      theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>
+      theme.breakpoints.dekstop} - 1px)) {
     &:nth-child(1) {
       grid-column-start: 1;
       grid-column-end: 5;

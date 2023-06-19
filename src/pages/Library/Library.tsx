@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { HiddenComponent } from "components/HiddenComponent";
 import { PrimaryContainer } from "components/Common.styled";
 import { BookAddSection } from "components/BookAddSection";
+import { RedirectBtn } from "components/RedirectBtn";
 import { useResizeScreen } from "hooks";
+import * as S from "./Library.styled";
 
 const Library: React.FC = () => {
   const { isMobile } = useResizeScreen();
@@ -16,9 +17,7 @@ const Library: React.FC = () => {
         </HiddenComponent>
       </PrimaryContainer>
 
-      {!isMobile && <BookAddSection />}
-
-      <Link to="/add-book">add-book</Link>
+      {isMobile ? <RedirectBtn redirectTo="/add-book" /> : <BookAddSection />}
     </main>
   );
 };
