@@ -12,6 +12,5 @@ export const logInSchema = yup.object({
     .string()
     .min(8, errorFormMessages.password.minLength)
     .max(255, errorFormMessages.password.maxLength)
-    .matches(formPatterns.password, errorFormMessages.password.matches)
     .required(errorFormMessages.password.required),
 });
