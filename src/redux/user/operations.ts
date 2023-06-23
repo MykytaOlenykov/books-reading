@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { AxiosError } from "axios";
 import { AppDispatch } from "redux/store";
 import { api } from "services";
-import { LStorage } from "utils";
 import { IUser } from "types";
 
 type ResponseType = NonNullable<Omit<IUser, "id">>;

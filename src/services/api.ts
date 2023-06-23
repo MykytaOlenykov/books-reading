@@ -1,8 +1,7 @@
 import axios from "axios";
 import type { AxiosError, AxiosRequestConfig } from "axios";
-import { LStorage } from "utils";
 import { refreshApi } from "services/refreshApi";
-import { storageKeys, API_URL } from "constants/";
+import { API_URL } from "constants/";
 import { IRefreshResponse } from "types";
 
 interface MyAxiosRequestConfig extends AxiosRequestConfig {
@@ -10,6 +9,7 @@ interface MyAxiosRequestConfig extends AxiosRequestConfig {
 }
 
 export const api = axios.create({
+  withCredentials: true,
   baseURL: API_URL,
 });
 
@@ -34,8 +34,7 @@ api.interceptors.response.use(
           "auth/refresh"
         );
 
-        LStorage.setData(storageKeys.ACCESS_TOKEN_KEY_LS, data.accessToken);
-        LStorage.setData(storageKeys.ACCESS_TOKEN_KEY_LS, data.refreshToken);
+        setApiAuthHeader(data.accessToken);
 
         return api.request(originalReq!);
       } catch (error) {

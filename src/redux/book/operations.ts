@@ -3,7 +3,6 @@ import axios from "axios";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 import { RootState, AppDispatch } from "redux/store";
 import { api, setApiAuthHeader, clearApiAuthHeader } from "services";
-import { LStorage } from "utils";
 import { storageKeys, API_URL } from "constants/";
 
 export const addBook = createAsyncThunk<void, void>(
