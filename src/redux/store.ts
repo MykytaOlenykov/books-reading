@@ -11,22 +11,25 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { authReducer, IInitialState } from "./slice";
+import {
+  authReducer,
+  IInitialState as AuthInitialState,
+} from "redux/auth/slice";
 
 const persistConfig = {
   key: "auth",
   storage,
-  whitelist: ["securityData"],
+  whitelist: ["refreshToken"],
 };
 
-const persistedReducer = persistReducer<IInitialState>(
+const persistedReducer = persistReducer<AuthInitialState>(
   persistConfig,
   authReducer
 );
 
 export const store = configureStore({
   reducer: {
-    user: persistedReducer,
+    auth: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

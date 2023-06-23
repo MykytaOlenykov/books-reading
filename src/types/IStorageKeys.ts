@@ -1,4 +1,4 @@
 export interface IStorageKeys {
-  SID_KEY_LS: string;
-  TMP_KEY_LS: string;
+  ACCESS_TOKEN_KEY_LS: string;
+  REFRESH_TOKEN_KEY_LS: string;
 }

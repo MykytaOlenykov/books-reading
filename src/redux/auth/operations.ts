@@ -1,33 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { AxiosError } from "axios";
-import { RootState, AppDispatch } from "redux/store";
-import { saveSecurityData } from "../slice";
-import { getUserData } from "redux/user/operations";
+import { AppDispatch, RootState } from "redux/store";
 import {
   api,
   setApiAuthHeader,
   clearApiAuthHeader,
   refreshApi,
   setRefreshApiAuthHeader,
-  clearRefreshApiAuthHeader,
 } from "services";
-import { LStorage } from "utils";
-import { storageKeys } from "constants/";
-import {
-  ISecurityData,
-  ILogInReq,
-  ILogInRes,
-  IRefreshRes,
-  IRegisterReq,
-  IRegisterRes,
-} from "types";
+import { setTokens } from "utils";
+import { IAuthRequest, IAuthResponse, IRefreshResponse, IUser } from "types";
 
-export const register = createAsyncThunk<IRegisterRes, IRegisterReq>(
+export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
   "auth/register",
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await api.post<IRegisterRes>(
-        "auth/register",
+      const { data } = await api.post<NonNullable<IUser>>(
+        "api/users/register",
         credentials
       );
 
@@ -42,41 +31,35 @@ export const register = createAsyncThunk<IRegisterRes, IRegisterReq>(
   }
 );
 
-export const logIn = createAsyncThunk<ILogInRes, ILogInReq>(
-  "auth/logIn",
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const { data } = await api.post<ILogInRes>("auth/login", credentials);
+export const logIn = createAsyncThunk<
+  IAuthResponse,
+  Omit<IAuthRequest, "name">
+>("auth/logIn", async (credentials, { rejectWithValue }) => {
+  try {
+    const { data } = await api.post<IAuthResponse>(
+      "api/users/login",
+      credentials
+    );
 
-      LStorage.setData(storageKeys.SID_KEY_LS, data.sid);
-      setApiAuthHeader(data.accessToken);
-      setRefreshApiAuthHeader(data.refreshToken);
-      return data;
-    } catch (axiosError) {
-      const error = axiosError as AxiosError;
-      return rejectWithValue({
-        message: error.message,
-        status: error.response?.status,
-      });
-    }
+    setApiAuthHeader(data.accessToken);
+    return data;
+  } catch (axiosError) {
+    const error = axiosError as AxiosError;
+    return rejectWithValue({
+      message: error.message,
+      status: error.response?.status,
+    });
   }
-);
+});
 
 export const logOut = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
   "auth/logOut",
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      await api.post("auth/logout");
+      await api.post("api/users/logout");
 
-      const securityData = LStorage.getSecurityData();
-
-      if (securityData) {
-        dispatch(saveSecurityData(securityData));
-      }
-
-      LStorage.removeData(storageKeys.SID_KEY_LS);
+      setTokens(dispatch);
       clearApiAuthHeader();
-      clearRefreshApiAuthHeader();
     } catch (axiosError) {
       const error = axiosError as AxiosError;
       return rejectWithValue({
@@ -88,35 +71,30 @@ export const logOut = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
 );
 
 export const refreshUser = createAsyncThunk<
-  NonNullable<ISecurityData>,
+  IRefreshResponse,
   void,
-  { state: RootState; dispatch: AppDispatch }
->("auth/refresh", async (_, { getState, rejectWithValue, dispatch }) => {
-  const { user } = getState();
-  const refreshToken = user.securityData.refreshToken;
-
-  if (!refreshToken) {
-    return rejectWithValue("");
-  }
-
+  { dispatch: AppDispatch; state: RootState }
+>("auth/refresh", async (_, { rejectWithValue, getState }) => {
   try {
+    const { refreshToken } = getState().auth;
+
+    if (!refreshToken) {
+      return rejectWithValue({
+        message: "Unauthorized",
+        status: 401,
+      });
+    }
+
     setRefreshApiAuthHeader(refreshToken);
 
-    const { data } = await refreshApi.post<IRefreshRes>("auth/refresh", {
-      sid: user.securityData.sid,
-    });
+    const { data } = await refreshApi.post<IRefreshResponse>(
+      "api/users/refresh"
+    );
 
-    LStorage.setData(storageKeys.SID_KEY_LS, data.newSid);
-    setApiAuthHeader(data.newAccessToken);
-    setRefreshApiAuthHeader(data.newRefreshToken);
+    setApiAuthHeader(data.accessToken);
+    setRefreshApiAuthHeader(data.refreshToken);
 
-    await dispatch(getUserData());
-
-    return {
-      accessToken: data.newAccessToken,
-      refreshToken: data.newRefreshToken,
-      sid: data.newSid,
-    };
+    return data;
   } catch (axiosError) {
     const error = axiosError as AxiosError;
     return rejectWithValue({

@@ -1,12 +1,12 @@
 import React from "react";
-import { useUserData, useResizeScreen } from "hooks";
+import { useAuth, useResizeScreen } from "hooks";
 import { Navigation } from "components/Navigation";
 import { UserMenu } from "components/UserMenu";
 import * as S from "./AppBar.styled";
 import { UserLabel } from "components/UserLabel";
 
 export const AppBar: React.FC = () => {
-  const { isLoggedIn } = useUserData();
+  const { isLoggedIn } = useAuth();
   const { isMobile } = useResizeScreen();
 
   return (

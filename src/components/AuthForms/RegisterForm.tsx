@@ -4,9 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
-import { useAppDispatch, useUserData } from "hooks";
+import { useAppDispatch, useAuth } from "hooks";
 import { register as registerUser } from "redux/auth/operations";
-import { clearError, clearIsRegistered } from "redux/slice";
+import { clearError, clearIsRegistered } from "redux/auth/slice";
 import { errorAPIMessages } from "constants/";
 import { registerSchema } from "schemas";
 import * as S from "./AuthForms.styled";
@@ -31,7 +31,7 @@ export const RegisterForm: React.FC = () => {
     resolver: yupResolver(registerSchema),
   });
   const dispatch = useAppDispatch();
-  const { userData, isRegistered, isLoading, isError, error } = useUserData();
+  const { userData, isRegistered, isLoading, isError, error } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {

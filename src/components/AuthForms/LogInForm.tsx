@@ -4,9 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
-import { useAppDispatch, useUserData } from "hooks";
+import { useAppDispatch, useAuth } from "hooks";
 import { logIn as logInUser } from "redux/auth/operations";
-import { clearError } from "redux/slice";
+import { clearError } from "redux/auth/slice";
 import { errorAPIMessages } from "constants/";
 import { logInSchema } from "schemas";
 import * as S from "./AuthForms.styled";
@@ -23,13 +23,14 @@ export const LogInForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: { ...initialValues, email: state?.email ?? "" },
     resolver: yupResolver(logInSchema),
   });
   const dispatch = useAppDispatch();
-  const { isLoading, isError, error } = useUserData();
+  const { isLoading, isError, error } = useAuth();
 
   useEffect(() => {
     if (isError) {
@@ -46,6 +47,7 @@ export const LogInForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     dispatch(logInUser(data));
+    reset();
   };
 
   return (

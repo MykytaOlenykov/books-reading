@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useUserData } from "hooks";
+import { useAuth } from "hooks";
 
 interface IProps {
   component: React.LazyExoticComponent<React.FC> | React.FC;
@@ -11,7 +11,7 @@ export const PrivateRoute: React.FC<IProps> = ({
   component: Component,
   redirectTo = "/register",
 }) => {
-  const { isLoggedIn, isRefreshing } = useUserData();
+  const { isLoggedIn, isRefreshing } = useAuth();
   const shouldRedirect = !isRefreshing && !isLoggedIn;
 
   return shouldRedirect ? <Navigate to={redirectTo} /> : <Component />;

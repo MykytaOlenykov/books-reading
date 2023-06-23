@@ -4,7 +4,7 @@ import { Layout } from "components/Layout";
 import { PrivateRoute } from "components/PrivateRoute";
 import { RestrictedRoute } from "components/RestrictedRoute";
 import { BookAddSection } from "components/BookAddSection";
-import { useAppDispatch, useUserData } from "hooks";
+import { useAppDispatch, useAuth } from "hooks";
 import { refreshUser } from "redux/auth/operations";
 
 const RegisterPage = React.lazy(() => import("pages/Register/Register"));
@@ -17,7 +17,7 @@ const TrainingPage = React.lazy(() => import("pages/Training/Training"));
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isRefreshing } = useUserData();
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());

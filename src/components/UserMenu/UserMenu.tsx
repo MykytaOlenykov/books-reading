@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { UserLabel } from "components/UserLabel";
-import { useAppDispatch, useUserData, useResizeScreen } from "hooks";
+import { useAppDispatch, useAuth, useResizeScreen } from "hooks";
 import { logOut } from "redux/auth/operations";
-import { clearError } from "redux/slice";
+import { clearError } from "redux/auth/slice";
 import { errorAPIMessages } from "constants/";
 import * as S from "./UserMenu.styled";
 
 export const UserMenu: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, isError } = useUserData();
+  const { isLoading, isError } = useAuth();
   const { isMobile } = useResizeScreen();
 
   useEffect(() => {

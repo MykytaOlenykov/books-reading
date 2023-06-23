@@ -4,9 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
-import { useAppDispatch, useUserData } from "hooks";
+import { useAppDispatch, useAuth } from "hooks";
 import { addBook } from "redux/book/operations";
-import { clearError, clearIsRegistered } from "redux/slice";
 import { errorAPIMessages } from "constants/";
 import { addBookSchema } from "schemas";
 import * as S from "./BookAddForm.styled";
@@ -36,7 +35,7 @@ export const BookAddForm: React.FC = () => {
     resolver: yupResolver(addBookSchema),
   });
   const dispatch = useAppDispatch();
-  const { isLoading, isError, error } = useUserData();
+  const isLoading = false;
 
   // useEffect(() => {
   //   if (isError) {

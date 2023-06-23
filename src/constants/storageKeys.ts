@@ -1,6 +1,6 @@
 import { IStorageKeys } from "types";
 
 export const storageKeys: Readonly<IStorageKeys> = {
-  SID_KEY_LS: "sid",
-  TMP_KEY_LS: "tmp",
+  ACCESS_TOKEN_KEY_LS: "access-token",
+  REFRESH_TOKEN_KEY_LS: "refresh-token",
 };

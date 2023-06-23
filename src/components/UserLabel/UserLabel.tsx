@@ -1,19 +1,17 @@
 import React from "react";
-import { useUserData } from "hooks";
+import { useAuth } from "hooks";
 import * as S from "./UserLabel.styled";
 
 export const UserLabel: React.FC = () => {
-  const { userData } = useUserData();
+  const { userData } = useAuth();
 
-  const userTag = userData.name![0].toUpperCase();
+  // const userTag = userData.name![0].toUpperCase();
 
   return (
     <S.Container>
-      <S.Thumb>
-        <S.UserIcon>{userTag}</S.UserIcon>
-      </S.Thumb>
+      <S.Thumb>{/* <S.UserIcon>{userTag}</S.UserIcon> */}</S.Thumb>
 
-      <S.UserName>{userData.name!}</S.UserName>
+      {/* <S.UserName>{userData.name!}</S.UserName> */}
     </S.Container>
   );
 };

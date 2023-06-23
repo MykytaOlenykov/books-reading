@@ -1,8 +1,7 @@
 import { IUser } from "./IUser";
 
-export interface ILogInRes {
+export interface IAuthResponse {
+  userData: IUser;
   accessToken: string;
   refreshToken: string;
-  sid: string;
-  userData: IUser;
 }
