@@ -1,11 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { AxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { AppDispatch, RootState } from "redux/store";
 import {
   api,
   setApiAuthHeader,
   clearApiAuthHeader,
   refreshApi,
+  setRefreshApiAuthHeader,
+  clearRefreshApiAuthHeader,
 } from "services";
 import { IAuthRequest, IAuthResponse, IRefreshResponse, IUser } from "types";
 
@@ -19,18 +21,24 @@ export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
       );
 
       return data;
-    } catch (axiosError) {
-      const error = axiosError as AxiosError;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        return rejectWithValue({
+          message: error.message,
+          status: error.response?.status,
+        });
+      }
+
       return rejectWithValue({
-        message: error.message,
-        status: error.response?.status,
+        message: "Server Error",
+        status: 500,
       });
     }
   }
 );
 
 export const logIn = createAsyncThunk<
-  IAuthResponse["userData"],
+  Omit<IAuthResponse, "accessToken">,
   Omit<IAuthRequest, "name">
 >("auth/logIn", async (credentials, { rejectWithValue }) => {
   try {
@@ -40,13 +48,23 @@ export const logIn = createAsyncThunk<
     );
 
     setApiAuthHeader(data.accessToken);
+    setRefreshApiAuthHeader(data.refreshToken);
 
-    return data.userData;
-  } catch (axiosError) {
-    const error = axiosError as AxiosError;
+    return {
+      userData: data.userData,
+      refreshToken: data.refreshToken,
+    };
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
+    }
+
     return rejectWithValue({
-      message: error.message,
-      status: error.response?.status,
+      message: "Server Error",
+      status: 500,
     });
   }
 });
@@ -58,32 +76,59 @@ export const logOut = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
       await api.post("api/users/logout");
 
       clearApiAuthHeader();
-    } catch (axiosError) {
-      const error = axiosError as AxiosError;
+      clearRefreshApiAuthHeader();
+    } catch (error) {
+      if (isAxiosError(error)) {
+        return rejectWithValue({
+          message: error.message,
+          status: error.response?.status,
+        });
+      }
+
       return rejectWithValue({
-        message: error.message,
-        status: error.response?.status,
+        message: "Server Error",
+        status: 500,
       });
     }
   }
 );
 
 export const refreshUser = createAsyncThunk<
-  void,
+  string,
   void,
   { dispatch: AppDispatch; state: RootState }
->("auth/refresh", async (_, { rejectWithValue }) => {
+>("auth/refresh", async (_, { rejectWithValue, getState }) => {
   try {
+    const { refreshToken } = getState().auth;
+
+    if (!refreshToken) {
+      return rejectWithValue({
+        message: "Unauthorized",
+        status: 401,
+      });
+    }
+
+    setRefreshApiAuthHeader(refreshToken);
+
     const { data } = await refreshApi.post<IRefreshResponse>(
       "api/users/refresh"
     );
 
     setApiAuthHeader(data.accessToken);
-  } catch (axiosError) {
-    const error = axiosError as AxiosError;
+    setRefreshApiAuthHeader(data.refreshToken);
+
+    return data.refreshToken;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return rejectWithValue({
+        message: error.message,
+        status: error.response?.status,
+      });
+    }
+
     return rejectWithValue({
-      message: error.message,
-      status: error.response?.status,
+      message: "Server Error",
+      status: 500,
     });
   }
 });

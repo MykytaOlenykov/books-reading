@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 import { refreshApi } from "services/refreshApi";
-import { API_URL } from "constants/";
+import { API_URL, storageKeys } from "constants/";
 import { IRefreshResponse } from "types";
 
 interface MyAxiosRequestConfig extends AxiosRequestConfig {
@@ -9,7 +9,6 @@ interface MyAxiosRequestConfig extends AxiosRequestConfig {
 }
 
 export const api = axios.create({
-  withCredentials: true,
   baseURL: API_URL,
 });
 
@@ -31,9 +30,13 @@ api.interceptors.response.use(
         originalReq._isRetry = true;
 
         const { data } = await refreshApi.post<IRefreshResponse>(
-          "auth/refresh"
+          "api/users/refresh"
         );
 
+        localStorage.setItem(
+          storageKeys.REFRESH_TOKEN_KEY_LS,
+          JSON.stringify(data.refreshToken)
+        );
         setApiAuthHeader(data.accessToken);
 
         return api.request(originalReq!);

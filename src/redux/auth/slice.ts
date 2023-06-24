@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction, CaseReducer, AnyAction } from "@reduxjs/toolkit";
 import { register, logIn, logOut, refreshUser } from "./operations";
-import { IUser } from "types";
+import { IAuthResponse, IUser } from "types";
 
 export interface IInitialState {
   userData: IUser;
+  refreshToken: string | null;
   error: { message: string | null; status: number | null };
   isRegistered: boolean;
   isLoading: boolean;
@@ -33,6 +34,7 @@ const initialState: IInitialState = {
     name: null,
     email: null,
   },
+  refreshToken: null,
   error: { message: null, status: null },
   isRegistered: false,
   isLoading: false,
@@ -42,9 +44,12 @@ const initialState: IInitialState = {
 };
 
 export const authSlice = createSlice({
-  name: "user",
+  name: "auth",
   initialState,
   reducers: {
+    saveRefreshToken: (state, action: PayloadAction<string>) => {
+      state.refreshToken = action.payload;
+    },
     clearError: (state) => {
       state.isError = false;
       state.error = { message: null, status: null };
@@ -65,8 +70,9 @@ export const authSlice = createSlice({
       )
       .addCase(
         logIn.fulfilled,
-        (state, action: PayloadAction<NonNullable<IUser>>) => {
-          state.userData = action.payload;
+        (state, action: PayloadAction<Omit<IAuthResponse, "accessToken">>) => {
+          state.userData = action.payload.userData;
+          state.refreshToken = action.payload.refreshToken;
           state.isLoggedIn = true;
           state.isLoading = false;
         }
@@ -79,10 +85,14 @@ export const authSlice = createSlice({
           email: null,
         };
       })
-      .addCase(refreshUser.fulfilled, (state) => {
-        state.isRefreshing = false;
-        state.isLoggedIn = true;
-      })
+      .addCase(
+        refreshUser.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          state.refreshToken = action.payload;
+          state.isRefreshing = false;
+          state.isLoggedIn = true;
+        }
+      )
       .addCase(register.pending, handlePending)
       .addCase(logIn.pending, handlePending)
       .addCase(logOut.pending, handlePending)
@@ -98,5 +108,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { clearError, clearIsRegistered } = authSlice.actions;
+export const { saveRefreshToken, clearError, clearIsRegistered } =
+  authSlice.actions;
 export const authReducer = authSlice.reducer;
