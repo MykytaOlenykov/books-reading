@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BgImgSection } from "components/Common.styled";
+import { PrimaryContainer, BgImgSection } from "components/Common.styled";
 
 export const Main = styled.main`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
@@ -22,9 +22,16 @@ export const Section = styled(BgImgSection)`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    display: flex;
+    align-items: center;
     flex-grow: 1;
     margin-left: 0;
     margin-right: 0;
-    padding: 90px 0;
+    padding: 0;
+    min-height: 790px;
   }
+`;
+
+export const Container = styled(PrimaryContainer)`
+  width: 100%;
 `;
