@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 import { refreshApi } from "services/refreshApi";
-import { API_URL, storageKeys } from "constants/";
+import { API_URL } from "constants/";
 import { IRefreshResponse } from "types";
 
 interface MyAxiosRequestConfig extends AxiosRequestConfig {
@@ -34,10 +34,6 @@ api.interceptors.response.use(
           "api/users/refresh"
         );
 
-        localStorage.setItem(
-          storageKeys.REFRESH_TOKEN_KEY_LS,
-          JSON.stringify(data.refreshToken)
-        );
         setApiAuthHeader(data.accessToken);
 
         return api.request(originalReq!);

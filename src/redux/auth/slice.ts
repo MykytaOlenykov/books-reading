@@ -5,7 +5,6 @@ import { IAuthResponse, IUser } from "types";
 
 export interface IInitialState {
   userData: IUser;
-  refreshToken: string | null;
   error: { message: string | null; status: number | null };
   isRegistered: boolean;
   isLoading: boolean;
@@ -34,7 +33,6 @@ const initialState: IInitialState = {
     name: null,
     email: null,
   },
-  refreshToken: null,
   error: { message: null, status: null },
   isRegistered: false,
   isLoading: false,
@@ -47,9 +45,6 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    saveRefreshToken: (state, action: PayloadAction<string>) => {
-      state.refreshToken = action.payload;
-    },
     clearError: (state) => {
       state.isError = false;
       state.error = { message: null, status: null };
@@ -70,9 +65,8 @@ export const authSlice = createSlice({
       )
       .addCase(
         logIn.fulfilled,
-        (state, action: PayloadAction<Omit<IAuthResponse, "accessToken">>) => {
-          state.userData = action.payload.userData;
-          state.refreshToken = action.payload.refreshToken;
+        (state, action: PayloadAction<IAuthResponse["userData"]>) => {
+          state.userData = action.payload;
           state.isLoggedIn = true;
           state.isLoading = false;
         }
@@ -85,14 +79,10 @@ export const authSlice = createSlice({
           email: null,
         };
       })
-      .addCase(
-        refreshUser.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          state.refreshToken = action.payload;
-          state.isRefreshing = false;
-          state.isLoggedIn = true;
-        }
-      )
+      .addCase(refreshUser.fulfilled, (state) => {
+        state.isRefreshing = false;
+        state.isLoggedIn = true;
+      })
       .addCase(register.pending, handlePending)
       .addCase(logIn.pending, handlePending)
       .addCase(logOut.pending, handlePending)
@@ -108,6 +98,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { saveRefreshToken, clearError, clearIsRegistered } =
-  authSlice.actions;
+export const { clearError, clearIsRegistered } = authSlice.actions;
 export const authReducer = authSlice.reducer;
