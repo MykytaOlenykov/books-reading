@@ -5,13 +5,15 @@ import * as S from "./UserLabel.styled";
 export const UserLabel: React.FC = () => {
   const { userData } = useAuth();
 
-  // const userTag = userData.name![0].toUpperCase();
+  const userTag = userData.name![0].toUpperCase();
 
   return (
     <S.Container>
-      <S.Thumb>{/* <S.UserIcon>{userTag}</S.UserIcon> */}</S.Thumb>
+      <S.Thumb>
+        <S.UserIcon>{userTag}</S.UserIcon>
+      </S.Thumb>
 
-      {/* <S.UserName>{userData.name!}</S.UserName> */}
+      <S.UserName>{userData.name!}</S.UserName>
     </S.Container>
   );
 };

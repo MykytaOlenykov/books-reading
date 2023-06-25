@@ -79,10 +79,14 @@ export const authSlice = createSlice({
           email: null,
         };
       })
-      .addCase(refreshUser.fulfilled, (state) => {
-        state.isRefreshing = false;
-        state.isLoggedIn = true;
-      })
+      .addCase(
+        refreshUser.fulfilled,
+        (state, action: PayloadAction<NonNullable<IUser>>) => {
+          state.userData = action.payload;
+          state.isRefreshing = false;
+          state.isLoggedIn = true;
+        }
+      )
       .addCase(register.pending, handlePending)
       .addCase(logIn.pending, handlePending)
       .addCase(logOut.pending, handlePending)

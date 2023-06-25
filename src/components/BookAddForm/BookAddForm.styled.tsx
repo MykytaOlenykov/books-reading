@@ -72,6 +72,7 @@ export const ErrorText = styled.span`
 
   font-size: ${({ theme }) => theme.fontSizes.bookForm.errorMessage};
   line-height: 1.5;
+  text-align: center;
   color: ${({ theme }) => theme.colors.required};
 `;
 

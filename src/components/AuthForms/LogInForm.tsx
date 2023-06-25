@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -19,18 +18,17 @@ const initialValues = {
 type FormData = yup.InferType<typeof logInSchema>;
 
 export const LogInForm: React.FC = () => {
-  const { state } = useLocation();
+  const { userData, isLoading, isError, error } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: { ...initialValues, email: state?.email ?? "" },
+    defaultValues: { ...initialValues, email: userData.email ?? "" },
     resolver: yupResolver(logInSchema),
   });
   const dispatch = useAppDispatch();
-  const { isLoading, isError, error } = useAuth();
 
   useEffect(() => {
     if (isError) {

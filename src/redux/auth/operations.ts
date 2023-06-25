@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { isAxiosError } from "axios";
-import { AppDispatch, RootState } from "redux/store";
+import { AppDispatch } from "redux/store";
 import {
   api,
   setApiAuthHeader,
@@ -63,7 +63,7 @@ export const logIn = createAsyncThunk<
   }
 });
 
-export const logOut = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
+export const logOut = createAsyncThunk<void, void>(
   "auth/logOut",
   async (_, { rejectWithValue }) => {
     try {
@@ -87,16 +87,20 @@ export const logOut = createAsyncThunk<void, void, { dispatch: AppDispatch }>(
 );
 
 export const refreshUser = createAsyncThunk<
+  IAuthResponse["userData"],
   void,
-  void,
-  { dispatch: AppDispatch; state: RootState }
->("auth/refresh", async (_, { rejectWithValue }) => {
+  { dispatch: AppDispatch }
+>("auth/refresh", async (_, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await refreshApi.post<IRefreshResponse>(
       "api/users/refresh"
     );
 
     setApiAuthHeader(data.accessToken);
+
+    const { data: userData } = await api.get("api/users/current");
+
+    return userData;
   } catch (error) {
     if (isAxiosError(error)) {
       return rejectWithValue({

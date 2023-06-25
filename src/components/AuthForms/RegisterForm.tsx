@@ -49,7 +49,7 @@ export const RegisterForm: React.FC = () => {
 
   useEffect(() => {
     if (isRegistered) {
-      navigate("/login", { state: { email: userData.email } });
+      navigate("/login");
       dispatch(clearIsRegistered());
     }
   }, [userData, isRegistered, navigate, dispatch]);

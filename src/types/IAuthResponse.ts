@@ -1,6 +1,6 @@
 import { IUser } from "./IUser";
 
 export interface IAuthResponse {
-  userData: IUser;
+  userData: NonNullable<IUser>;
   accessToken: string;
 }
