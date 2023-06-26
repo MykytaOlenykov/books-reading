@@ -8,6 +8,7 @@ import { clearError } from "redux/books/slice";
 import { errorAPIMessages } from "constants/";
 import { addBookSchema } from "schemas";
 import * as S from "./BookAddForm.styled";
+import { IBook } from "types";
 
 const initialValues = {
   title: "",
@@ -34,7 +35,14 @@ export const BookAddForm: React.FC = () => {
     resolver: yupResolver(addBookSchema),
   });
   const dispatch = useAppDispatch();
-  const { error, isError, isAdding } = useBooks();
+  const {
+    goingToRead,
+    currentlyReading,
+    finishedReading,
+    error,
+    isError,
+    isAdding,
+  } = useBooks();
 
   useEffect(() => {
     if (isError) {
@@ -56,8 +64,22 @@ export const BookAddForm: React.FC = () => {
       pagesTotal: Number(pagesTotal),
     };
 
+    const isValid = validationBook(newBook);
+
+    if (!isValid) {
+      toast.error("У вашій колекції вже є така книга.");
+      return;
+    }
+
     dispatch(addBook(newBook));
     reset();
+  };
+
+  const validationBook = (newBook: Omit<IBook, "_id" | "pagesFinished">) => {
+    return ![...goingToRead, ...currentlyReading, ...finishedReading].some(
+      ({ title, publishYear }) =>
+        title === newBook.title && publishYear === newBook.publishYear
+    );
   };
 
   return (
