@@ -118,6 +118,10 @@ const Button = styled.button`
 
   border-radius: 0;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+  }
 `;
 
 export const PrimaryButton = styled(Button)`
@@ -146,8 +150,8 @@ export const SecondaryButton = styled(Button)`
 
   transition: filter ${({ theme }) => theme.timingFunction.btn} linear;
 
-  &:hover,
-  &:focus {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
     filter: ${({ theme }) => theme.filter.btn};
   }
 `;
