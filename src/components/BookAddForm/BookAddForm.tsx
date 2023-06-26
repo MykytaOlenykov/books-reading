@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { toast } from "react-hot-toast";
-import { useAppDispatch, useAuth } from "hooks";
-import { addBook } from "redux/book/operations";
+import { useAppDispatch, useBooks } from "hooks";
+import { addBook } from "redux/books/operations";
+import { clearError } from "redux/books/slice";
 import { errorAPIMessages } from "constants/";
 import { addBookSchema } from "schemas";
 import * as S from "./BookAddForm.styled";
@@ -35,23 +34,30 @@ export const BookAddForm: React.FC = () => {
     resolver: yupResolver(addBookSchema),
   });
   const dispatch = useAppDispatch();
-  const isLoading = false;
+  const { error, isError, isAdding } = useBooks();
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     if (error.status === 409) {
-  //       toast.error(errorAPIMessages[error.status]);
-  //       dispatch(clearError());
-  //       return;
-  //     }
+  useEffect(() => {
+    if (isError) {
+      toast.error(errorAPIMessages.common);
+      dispatch(clearError());
+    }
+  }, [isError, error, dispatch]);
 
-  //     toast.error(errorAPIMessages.common);
-  //     dispatch(clearError());
-  //   }
-  // }, [isError, error, dispatch]);
+  const onSubmit: SubmitHandler<FormData> = ({
+    title,
+    author,
+    publishYear,
+    pagesTotal,
+  }) => {
+    const newBook = {
+      title: title.trim(),
+      author: author.trim(),
+      publishYear: Number(publishYear),
+      pagesTotal: Number(pagesTotal),
+    };
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+    dispatch(addBook(newBook));
+    reset();
   };
 
   return (
@@ -94,7 +100,7 @@ export const BookAddForm: React.FC = () => {
         </S.Label>
       </S.Container>
 
-      <S.Button type="submit" disabled={isLoading}>
+      <S.Button type="submit" disabled={isAdding}>
         Додати
       </S.Button>
     </S.Form>

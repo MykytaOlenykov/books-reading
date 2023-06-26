@@ -34,6 +34,10 @@ api.interceptors.response.use(
           "api/users/refresh"
         );
 
+        if (originalReq.headers) {
+          originalReq.headers.Authorization = `Bearer ${data.accessToken}`;
+        }
+
         setApiAuthHeader(data.accessToken);
 
         return api.request(originalReq!);

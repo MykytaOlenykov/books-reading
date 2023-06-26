@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { isAxiosError } from "axios";
+import { fetchBooks } from "redux/books/operations";
 import { AppDispatch } from "redux/store";
 import {
   api,
@@ -37,8 +38,9 @@ export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
 
 export const logIn = createAsyncThunk<
   IAuthResponse["userData"],
-  Omit<IAuthRequest, "name">
->("auth/logIn", async (credentials, { rejectWithValue }) => {
+  Omit<IAuthRequest, "name">,
+  { dispatch: AppDispatch }
+>("auth/logIn", async (credentials, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await api.post<IAuthResponse>(
       "api/users/login",
@@ -46,6 +48,8 @@ export const logIn = createAsyncThunk<
     );
 
     setApiAuthHeader(data.accessToken);
+
+    await dispatch(fetchBooks());
 
     return data.userData;
   } catch (error) {
@@ -98,7 +102,11 @@ export const refreshUser = createAsyncThunk<
 
     setApiAuthHeader(data.accessToken);
 
-    const { data: userData } = await api.get("api/users/current");
+    const { data: userData } = await api.get<IAuthResponse["userData"]>(
+      "api/users/current"
+    );
+
+    await dispatch(fetchBooks());
 
     return userData;
   } catch (error) {

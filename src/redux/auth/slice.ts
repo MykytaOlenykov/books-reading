@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction, CaseReducer, AnyAction } from "@reduxjs/toolkit";
 import { register, logIn, logOut, refreshUser } from "./operations";
-import { IAuthResponse, IUser } from "types";
+import { IAuthResponse, IError, IUser } from "types";
 
 export interface IInitialState {
   userData: IUser;
-  error: { message: string | null; status: number | null };
+  error: IError;
   isRegistered: boolean;
   isLoading: boolean;
   isError: boolean;

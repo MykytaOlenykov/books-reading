@@ -3,15 +3,13 @@ import { useLocation, Navigate } from "react-router-dom";
 import { TutorialModal } from "components/TutorialModal";
 import { Tutorial } from "components/Tutorial";
 import { BookAddForm } from "components/BookAddForm";
-import { useResizeScreen, useAuth } from "hooks";
+import { useResizeScreen, useBooks } from "hooks";
 import * as S from "./BookAddSection.styled";
 
 export const BookAddSection: React.FC = () => {
-  const { userData } = useAuth();
-  const isFirstVisit = true;
-  // !userData.goingToRead.length &&
-  // !userData.currentlyReading.length &&
-  // !userData.finishedReading.length;
+  const { goingToRead, currentlyReading, finishedReading } = useBooks();
+  const isFirstVisit =
+    !goingToRead.length && !currentlyReading.length && !finishedReading.length;
   const [isOpenModal, setIsOpenModal] = useState(isFirstVisit);
   const { pathname } = useLocation();
   const { isMobile } = useResizeScreen();

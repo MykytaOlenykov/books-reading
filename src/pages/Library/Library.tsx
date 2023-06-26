@@ -4,7 +4,6 @@ import { PrimaryContainer } from "components/Common.styled";
 import { BookAddSection } from "components/BookAddSection";
 import { RedirectBtn } from "components/RedirectBtn";
 import { useResizeScreen } from "hooks";
-import * as S from "./Library.styled";
 
 const Library: React.FC = () => {
   const { isMobile } = useResizeScreen();
