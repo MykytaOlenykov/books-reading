@@ -134,8 +134,8 @@ export const PrimaryButton = styled(Button)`
 
   transition: box-shadow ${({ theme }) => theme.timingFunction.btn} linear;
 
-  &:hover,
-  &:focus {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
     box-shadow: ${({ theme }) => theme.boxShadow.btn};
   }
 `;

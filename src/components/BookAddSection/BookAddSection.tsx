@@ -7,9 +7,7 @@ import { useResizeScreen, useBooks } from "hooks";
 import * as S from "./BookAddSection.styled";
 
 export const BookAddSection: React.FC = () => {
-  const { goingToRead, currentlyReading, finishedReading } = useBooks();
-  const isFirstVisit =
-    !goingToRead.length && !currentlyReading.length && !finishedReading.length;
+  const { isFirstVisit } = useBooks();
   const [isOpenModal, setIsOpenModal] = useState(isFirstVisit);
   const { pathname } = useLocation();
   const { isMobile } = useResizeScreen();

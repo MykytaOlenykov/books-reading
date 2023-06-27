@@ -35,21 +35,15 @@ export const BookAddForm: React.FC = () => {
     resolver: yupResolver(addBookSchema),
   });
   const dispatch = useAppDispatch();
-  const {
-    goingToRead,
-    currentlyReading,
-    finishedReading,
-    error,
-    isError,
-    isAdding,
-  } = useBooks();
+  const { goingToRead, currentlyReading, finishedReading, isError, isAdding } =
+    useBooks();
 
   useEffect(() => {
     if (isError) {
       toast.error(errorAPIMessages.common);
       dispatch(clearError());
     }
-  }, [isError, error, dispatch]);
+  }, [isError, dispatch]);
 
   const onSubmit: SubmitHandler<FormData> = ({
     title,

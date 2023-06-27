@@ -5,8 +5,8 @@ import {
   selectFinishedReading,
   selectError,
   selectIsError,
-  selectIsLoading,
   selectIsAdding,
+  selectIsFirstVisit,
 } from "redux/books/selectors";
 
 export const useBooks = () => {
@@ -16,7 +16,7 @@ export const useBooks = () => {
     finishedReading: useAppSelector(selectFinishedReading),
     error: useAppSelector(selectError),
     isError: useAppSelector(selectIsError),
-    isLoading: useAppSelector(selectIsLoading),
     isAdding: useAppSelector(selectIsAdding),
+    isFirstVisit: useAppSelector(selectIsFirstVisit),
   };
 };

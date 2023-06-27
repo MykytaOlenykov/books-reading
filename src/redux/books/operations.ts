@@ -48,3 +48,26 @@ export const addBook = createAsyncThunk<
     });
   }
 });
+
+export const deleteBook = createAsyncThunk<string, string>(
+  "books/deleteBook",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await api.delete<Pick<IBook, "_id">>(`api/books/${id}`);
+
+      return data._id;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        return rejectWithValue({
+          message: error.message,
+          status: error.response?.status,
+        });
+      }
+
+      return rejectWithValue({
+        message: "Server Error",
+        status: 500,
+      });
+    }
+  }
+);

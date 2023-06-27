@@ -54,6 +54,10 @@ declare module "styled-components" {
       bookForm: Readonly<{
         errorMessage: string;
       }>;
+      booksSection: Readonly<{
+        primary: string;
+        secondary: string;
+      }>;
       common: Readonly<{
         primary: string;
       }>;
@@ -64,6 +68,7 @@ declare module "styled-components" {
       input: string;
       btn: string;
       tutorial: string;
+      bookCard: string;
     }>;
     readonly filter: Readonly<{
       btn: string;

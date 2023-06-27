@@ -49,16 +49,21 @@ export const theme = {
     bookForm: {
       errorMessage: "11px",
     },
+    booksSection: {
+      primary: "19px",
+      secondary: "12px",
+    },
     common: {
       primary: "14px",
     },
   },
   boxShadow: {
-    header: "0px 2px 3px rgba(9, 30, 63, 0.1)",
-    googleBtn: "0px 2px 2px rgba(9, 30, 63, 0.15)",
-    input: "inset 0px 1px 2px rgba(29, 29, 27, 0.15)",
-    btn: "0px 2px 4px rgba(0, 0, 0, 0.25)",
-    tutorial: "0px 2px 3px rgba(9, 30, 63, 0.1)",
+    header: "0px 2px 3px 0px rgba(9, 30, 63, 0.1)",
+    googleBtn: "0px 2px 2px 0px rgba(9, 30, 63, 0.15)",
+    input: "inset 0px 1px 2px 0px rgba(29, 29, 27, 0.15)",
+    btn: "0px 2px 4px 0px  rgba(0, 0, 0, 0.25)",
+    tutorial: "0px 2px 3px 0px  rgba(9, 30, 63, 0.1)",
+    bookCard: "0px 2px 3px 0px rgba(9, 30, 63, 0.1)",
   },
   filter: {
     btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",

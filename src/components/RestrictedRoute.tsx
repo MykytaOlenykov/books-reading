@@ -12,9 +12,7 @@ export const RestrictedRoute: React.FC<IProps> = ({
   redirectTo = "/",
 }) => {
   const { isLoggedIn } = useAuth();
-  const { goingToRead, currentlyReading, finishedReading } = useBooks();
-  const isFirstVisit =
-    !goingToRead.length && !currentlyReading.length && !finishedReading.length;
+  const { isFirstVisit } = useBooks();
 
   if (isFirstVisit) {
     redirectTo = "/add-book";

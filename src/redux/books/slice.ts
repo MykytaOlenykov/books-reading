@@ -1,6 +1,6 @@
 import { AnyAction, createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { fetchBooks, addBook } from "./operations";
+import { fetchBooks, addBook, deleteBook } from "./operations";
 import { IBook, IError, IFetchBooksResponse } from "types";
 
 export interface IInitialState {
@@ -9,7 +9,6 @@ export interface IInitialState {
   finishedReading: IBook[];
   error: IError;
   isError: boolean;
-  isLoading: boolean;
   isAdding: boolean;
 }
 
@@ -19,7 +18,6 @@ const initialState: IInitialState = {
   finishedReading: [],
   error: { message: null, status: null },
   isError: false,
-  isLoading: false,
   isAdding: false,
 };
 
@@ -40,16 +38,13 @@ export const booksSlice = createSlice({
           state.goingToRead = action.payload.goingToRead;
           state.currentlyReading = action.payload.currentlyReading;
           state.finishedReading = action.payload.finishedReading;
-          state.isLoading = false;
         }
       )
       .addCase(fetchBooks.pending, (state) => {
-        state.isLoading = true;
         state.isError = false;
         state.error = { message: null, status: null };
       })
       .addCase(fetchBooks.rejected, (state, action: AnyAction) => {
-        state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
       })
@@ -64,6 +59,19 @@ export const booksSlice = createSlice({
       })
       .addCase(addBook.rejected, (state, action: AnyAction) => {
         state.isAdding = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(deleteBook.fulfilled, (state, action: PayloadAction<string>) => {
+        state.goingToRead = state.goingToRead.filter(
+          ({ _id }) => _id !== action.payload
+        );
+      })
+      .addCase(deleteBook.pending, (state) => {
+        state.isError = false;
+        state.error = { message: null, status: null };
+      })
+      .addCase(deleteBook.rejected, (state, action: AnyAction) => {
         state.isError = true;
         state.error = action.payload;
       });

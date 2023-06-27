@@ -1,3 +1,4 @@
+import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "redux/store";
 
 export const selectGoingToRead = (state: RootState) => state.books.goingToRead;
@@ -12,6 +13,10 @@ export const selectError = (state: RootState) => state.books.error;
 
 export const selectIsError = (state: RootState) => state.books.isError;
 
-export const selectIsLoading = (state: RootState) => state.books.isLoading;
-
 export const selectIsAdding = (state: RootState) => state.books.isAdding;
+
+export const selectIsFirstVisit = createSelector(
+  [selectGoingToRead, selectCurrentlyReading, selectFinishedReading],
+  (goingToRead, currentlyReading, finishedReading) =>
+    !goingToRead.length && !currentlyReading.length && !finishedReading.length
+);
