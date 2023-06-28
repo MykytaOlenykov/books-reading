@@ -4,7 +4,7 @@ import { ReactComponent as LibraryIcon } from "assets/icons/library-icon.svg";
 export const BookCard = styled.div`
   position: relative;
 
-  padding: 31px 40px 31px;
+  padding: 32px 40px;
 
   border-top: 1px solid ${({ theme }) => theme.colors.line};
   border-bottom: 1px solid ${({ theme }) => theme.colors.line};
