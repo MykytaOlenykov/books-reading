@@ -31,8 +31,14 @@ export const UserIcon = styled.p`
 
 export const UserName = styled.p`
   display: none;
+  max-width: 240px;
+
   font-weight: 300;
   line-height: 1.21;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  overflow: hidden;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: block;
