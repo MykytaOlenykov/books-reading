@@ -35,16 +35,6 @@ export const BookCard: React.FC<IProps> = ({ book, status }) => {
     <S.Card>
       <S.BookIcon />
 
-      {status === "goingToRead" && (
-        <S.Button
-          type="button"
-          onClick={handleDeleteBook}
-          disabled={isDeleting}
-        >
-          <S.BtnIcon />
-        </S.Button>
-      )}
-
       <S.CardTitle>{title}</S.CardTitle>
       <S.List>
         <S.Item>
@@ -62,6 +52,16 @@ export const BookCard: React.FC<IProps> = ({ book, status }) => {
           <S.Descr>{pagesTotal}</S.Descr>
         </S.Item>
       </S.List>
+
+      {status === "goingToRead" && (
+        <S.Button
+          type="button"
+          onClick={handleDeleteBook}
+          disabled={isDeleting}
+        >
+          <S.BtnIcon />
+        </S.Button>
+      )}
     </S.Card>
   );
 };

@@ -9,8 +9,11 @@ declare module "styled-components" {
       primaryBg: string;
       secondaryBg: string;
       activeBg: string;
+      trainingBg: string;
+      counterBg: string;
       primaryText: string;
       lightText: string;
+      number: string;
       primaryOverlay: string;
       accent: string;
       googleBgBtn: string;
@@ -26,6 +29,7 @@ declare module "styled-components" {
     }>;
     readonly fontFamily: Readonly<{
       primary: string;
+      secondary: string;
       logo: string;
       googleTextBtn: string;
     }>;
@@ -58,6 +62,10 @@ declare module "styled-components" {
         primary: string;
         secondary: string;
       }>;
+      scoreboard: Readonly<{
+        title: string;
+        counter: string;
+      }>;
       common: Readonly<{
         primary: string;
       }>;
@@ -69,6 +77,8 @@ declare module "styled-components" {
       btn: string;
       tutorial: string;
       bookCard: string;
+      scoreboard: string;
+      counter: string;
     }>;
     readonly filter: Readonly<{
       btn: string;

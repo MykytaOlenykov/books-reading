@@ -4,7 +4,7 @@ export const Section = styled.section`
   padding-top: 20px;
 
   &.goingToRead {
-    padding-bottom: 80px;
+    padding-bottom: 128px;
   }
 `;
 

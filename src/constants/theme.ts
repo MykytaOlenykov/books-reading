@@ -4,8 +4,11 @@ export const theme = {
     primaryBg: "#F6F7FB",
     secondaryBg: "#FFFFFF",
     activeBg: "#f5f7fa",
+    trainingBg: "#B1B5C2",
+    counterBg: "#F5F7FA",
     primaryText: "#898f9f",
     lightText: "#FFFFFF",
+    number: "#091E3F",
     primaryOverlay: "rgba(9, 30, 63, 0.8)",
     accent: "#FF6B08",
     googleBgBtn: "#F5F7FA",
@@ -21,6 +24,7 @@ export const theme = {
   },
   fontFamily: {
     primary: "Montserrat",
+    secondary: "Open Sans",
     logo: "Abril Fatface",
     googleTextBtn: "Roboto",
   },
@@ -53,6 +57,10 @@ export const theme = {
       primary: "19px",
       secondary: "12px",
     },
+    scoreboard: {
+      title: "20px",
+      counter: "45px",
+    },
     common: {
       primary: "14px",
     },
@@ -64,6 +72,8 @@ export const theme = {
     btn: "0px 2px 4px 0px  rgba(0, 0, 0, 0.25)",
     tutorial: "0px 2px 3px 0px  rgba(9, 30, 63, 0.1)",
     bookCard: "0px 2px 3px 0px rgba(9, 30, 63, 0.1)",
+    scoreboard: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
+    counter: "4px 4px 8px 0px rgba(36, 42, 55, 0.15)",
   },
   filter: {
     btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",

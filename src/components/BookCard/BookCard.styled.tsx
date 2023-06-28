@@ -13,7 +13,7 @@ export const Card = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     align-items: center;
-    padding: 14px 34px 14px 20px;
+    padding: 14px 10px 14px 20px;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
@@ -156,6 +156,12 @@ export const Button = styled.button`
 
   &:disabled {
     opacity: 0.7;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    position: static;
+
+    margin-left: 10px;
   }
 `;
 
