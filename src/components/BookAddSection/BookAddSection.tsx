@@ -24,7 +24,7 @@ export const BookAddSection: React.FC = () => {
     <S.Section>
       <S.Container>
         {isMobile && (
-          <S.GoBackLink to="/">
+          <S.GoBackLink to="/library">
             <S.GoBackIcon />
           </S.GoBackLink>
         )}

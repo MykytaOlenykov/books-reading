@@ -23,7 +23,7 @@ const Training: React.FC = () => {
 
       <StatisticsChart />
 
-      {isMobile ? <RedirectBtn redirectTo="/select-book" /> : null}
+      {isMobile ? <RedirectBtn redirectTo="/training/select-book" /> : null}
     </main>
   );
 };
