@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-  padding: 20px 0 80px;
+  padding-top: 20px;
+
+  &.goingToRead {
+    padding-bottom: 80px;
+  }
 `;
 
 export const Title = styled.h2`
@@ -20,24 +24,19 @@ export const Title = styled.h2`
 export const Header = styled.ul`
   display: none;
   margin-bottom: 8px;
-  max-width: 670px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    max-width: 1171px;
   }
 `;
 
 export const HeaderItem = styled.li`
   &:nth-child(1) {
-    margin-right: auto;
+    margin-right: 262px;
   }
 
   &:nth-child(2) {
-    margin-right: 174px;
+    margin-right: 169px;
   }
 
   &:nth-child(3) {
@@ -45,6 +44,10 @@ export const HeaderItem = styled.li`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    &:nth-child(1) {
+      margin-right: 548px;
+    }
+
     &:nth-child(2) {
       margin-right: 344px;
     }

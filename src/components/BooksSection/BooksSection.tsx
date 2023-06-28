@@ -16,7 +16,7 @@ export const BooksSection: React.FC<IProps> = ({ title, status }) => {
   ] as IBook[];
 
   return (
-    <S.Section>
+    <S.Section className={status}>
       <PrimaryContainer>
         <S.Title>{title}</S.Title>
 

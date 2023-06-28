@@ -34,7 +34,7 @@ export const CardTitle = styled.h3`
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-bottom: 0;
-    margin-right: 32px;
+    margin-right: auto;
     max-width: 262px;
     width: 100%;
 
@@ -43,7 +43,7 @@ export const CardTitle = styled.h3`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    margin-right: 84px;
+    margin-right: auto;
     max-width: 500px;
 
     font-size: ${({ theme }) => theme.fontSizes.common.primary};
@@ -73,7 +73,7 @@ export const Item = styled.li`
 
     &:nth-child(1) {
       margin-right: 32px;
-      width: 172px;
+      width: 168px;
     }
 
     &:nth-child(2) {
