@@ -23,8 +23,8 @@ declare module "styled-components" {
       inputBorder: string;
       placeholder: string;
       formText: string;
+      qouteLine: string;
       line: string;
-      navLine: string;
       icon: string;
     }>;
     readonly fontFamily: Readonly<{

@@ -1,6 +1,8 @@
 import React from "react";
 import { HiddenComponent } from "components/HiddenComponent";
 import { Scoreboard } from "components/Scoreboard";
+import { TrainingBooksSection } from "components/TrainingBooksSection";
+import { StatisticsGraph } from "components/StatisticsGraph";
 
 const Training: React.FC = () => (
   <main>
@@ -11,6 +13,10 @@ const Training: React.FC = () => (
     </section>
 
     <Scoreboard />
+
+    <TrainingBooksSection />
+
+    <StatisticsGraph />
   </main>
 );
 

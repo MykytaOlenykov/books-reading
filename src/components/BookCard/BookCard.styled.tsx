@@ -170,7 +170,6 @@ export const BookIcon = styled(LibraryIcon)`
   top: 20px;
   left: 20px;
 
-  flex-shrink: 0;
   width: 22px;
   height: 17px;
 
@@ -179,6 +178,7 @@ export const BookIcon = styled(LibraryIcon)`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     position: static;
 
+    flex-shrink: 0;
     margin-right: 18px;
   }
 `;

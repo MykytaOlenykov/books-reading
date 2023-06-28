@@ -17,7 +17,7 @@ export const Nav = styled.nav`
     width: 1px;
     height: 100%;
 
-    background-color: ${({ theme }) => theme.colors.navLine};
+    background-color: ${({ theme }) => theme.colors.line};
   }
 `;
 

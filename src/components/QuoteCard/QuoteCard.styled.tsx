@@ -78,7 +78,7 @@ export const Text = styled.p`
     width: 100px;
     height: 1px;
 
-    background-color: ${({ theme }) => theme.colors.line};
+    background-color: ${({ theme }) => theme.colors.qouteLine};
 
     transform: translateX(-50%);
 

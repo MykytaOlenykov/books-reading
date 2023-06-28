@@ -18,8 +18,8 @@ export const theme = {
     inputBorder: "#A6ABB9",
     placeholder: "#A6ABB9",
     formText: "#898F9F",
-    line: "rgba(36, 42, 55, 0.5)",
-    navLine: "#E0E5EB",
+    qouteLine: "rgba(36, 42, 55, 0.5)",
+    line: "#E0E5EB",
     icon: "#A6ABB9",
   },
   fontFamily: {

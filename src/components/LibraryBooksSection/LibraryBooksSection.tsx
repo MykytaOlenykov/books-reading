@@ -2,7 +2,7 @@ import React from "react";
 import { PrimaryContainer } from "components/Common.styled";
 import { BookCard } from "components/BookCard";
 import { useBooks } from "hooks";
-import * as S from "./BooksSection.styled";
+import * as S from "./LibraryBooksSection.styled";
 import { IBook } from "types";
 
 interface IProps {
@@ -10,7 +10,7 @@ interface IProps {
   status: "goingToRead" | "currentlyReading" | "finishedReading";
 }
 
-export const BooksSection: React.FC<IProps> = ({ title, status }) => {
+export const LibraryBooksSection: React.FC<IProps> = ({ title, status }) => {
   const books = useBooks()[
     status as keyof ReturnType<typeof useBooks>
   ] as IBook[];
