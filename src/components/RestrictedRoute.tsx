@@ -15,7 +15,7 @@ export const RestrictedRoute: React.FC<IProps> = ({
   const { isFirstVisit } = useBooks();
 
   if (isFirstVisit) {
-    redirectTo = "/add-book";
+    redirectTo = "/library/add-book";
   }
 
   return isLoggedIn ? <Navigate to={redirectTo} /> : <Component />;

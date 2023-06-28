@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "components/Layout";
 import { PrivateRoute } from "components/PrivateRoute";
 import { RestrictedRoute } from "components/RestrictedRoute";
@@ -26,20 +26,27 @@ export const App: React.FC = () => {
   return !isRefreshing ? (
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route index element={<Navigate to="library" />} />
         <Route
-          index
+          path="library"
           element={
             <PrivateRoute component={LibraryPage} redirectTo="/register" />
           }
         />
         <Route
-          path="add-book"
+          path="library/add-book"
           element={
             <PrivateRoute component={BookAddSection} redirectTo="/register" />
           }
         />
         <Route
           path="training"
+          element={
+            <PrivateRoute component={TrainingPage} redirectTo="/register" />
+          }
+        />
+        <Route
+          path="training/select-book"
           element={
             <PrivateRoute component={TrainingPage} redirectTo="/register" />
           }
