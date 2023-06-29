@@ -11,4 +11,5 @@ export const HiddenContainer = styled.div`
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   margin: -1px;
+  visibility: hidden;
 `;

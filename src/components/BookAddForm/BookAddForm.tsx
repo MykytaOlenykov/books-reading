@@ -7,8 +7,8 @@ import { addBook } from "redux/books/operations";
 import { clearError } from "redux/books/slice";
 import { errorAPIMessages } from "constants/";
 import { addBookSchema } from "schemas";
-import * as S from "./BookAddForm.styled";
 import { IBook } from "types";
+import * as S from "./BookAddForm.styled";
 
 const initialValues = {
   title: "",

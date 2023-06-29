@@ -57,7 +57,7 @@ export const theme = {
       primary: "19px",
       secondary: "12px",
     },
-    scoreboard: {
+    training: {
       title: "20px",
       counter: "45px",
     },
@@ -74,6 +74,7 @@ export const theme = {
     bookCard: "0px 2px 3px 0px rgba(9, 30, 63, 0.1)",
     scoreboard: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
     counter: "4px 4px 8px 0px rgba(36, 42, 55, 0.15)",
+    title: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
   },
   filter: {
     btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",

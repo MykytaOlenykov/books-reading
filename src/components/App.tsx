@@ -4,6 +4,7 @@ import { Layout } from "components/Layout";
 import { PrivateRoute } from "components/PrivateRoute";
 import { RestrictedRoute } from "components/RestrictedRoute";
 import { BookAddSection } from "components/BookAddSection";
+import { BookSelectSection } from "./BookSelectSection";
 import { useAppDispatch, useAuth } from "hooks";
 import { refreshUser } from "redux/auth/operations";
 
@@ -48,7 +49,10 @@ export const App: React.FC = () => {
         <Route
           path="training/select-book"
           element={
-            <PrivateRoute component={TrainingPage} redirectTo="/register" />
+            <PrivateRoute
+              component={BookSelectSection}
+              redirectTo="/register"
+            />
           }
         />
         <Route

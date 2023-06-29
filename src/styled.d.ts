@@ -62,7 +62,7 @@ declare module "styled-components" {
         primary: string;
         secondary: string;
       }>;
-      scoreboard: Readonly<{
+      training: Readonly<{
         title: string;
         counter: string;
       }>;
@@ -79,6 +79,7 @@ declare module "styled-components" {
       bookCard: string;
       scoreboard: string;
       counter: string;
+      title: string;
     }>;
     readonly filter: Readonly<{
       btn: string;

@@ -8,12 +8,13 @@ export const Title = styled.h2`
   padding: 18px 0;
 
   font-weight: 600;
-  font-size: ${({ theme }) => theme.fontSizes.scoreboard.title};
+  font-size: ${({ theme }) => theme.fontSizes.training.title};
   line-height: 1.2;
   text-align: center;
   color: ${({ theme }) => theme.colors.lightText};
 
   background-color: ${({ theme }) => theme.colors.trainingBg};
+  box-shadow: ${({ theme }) => theme.boxShadow.title};
 `;
 
 export const List = styled.ul`
@@ -41,7 +42,7 @@ export const Counter = styled.div`
 export const Value = styled.p`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-weight: 700;
-  font-size: ${({ theme }) => theme.fontSizes.scoreboard.counter};
+  font-size: ${({ theme }) => theme.fontSizes.training.counter};
   line-height: 0.84;
   text-align: center;
   color: ${({ theme }) => theme.colors.number};
