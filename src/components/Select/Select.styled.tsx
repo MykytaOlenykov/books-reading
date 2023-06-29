@@ -13,7 +13,7 @@ export const InputConainer = styled.div`
 `;
 
 export const Input = styled(PrimaryInput)`
-  padding: 12px 11px;
+  padding: 12px 35px 12px 11px;
 
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.common.primary};

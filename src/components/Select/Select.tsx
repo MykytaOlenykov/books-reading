@@ -34,6 +34,7 @@ export const Select: React.FC = () => {
           value={inputValue}
           onChange={handleChangeInputValue}
           onFocus={handleFocusInput}
+          onBlur={handleBlurInput}
           placeholder="Обрати книги з бібліотеки"
         />
 
@@ -43,7 +44,7 @@ export const Select: React.FC = () => {
       {isShowList && (
         <S.List>
           {visibledBooks.map(({ _id, title }) => (
-            <S.Item key={_id} onClick={() => handleChooseBook(_id, title)}>
+            <S.Item key={_id} onMouseDown={() => handleChooseBook(_id, title)}>
               {title}
             </S.Item>
           ))}
