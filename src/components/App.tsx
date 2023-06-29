@@ -28,34 +28,36 @@ export const App: React.FC = () => {
   return !isRefreshing ? (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Navigate to="library" />} />
+        <Route index element={<Navigate to="/library" />} />
         <Route
           path="library"
           element={
             <PrivateRoute component={LibraryPage} redirectTo="/register" />
           }
-        />
-        <Route
-          path="library/add-book"
-          element={
-            <PrivateRoute component={BookAddSection} redirectTo="/register" />
-          }
-        />
+        >
+          <Route
+            path="add-book"
+            element={
+              <PrivateRoute component={BookAddSection} redirectTo="/register" />
+            }
+          />
+        </Route>
         <Route
           path="training"
           element={
             <PrivateRoute component={TrainingPage} redirectTo="/register" />
           }
-        />
-        <Route
-          path="training/select-book"
-          element={
-            <PrivateRoute
-              component={BookSelectSection}
-              redirectTo="/register"
-            />
-          }
-        />
+        >
+          <Route
+            path="select-book"
+            element={
+              <PrivateRoute
+                component={BookSelectSection}
+                redirectTo="/register"
+              />
+            }
+          />
+        </Route>
         <Route
           path="register"
           element={<RestrictedRoute component={RegisterPage} />}
