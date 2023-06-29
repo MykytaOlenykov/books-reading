@@ -34,30 +34,28 @@ export const App: React.FC = () => {
           element={
             <PrivateRoute component={LibraryPage} redirectTo="/register" />
           }
-        >
-          <Route
-            path="add-book"
-            element={
-              <PrivateRoute component={BookAddSection} redirectTo="/register" />
-            }
-          />
-        </Route>
+        />
+        <Route
+          path="add-book"
+          element={
+            <PrivateRoute component={BookAddSection} redirectTo="/register" />
+          }
+        />
         <Route
           path="training"
           element={
             <PrivateRoute component={TrainingPage} redirectTo="/register" />
           }
-        >
-          <Route
-            path="select-book"
-            element={
-              <PrivateRoute
-                component={BookSelectSection}
-                redirectTo="/register"
-              />
-            }
-          />
-        </Route>
+        />
+        <Route
+          path="select-book"
+          element={
+            <PrivateRoute
+              component={BookSelectSection}
+              redirectTo="/register"
+            />
+          }
+        />
         <Route
           path="register"
           element={<RestrictedRoute component={RegisterPage} />}

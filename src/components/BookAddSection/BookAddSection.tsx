@@ -16,7 +16,7 @@ export const BookAddSection: React.FC = () => {
     setIsOpenModal(false);
   };
 
-  if (!isMobile && pathname === "/library/add-book") {
+  if (!isMobile && pathname === "/add-book") {
     return <Navigate to="/library" />;
   }
 
