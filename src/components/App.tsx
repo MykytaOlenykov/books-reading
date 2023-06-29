@@ -4,7 +4,8 @@ import { Layout } from "components/Layout";
 import { PrivateRoute } from "components/PrivateRoute";
 import { RestrictedRoute } from "components/RestrictedRoute";
 import { BookAddSection } from "components/BookAddSection";
-import { BookSelectSection } from "./BookSelectSection";
+import { BookSelectSection } from "components/BookSelectSection";
+import { PageLoader } from "components/Loaders";
 import { useAppDispatch, useAuth } from "hooks";
 import { refreshUser } from "redux/auth/operations";
 
@@ -65,5 +66,7 @@ export const App: React.FC = () => {
         />
       </Route>
     </Routes>
-  ) : null;
+  ) : (
+    <PageLoader />
+  );
 };
