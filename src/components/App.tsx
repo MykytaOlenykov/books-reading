@@ -36,7 +36,7 @@ export const App: React.FC = () => {
           }
         />
         <Route
-          path="add-book"
+          path="library/add-book"
           element={
             <PrivateRoute component={BookAddSection} redirectTo="/register" />
           }
@@ -48,7 +48,7 @@ export const App: React.FC = () => {
           }
         />
         <Route
-          path="select-book"
+          path="training/select-book"
           element={
             <PrivateRoute
               component={BookSelectSection}

@@ -24,7 +24,7 @@ const Library: React.FC = () => {
         )}
       </PrimaryContainer>
 
-      {isMobile ? <RedirectBtn redirectTo="/add-book" /> : <BookAddSection />}
+      {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
 
       {!!finishedReading.length && (
         <LibraryBooksSection title="Прочитано" status="finishedReading" />
