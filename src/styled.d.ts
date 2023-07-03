@@ -26,6 +26,8 @@ declare module "styled-components" {
       qouteLine: string;
       line: string;
       icon: string;
+      focusedOption: string;
+      selectedOption: string;
     }>;
     readonly fontFamily: Readonly<{
       primary: string;
@@ -80,6 +82,7 @@ declare module "styled-components" {
       scoreboard: string;
       counter: string;
       title: string;
+      select: Select;
     }>;
     readonly filter: Readonly<{
       btn: string;

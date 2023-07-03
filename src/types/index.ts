@@ -1,6 +1,7 @@
 export * from "./IAuthRequest";
 export * from "./IAuthResponse";
 export * from "./IBook";
+export * from "./IBookOption";
 export * from "./IError";
 export * from "./IFetchBooksResponse";
 export * from "./IErrorAPIMessages";

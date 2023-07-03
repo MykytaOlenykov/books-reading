@@ -21,6 +21,8 @@ export const theme = {
     qouteLine: "rgba(36, 42, 55, 0.5)",
     line: "#E0E5EB",
     icon: "#A6ABB9",
+    focusedOption: "rgba(166, 171, 185, 0.1)",
+    selectedOption: "rgba(166, 171, 185, 0.2)",
   },
   fontFamily: {
     primary: "Montserrat",
@@ -75,6 +77,7 @@ export const theme = {
     scoreboard: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
     counter: "4px 4px 8px 0px rgba(36, 42, 55, 0.15)",
     title: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
+    select: "0px 2px 4px 0px  rgba(0, 0, 0, 0.25)",
   },
   filter: {
     btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",

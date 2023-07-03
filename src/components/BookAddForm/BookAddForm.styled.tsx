@@ -60,7 +60,7 @@ export const Input = styled(PrimaryInput)`
 
   &:focus {
     background-color: ${({ theme }) => theme.colors.secondaryBg};
-    border: 1px solid none;
+    border: 1px solid ${({ theme }) => theme.colors.primaryBg};
     box-shadow: ${({ theme }) => theme.boxShadow.input};
   }
 `;

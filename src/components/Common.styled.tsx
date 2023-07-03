@@ -92,6 +92,9 @@ export const PrimaryInput = styled.input`
   padding: 12px 12px 13px;
   width: 100%;
 
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.common.primary};
+  line-height: 1.21;
   color: ${({ theme }) => theme.colors.primary};
 
   border-radius: 0;
