@@ -55,6 +55,7 @@ export const BookSelectForm: React.FC = () => {
               value={options.find((c) => c.value === value)}
               isClearable
               placeholder="Обрати книги з бібліотеки"
+              noOptionsMessage={() => "Немає доступних книг"}
             />
 
             {errors.book && <S.ErrorText>{errors.book?.message}</S.ErrorText>}

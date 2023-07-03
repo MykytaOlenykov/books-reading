@@ -31,7 +31,7 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
     }
   }
 
-  & .select__indicators {
+  & .select__indicator {
     cursor: pointer;
   }
 
@@ -54,6 +54,13 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
     border: none;
     border-radius: 0;
     box-shadow: ${({ theme }) => theme.boxShadow.select};
+  }
+
+  & .select__menu-notice {
+    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSizes.common.primary};
+    line-height: 1.21;
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   & .select__menu-list {
