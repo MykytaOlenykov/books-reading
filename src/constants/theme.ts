@@ -26,6 +26,8 @@ export const theme = {
     selectedOption: "rgba(166, 171, 185, 0.2)",
     indicatorHover: "rgba(36, 42, 55, 0.4)",
     disabledDay: "#A6ABB9",
+    inRangeDay: "#f98233",
+    inSelectingRangeDay: "#fab88c",
   },
   fontFamily: {
     primary: "Montserrat",

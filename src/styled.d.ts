@@ -31,6 +31,8 @@ declare module "styled-components" {
       selectedOption: string;
       indicatorHover: string;
       disabledDay: string;
+      inRangeDay: string;
+      inSelectingRangeDay: string;
     }>;
     readonly fontFamily: Readonly<{
       primary: string;

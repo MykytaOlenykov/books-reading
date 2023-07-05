@@ -84,9 +84,46 @@ export const Container = styled.div`
     font-size: ${({ theme }) => theme.fontSizes.calendar.primary};
     color: ${({ theme }) => theme.colors.primary};
 
+    &:not(.react-datepicker__day--disabled):hover {
+      background-color: ${({ theme }) => theme.colors.inSelectingRangeDay};
+    }
+
     &--disabled {
       color: ${({ theme }) => theme.colors.disabledDay};
     }
+
+    &--selected {
+      background-color: ${({ theme }) => theme.colors.inRangeDay};
+    }
+
+    &--keyboard-selected {
+      background-color: transparent;
+    }
+
+    &--in-selecting-range {
+      background-color: ${({ theme }) => theme.colors.inSelectingRangeDay};
+    }
+
+    &--in-range {
+      background-color: ${({ theme }) => theme.colors.inRangeDay};
+    }
+  }
+
+  &
+    .react-datepicker__day--selecting-range-end.react-datepicker__day--keyboard-selected {
+    background-color: ${({ theme }) => theme.colors.inSelectingRangeDay};
+  }
+
+  & .react-datepicker__day--in-range.react-datepicker__day--in-selecting-range {
+    background-color: ${({ theme }) => theme.colors.inRangeDay};
+  }
+
+  &
+    .react-datepicker__month--selecting-range
+    .react-datepicker__day--in-range:not(
+      .react-datepicker__day--in-selecting-range
+    ) {
+    background-color: ${({ theme }) => theme.colors.inSelectingRangeDay};
   }
 
   & .react-datepicker {
