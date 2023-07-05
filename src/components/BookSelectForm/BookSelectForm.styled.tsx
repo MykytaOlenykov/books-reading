@@ -11,6 +11,10 @@ export const Form = styled.form`
   } */
 `;
 
+export const InputContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
 export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
   & .select__control {
     min-height: 42px;
@@ -22,7 +26,7 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
 
     &--is-focused {
       background-color: ${({ theme }) => theme.colors.secondaryBg};
-      border: 1px solid ${({ theme }) => theme.colors.primaryBg};
+      border-color: ${({ theme }) => theme.colors.primaryBg};
       box-shadow: ${({ theme }) => theme.boxShadow.input};
 
       &:hover {
@@ -32,7 +36,24 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
   }
 
   & .select__indicator {
+    color: ${({ theme }) => theme.colors.primary};
     cursor: pointer;
+
+    transition: color ${({ theme }) => theme.timingFunction.btn} linear;
+  }
+
+  &
+    .select__control:not(.select__control--menu-is-open)
+    .select__dropdown-indicator:hover {
+    color: ${({ theme }) => theme.colors.indicatorHover};
+  }
+
+  & .select__clear-indicator:hover {
+    color: ${({ theme }) => theme.colors.indicatorHover};
+  }
+
+  & .select__indicator-separator {
+    background-color: ${({ theme }) => theme.colors.inputBorder};
   }
 
   & .select__placeholder {
@@ -46,6 +67,10 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
     font-weight: 400;
     font-size: ${({ theme }) => theme.fontSizes.common.primary};
     line-height: 1.21;
+    color: ${({ theme }) => theme.colors.inputText};
+  }
+
+  & .select__control--is-focused .select__single-value {
     color: ${({ theme }) => theme.colors.primary};
   }
 

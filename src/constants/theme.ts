@@ -15,6 +15,7 @@ export const theme = {
     googleTextBtn: "#707375",
     inputBg: " #F5F7FA",
     required: "#F25137",
+    inputText: "#A6ABB9",
     inputBorder: "#A6ABB9",
     placeholder: "#A6ABB9",
     formText: "#898F9F",
@@ -23,6 +24,8 @@ export const theme = {
     icon: "#A6ABB9",
     focusedOption: "rgba(166, 171, 185, 0.1)",
     selectedOption: "rgba(166, 171, 185, 0.2)",
+    indicatorHover: "rgba(36, 42, 55, 0.4)",
+    disabledDay: "#A6ABB9",
   },
   fontFamily: {
     primary: "Montserrat",
@@ -62,6 +65,9 @@ export const theme = {
     training: {
       title: "20px",
       counter: "45px",
+    },
+    calendar: {
+      primary: "12px",
     },
     common: {
       primary: "14px",

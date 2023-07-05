@@ -36,6 +36,8 @@ export const Star = styled.span`
 `;
 
 export const Input = styled(PrimaryInput)`
+  color: ${({ theme }) => theme.colors.primary};
+
   background-color: ${({ theme }) => theme.colors.inputBg};
   box-shadow: ${({ theme }) => theme.boxShadow.input};
   border: none;

@@ -55,10 +55,15 @@ export const LabelText = styled.span`
 
 export const Input = styled(PrimaryInput)`
   padding: 11px 11px 12px;
+
+  color: ${({ theme }) => theme.colors.inputText};
+
   background-color: ${({ theme }) => theme.colors.primaryBg};
   border: 1px solid ${({ theme }) => theme.colors.inputBorder};
 
   &:focus {
+    color: ${({ theme }) => theme.colors.primary};
+
     background-color: ${({ theme }) => theme.colors.secondaryBg};
     border: 1px solid ${({ theme }) => theme.colors.primaryBg};
     box-shadow: ${({ theme }) => theme.boxShadow.input};

@@ -13,15 +13,15 @@ import * as S from "./BookAddForm.styled";
 const initialValues = {
   title: "",
   author: "",
-  publishYear: "",
-  pagesTotal: "",
+  publishYear: undefined,
+  pagesTotal: undefined,
 };
 
 type FormData = {
   title: string;
   author: string;
-  publishYear: string | number;
-  pagesTotal: string | number;
+  publishYear: number;
+  pagesTotal: number;
 };
 
 export const BookAddForm: React.FC = () => {
@@ -54,8 +54,8 @@ export const BookAddForm: React.FC = () => {
     const newBook = {
       title: title.trim(),
       author: author.trim(),
-      publishYear: Number(publishYear),
-      pagesTotal: Number(pagesTotal),
+      publishYear,
+      pagesTotal,
     };
 
     const isValid = validationBook(newBook);

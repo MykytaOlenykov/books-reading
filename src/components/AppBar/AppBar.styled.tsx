@@ -4,7 +4,7 @@ import { PrimaryContainer } from "components/Common.styled";
 export const Header = styled.header`
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 
   padding-top: 1px;
   min-width: 310px;

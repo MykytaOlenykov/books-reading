@@ -20,6 +20,7 @@ declare module "styled-components" {
       googleTextBtn: string;
       inputBg: string;
       required: string;
+      inputText: string;
       inputBorder: string;
       placeholder: string;
       formText: string;
@@ -28,6 +29,8 @@ declare module "styled-components" {
       icon: string;
       focusedOption: string;
       selectedOption: string;
+      indicatorHover: string;
+      disabledDay: string;
     }>;
     readonly fontFamily: Readonly<{
       primary: string;
@@ -67,6 +70,9 @@ declare module "styled-components" {
       training: Readonly<{
         title: string;
         counter: string;
+      }>;
+      calendar: Readonly<{
+        primary: string;
       }>;
       common: Readonly<{
         primary: string;

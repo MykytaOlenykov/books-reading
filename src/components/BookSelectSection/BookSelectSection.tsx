@@ -8,9 +8,9 @@ export const BookSelectSection: React.FC = () => {
   const { pathname } = useLocation();
   const { isMobile } = useResizeScreen();
 
-  // if (!isMobile && pathname === "/select-book") {
-  //   return <Navigate to="/training" />;
-  // }
+  if (!isMobile && pathname === "/training/select-book") {
+    return <Navigate to="/training" />;
+  }
 
   return (
     <S.Section>

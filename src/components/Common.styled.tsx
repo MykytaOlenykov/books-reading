@@ -95,7 +95,6 @@ export const PrimaryInput = styled.input`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.common.primary};
   line-height: 1.21;
-  color: ${({ theme }) => theme.colors.primary};
 
   border-radius: 0;
   outline: none;

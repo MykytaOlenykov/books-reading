@@ -1,25 +1,33 @@
 import React, { useMemo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { registerLocale } from "react-datepicker";
+import { CustomDatePicker } from "components/CustomDatePicker";
 import { useBooks } from "hooks";
 import { selectBookSchema } from "schemas";
 import { IBookOption } from "types";
 import * as S from "./BookSelectForm.styled";
+import uk from "date-fns/locale/uk";
+
+registerLocale("uk", uk);
 
 const initialValues = {
   book: "",
+  startDate: undefined,
+  endDate: undefined,
 };
 
 type FormData = {
   book: string;
+  startDate: Date;
+  endDate: Date;
 };
 
 export const BookSelectForm: React.FC = () => {
   const {
-    register,
     handleSubmit,
     control,
-    reset,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: initialValues,
@@ -44,6 +52,53 @@ export const BookSelectForm: React.FC = () => {
     <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         control={control}
+        name="startDate"
+        render={({ field: { onChange, value } }) => (
+          <S.InputContainer>
+            <CustomDatePicker
+              locale="uk"
+              dateFormat="dd.MM.yyyy"
+              onChange={onChange}
+              selected={value}
+              startDate={watch("startDate")}
+              endDate={watch("endDate")}
+              minDate={new Date()}
+              selectsStart
+              placeholderText="Початок"
+            />
+
+            {errors.startDate && (
+              <S.ErrorText>{errors.startDate?.message}</S.ErrorText>
+            )}
+          </S.InputContainer>
+        )}
+      />
+      <Controller
+        control={control}
+        name="endDate"
+        render={({ field: { onChange, value } }) => (
+          <S.InputContainer>
+            <CustomDatePicker
+              locale="uk"
+              dateFormat="dd.MM.yyyy"
+              onChange={onChange}
+              selected={value}
+              startDate={watch("startDate")}
+              endDate={watch("endDate")}
+              minDate={watch("startDate")}
+              selectsEnd
+              placeholderText="Завершення"
+            />
+
+            {errors.startDate && (
+              <S.ErrorText>{errors.startDate?.message}</S.ErrorText>
+            )}
+          </S.InputContainer>
+        )}
+      />
+
+      <Controller
+        control={control}
         name="book"
         render={({ field: { onChange, value, ref } }) => (
           <>
@@ -62,7 +117,6 @@ export const BookSelectForm: React.FC = () => {
           </>
         )}
       />
-
       <S.Button type="submit" disabled={false}>
         Додати
       </S.Button>
