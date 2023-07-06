@@ -63,7 +63,7 @@ export const List = styled.ul`
     box-shadow: none;
   }
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     gap: 20px;
     padding: 48px 0;
 

@@ -8,7 +8,7 @@ export const InfoSection: React.FC = () => (
 
       <S.Title>Допоможе вам</S.Title>
 
-      <S.List className="mb--s">
+      <S.List className="mb--f">
         <S.Item>
           <S.Icon />
           <S.Text>Швидше сформулювати свою ціль і розпочати читати</S.Text>
@@ -25,7 +25,7 @@ export const InfoSection: React.FC = () => (
 
       <S.Title>Також ви зможете</S.Title>
 
-      <S.List className="mb--b">
+      <S.List className="mb--s">
         <S.Item>
           <S.Icon />
           <S.Text>Формувати особисту думку незалежну від інших</S.Text>

@@ -19,7 +19,7 @@ export const Card = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     display: flex;
     align-items: center;
-    padding: 22px 10px 22px 20px;
+    padding: 22px 20px 22px 20px;
   }
 `;
 
@@ -167,7 +167,7 @@ export const Button = styled.button`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     position: static;
 
-    margin-left: 56px;
+    margin-left: 46px;
   }
 `;
 

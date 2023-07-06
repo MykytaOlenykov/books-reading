@@ -9,6 +9,11 @@ export const Section = styled.section`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 64px 0 88px;
   }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    margin: 0 auto;
+    padding: 0;
+  }
 `;
 
 export const Container = styled(PrimaryContainer)`
@@ -19,7 +24,7 @@ export const Container = styled(PrimaryContainer)`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    padding: 0 127px;
+    padding: 0;
   }
 `;
 
@@ -42,7 +47,7 @@ export const Title = styled.h3`
 `;
 
 export const List = styled.ul`
-  &.mb--s {
+  &.mb--f {
     margin-bottom: 24px;
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -50,7 +55,7 @@ export const List = styled.ul`
     }
   }
 
-  &.mb--b {
+  &.mb--s {
     margin-bottom: 60px;
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {

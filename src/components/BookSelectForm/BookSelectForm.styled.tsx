@@ -18,12 +18,12 @@ export const InputContainer = styled.div`
 
     &.startDate {
       margin-right: 40px;
-      margin-left: 170px;
     }
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     &.startDate {
+      margin-left: 170px;
       margin-right: 44px;
     }
   }
@@ -129,7 +129,13 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
     color: ${({ theme }) => theme.colors.primary};
 
     overflow-wrap: break-word;
+
+    border-top: 1px solid ${({ theme }) => theme.colors.line};
     cursor: pointer;
+
+    &:last-child {
+      border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+    }
 
     &--is-selected {
       background-color: ${({ theme }) => theme.colors.selectedOption};
