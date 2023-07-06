@@ -1,14 +1,29 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as Back } from "assets/icons/back.svg";
-import { PrimaryContainer } from "components/Common.styled";
 
 export const Section = styled.section`
   padding: 68px 0 200px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 20px 0;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    padding: 0;
+  }
 `;
 
-export const Container = styled(PrimaryContainer)`
+export const Container = styled.div`
   position: relative;
+
+  @media screen and (max-width: calc(${({ theme }) =>
+      theme.breakpoints.tablet} - 1px)) {
+    margin: 0 auto;
+    padding: 0 20px;
+    min-width: 310px;
+    max-width: ${({ theme }) => theme.breakpoints.mobile};
+  }
 `;
 
 export const GoBackLink = styled(Link)`
@@ -40,4 +55,12 @@ export const Title = styled.h2`
 
   background-color: ${({ theme }) => theme.colors.trainingBg};
   box-shadow: ${({ theme }) => theme.boxShadow.title};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-bottom: 28px;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-bottom: 24px;
+  }
 `;

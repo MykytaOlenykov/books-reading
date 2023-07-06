@@ -14,13 +14,13 @@ export const Layout: React.FC = () => {
     <>
       <GlobalStyle isSecondaryBg={isSecondaryBg} />
 
+      <Toaster position="top-center" reverseOrder={false} />
+
       <AppBar />
 
       <React.Suspense fallback={<PageLoader />}>
         <Outlet />
       </React.Suspense>
-
-      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 };

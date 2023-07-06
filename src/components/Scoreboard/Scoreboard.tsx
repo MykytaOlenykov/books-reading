@@ -1,10 +1,9 @@
 import React from "react";
-import { PrimaryContainer } from "components/Common.styled";
 import * as S from "./Scoreboard.styled";
 
 export const Scoreboard: React.FC = () => (
   <S.Section>
-    <PrimaryContainer>
+    <S.Container>
       <S.Title>Моя мета прочитати</S.Title>
 
       <S.List>
@@ -24,6 +23,6 @@ export const Scoreboard: React.FC = () => (
           <S.Descr>Кількість днів</S.Descr>
         </li>
       </S.List>
-    </PrimaryContainer>
+    </S.Container>
   </S.Section>
 );

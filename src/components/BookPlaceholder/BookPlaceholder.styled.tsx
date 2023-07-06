@@ -8,6 +8,14 @@ export const BookCard = styled.div`
 
   border-top: 1px solid ${({ theme }) => theme.colors.line};
   border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+    gap: 12px;
+    padding: 20px 0;
+
+    border: none;
+  }
 `;
 
 export const CardTitle = styled.p`
@@ -16,9 +24,17 @@ export const CardTitle = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.common.primary};
   line-height: 1.21;
   color: ${({ theme }) => theme.colors.primary};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-bottom: 0;
+  }
 `;
 
-export const List = styled.ul``;
+export const List = styled.ul`
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
 
 export const Item = styled.li`
   display: flex;
@@ -52,4 +68,8 @@ export const BookIcon = styled(LibraryIcon)`
   height: 17px;
 
   fill: ${({ theme }) => theme.colors.icon};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    position: static;
+  }
 `;

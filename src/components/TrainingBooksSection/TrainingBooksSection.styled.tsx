@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Section = styled.section``;
+export const Section = styled.section`
+  padding: 20px 0;
+`;
 
 export const Title = styled.h2`
   margin-bottom: 20px;
@@ -17,37 +19,40 @@ export const Title = styled.h2`
 
 export const Header = styled.ul`
   display: none;
-  margin-bottom: 8px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
+    padding: 12px 0;
+
+    border-top: 1px solid ${({ theme }) => theme.colors.line};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   }
 `;
 
 export const HeaderItem = styled.li`
   &:nth-child(1) {
-    margin-right: 262px;
+    margin-right: 194px;
   }
 
   &:nth-child(2) {
-    margin-right: 169px;
+    margin-right: 167px;
   }
 
   &:nth-child(3) {
-    margin-right: 40px;
+    margin-right: 69px;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     &:nth-child(1) {
-      margin-right: 548px;
+      margin-right: 300px;
     }
 
     &:nth-child(2) {
-      margin-right: 344px;
+      margin-right: 185px;
     }
 
     &:nth-child(3) {
-      margin-right: 80px;
+      margin-right: 73px;
     }
   }
 `;
@@ -56,6 +61,12 @@ export const Text = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.common.primary};
   line-height: 1.21;
   color: ${({ theme }) => theme.colors.primaryText};
+`;
+
+export const List = styled.ul`
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  }
 `;
 
 export const Item = styled.li`

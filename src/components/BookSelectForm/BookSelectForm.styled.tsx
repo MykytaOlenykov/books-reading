@@ -4,15 +4,29 @@ import { IBookOption } from "types";
 import { SecondaryButton } from "components/Common.styled";
 
 export const Form = styled.form`
-  /* @media screen and (min-width: ${({ theme }) =>
-    theme.breakpoints.dekstop}) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
-    gap: 48px;
-  } */
+    flex-wrap: wrap;
+  }
 `;
 
 export const InputContainer = styled.div`
   margin-bottom: 20px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-bottom: 24px;
+
+    &.startDate {
+      margin-right: 40px;
+      margin-left: 170px;
+    }
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    &.startDate {
+      margin-right: 44px;
+    }
+  }
 `;
 
 export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
@@ -32,6 +46,14 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
       &:hover {
         border-color: ${({ theme }) => theme.colors.primaryBg};
       }
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      width: 483px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      width: 715px;
     }
   }
 
@@ -137,15 +159,11 @@ export const Button = styled(SecondaryButton)`
   margin-top: 32px;
   min-width: 172px;
 
-  /* @media screen and (min-width: ${({ theme }) =>
-    theme.breakpoints.dekstop}) {
-    margin: 0;
-    min-width: 181px;
-  } */
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin: 0 0 0 auto;
+  }
 
-  /* @media screen and (min-width: ${({ theme }) =>
-    theme.breakpoints.dekstop}) {
-    align-self: start;
-    transform: translateY(25px);
-  } */
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    width: 181px;
+  }
 `;

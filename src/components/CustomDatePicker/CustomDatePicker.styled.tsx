@@ -11,16 +11,26 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.colors.accent};
   }
 
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: inline-block;
+  }
+
   & .react-datepicker-wrapper {
     display: block;
     width: 100%;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      display: inline-block;
+      width: 250px;
+    }
   }
 
   & .react-datepicker__input-container {
     & input {
-      display: block;
+      display: inline-block;
       padding: 11px 11px 12px 40px;
       width: 100%;
+      min-height: 42px;
 
       font-weight: 400;
       font-size: ${({ theme }) => theme.fontSizes.common.primary};

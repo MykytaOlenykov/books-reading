@@ -71,7 +71,9 @@ declare module "styled-components" {
       }>;
       training: Readonly<{
         title: string;
-        counter: string;
+        counterPrimary: string;
+        counterSecondary: string;
+        text: string;
       }>;
       calendar: Readonly<{
         primary: string;

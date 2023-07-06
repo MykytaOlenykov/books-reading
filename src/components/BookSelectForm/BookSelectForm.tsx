@@ -54,7 +54,7 @@ export const BookSelectForm: React.FC = () => {
         control={control}
         name="startDate"
         render={({ field: { onChange, value } }) => (
-          <S.InputContainer>
+          <S.InputContainer className="startDate">
             <CustomDatePicker
               locale="uk"
               dateFormat="dd.MM.yyyy"

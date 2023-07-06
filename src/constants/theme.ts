@@ -66,7 +66,9 @@ export const theme = {
     },
     training: {
       title: "20px",
-      counter: "45px",
+      counterPrimary: "45px",
+      counterSecondary: "40px",
+      text: "11px",
     },
     calendar: {
       primary: "12px",
