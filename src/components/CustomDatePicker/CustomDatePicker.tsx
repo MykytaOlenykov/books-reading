@@ -1,8 +1,8 @@
 import React from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 import * as S from "./CustomDatePicker.styled";
 
-export const CustomDatePicker: React.FC<any> = (props) => {
+export const CustomDatePicker: React.FC<ReactDatePickerProps> = (props) => {
   return (
     <S.Container>
       <S.Icon />

@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { isAxiosError } from "axios";
+import { storageKeys } from "constants/storageKeys";
 import { fetchBooks } from "redux/books/operations";
 import { AppDispatch } from "redux/store";
 import {
-  api,
+  $api,
   setApiAuthHeader,
   clearApiAuthHeader,
-  refreshApi,
+  $refreshApi,
 } from "services";
 import { IAuthRequest, IAuthResponse, IRefreshResponse, IUser } from "types";
 
@@ -14,7 +15,7 @@ export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
   "auth/register",
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await api.post<NonNullable<IUser>>(
+      const { data } = await $api.post<NonNullable<IUser>>(
         "api/users/register",
         credentials
       );
@@ -42,10 +43,12 @@ export const logIn = createAsyncThunk<
   { dispatch: AppDispatch }
 >("auth/logIn", async (credentials, { rejectWithValue, dispatch }) => {
   try {
-    const { data } = await api.post<IAuthResponse>(
+    const { data } = await $api.post<IAuthResponse>(
       "api/users/login",
       credentials
     );
+
+    localStorage.setItem(storageKeys.REFRESH_TOKEN_KEY_LS, data.refreshToken);
 
     setApiAuthHeader(data.accessToken);
 
@@ -71,7 +74,9 @@ export const logOut = createAsyncThunk<void, void>(
   "auth/logOut",
   async (_, { rejectWithValue }) => {
     try {
-      await api.post("api/users/logout");
+      await $api.post("api/users/logout");
+
+      localStorage.removeItem(storageKeys.REFRESH_TOKEN_KEY_LS);
 
       clearApiAuthHeader();
     } catch (error) {
@@ -96,13 +101,15 @@ export const refreshUser = createAsyncThunk<
   { dispatch: AppDispatch }
 >("auth/refresh", async (_, { rejectWithValue, dispatch }) => {
   try {
-    const { data } = await refreshApi.post<IRefreshResponse>(
+    const { data } = await $refreshApi.post<IRefreshResponse>(
       "api/users/refresh"
     );
 
+    localStorage.setItem(storageKeys.REFRESH_TOKEN_KEY_LS, data.refreshToken);
+
     setApiAuthHeader(data.accessToken);
 
-    const { data: userData } = await api.get<IAuthResponse["userData"]>(
+    const { data: userData } = await $api.get<IAuthResponse["userData"]>(
       "api/users/current"
     );
 
