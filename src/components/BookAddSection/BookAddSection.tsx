@@ -8,7 +8,7 @@ import * as S from "./BookAddSection.styled";
 
 export const BookAddSection: React.FC = () => {
   const { isFirstVisit } = useBooks();
-  const [isOpenModal, setIsOpenModal] = useState(isFirstVisit);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(isFirstVisit);
   const { pathname } = useLocation();
   const { isMobile } = useResizeScreen();
 

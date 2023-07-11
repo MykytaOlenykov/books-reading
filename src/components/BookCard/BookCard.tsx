@@ -15,7 +15,7 @@ interface IProps {
 export const BookCard: React.FC<IProps> = ({ book, status }) => {
   const { _id, title, author, publishYear, pagesTotal } = book;
   const { isError } = useBooks();
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

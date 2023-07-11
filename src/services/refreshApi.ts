@@ -7,9 +7,13 @@ export const $refreshApi = axios.create({
 });
 
 $refreshApi.interceptors.request.use((config) => {
-  const refreshToken =
-    localStorage.getItem(storageKeys.REFRESH_TOKEN_KEY_LS) ?? "";
+  const data = localStorage.getItem(storageKeys.REFRESH_TOKEN_KEY_LS);
 
-  config.headers.Authorization = `Bearer ${refreshToken}`;
+  if (data) {
+    const refreshToken: string = JSON.parse(data);
+
+    config.headers.Authorization = `Bearer ${refreshToken}`;
+  }
+
   return config;
 });

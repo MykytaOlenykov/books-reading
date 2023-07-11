@@ -48,7 +48,10 @@ export const logIn = createAsyncThunk<
       credentials
     );
 
-    localStorage.setItem(storageKeys.REFRESH_TOKEN_KEY_LS, data.refreshToken);
+    localStorage.setItem(
+      storageKeys.REFRESH_TOKEN_KEY_LS,
+      JSON.stringify(data.refreshToken)
+    );
 
     setApiAuthHeader(data.accessToken);
 
@@ -105,7 +108,10 @@ export const refreshUser = createAsyncThunk<
       "api/users/refresh"
     );
 
-    localStorage.setItem(storageKeys.REFRESH_TOKEN_KEY_LS, data.refreshToken);
+    localStorage.setItem(
+      storageKeys.REFRESH_TOKEN_KEY_LS,
+      JSON.stringify(data.refreshToken)
+    );
 
     setApiAuthHeader(data.accessToken);
 
