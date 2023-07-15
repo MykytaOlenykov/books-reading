@@ -2,7 +2,7 @@ import React from "react";
 import { HiddenComponent } from "components/HiddenComponent";
 import { PrimaryContainer } from "components/Common.styled";
 import { BookAddSection } from "components/BookAddSection";
-import { LibraryBooksSection } from "components/LibraryBooksSection";
+import { BooksList } from "components/BooksList";
 import { RedirectBtn } from "components/RedirectBtn";
 import { useResizeScreen, useBooks } from "hooks";
 import * as S from "./Library.styled";
@@ -20,23 +20,35 @@ const Library: React.FC = () => {
         </HiddenComponent>
 
         {isMobile && isFirstVisit && (
-          <S.Info>Додайте книжки, які маєте намір прочитати.</S.Info>
+          <S.Info>Додайте книги, які маєте намір прочитати.</S.Info>
+        )}
+
+        {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
+
+        {!!finishedReading.length && (
+          <BooksList
+            title="Прочитано"
+            status="finishedReading"
+            books={finishedReading}
+          />
+        )}
+
+        {!!currentlyReading.length && (
+          <BooksList
+            title="Читаю"
+            status="currentlyReading"
+            books={currentlyReading}
+          />
+        )}
+
+        {!!goingToRead.length && (
+          <BooksList
+            title="Маю намір прочитати"
+            status="goingToRead"
+            books={goingToRead}
+          />
         )}
       </PrimaryContainer>
-
-      {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
-
-      {!!finishedReading.length && (
-        <LibraryBooksSection title="Прочитано" status="finishedReading" />
-      )}
-
-      {!!currentlyReading.length && (
-        <LibraryBooksSection title="Читаю" status="currentlyReading" />
-      )}
-
-      {!!goingToRead.length && (
-        <LibraryBooksSection title="Маю намір прочитати" status="goingToRead" />
-      )}
     </main>
   );
 };

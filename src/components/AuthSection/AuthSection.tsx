@@ -4,17 +4,26 @@ import * as S from "./AuthSection.styled";
 
 interface IProps {
   title: string;
+  form: React.FC;
   children: React.ReactNode | React.ReactNode[];
 }
 
-export const AuthSection: React.FC<IProps> = ({ title, children }) => (
-  <S.Section>
-    <S.Container>
-      <HiddenComponent>
-        <h1>{title}</h1>
-      </HiddenComponent>
+export const AuthSection: React.FC<IProps> = ({
+  title,
+  form: Form,
+  children,
+}) => (
+  <S.Container>
+    <S.Section>
+      <S.FormContainer>
+        <HiddenComponent>
+          <h1>{title}</h1>
+        </HiddenComponent>
 
-      {children}
-    </S.Container>
-  </S.Section>
+        <Form />
+      </S.FormContainer>
+    </S.Section>
+
+    {children}
+  </S.Container>
 );

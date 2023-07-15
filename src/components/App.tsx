@@ -9,9 +9,9 @@ import { PageLoader } from "components/Loaders";
 import { useAppDispatch, useAuth } from "hooks";
 import { refreshUser } from "redux/auth/operations";
 
-const RegisterPage = React.lazy(() => import("pages/Register/Register"));
+const RegisterPage = React.lazy(() => import("pages/Register"));
 
-const LogInPage = React.lazy(() => import("pages/LogIn/LogIn"));
+const LogInPage = React.lazy(() => import("pages/LogIn"));
 
 const LibraryPage = React.lazy(() => import("pages/Library/Library"));
 

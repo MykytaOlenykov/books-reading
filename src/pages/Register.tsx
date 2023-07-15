@@ -2,16 +2,13 @@ import React from "react";
 import { AuthSection } from "components/AuthSection";
 import { RegisterForm } from "components/AuthForms";
 import { InfoSection } from "components/InfoSection";
-import * as S from "./Register.styled";
 
 const Register: React.FC = () => (
-  <S.Main>
-    <AuthSection title="Сторінка реєстрації">
-      <RegisterForm />
+  <main>
+    <AuthSection form={RegisterForm} title="Сторінка реєстрації">
+      <InfoSection />
     </AuthSection>
-
-    <InfoSection />
-  </S.Main>
+  </main>
 );
 
 export default Register;

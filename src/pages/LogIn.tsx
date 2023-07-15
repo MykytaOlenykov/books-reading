@@ -2,16 +2,13 @@ import React from "react";
 import { AuthSection } from "components/AuthSection";
 import { LogInForm } from "components/AuthForms";
 import { QuoteCard } from "components/QuoteCard";
-import * as S from "./LogIn.styled";
 
 const LogIn: React.FC = () => (
-  <S.Main>
-    <AuthSection title="Сторінка входу до профілю">
-      <LogInForm />
+  <main>
+    <AuthSection form={LogInForm} title="Сторінка входу до профілю">
+      <QuoteCard />
     </AuthSection>
-
-    <QuoteCard />
-  </S.Main>
+  </main>
 );
 
 export default LogIn;

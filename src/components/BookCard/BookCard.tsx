@@ -4,12 +4,12 @@ import { useAppDispatch, useBooks } from "hooks";
 import { clearError } from "redux/books/slice";
 import { deleteBook } from "redux/books/operations";
 import { errorAPIMessages } from "constants/";
-import { IBook } from "types";
+import { IBook, IBooksStatuses } from "types";
 import * as S from "./BookCard.styled";
 
 interface IProps {
   book: IBook;
-  status: "goingToRead" | "currentlyReading" | "finishedReading";
+  status: IBooksStatuses;
 }
 
 export const BookCard: React.FC<IProps> = ({ book, status }) => {

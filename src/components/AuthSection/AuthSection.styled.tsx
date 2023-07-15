@@ -95,6 +95,15 @@ export const Section = styled(BgImgSection)`
   }
 `;
 
-export const Container = styled(PrimaryContainer)`
+export const FormContainer = styled(PrimaryContainer)`
   width: 100%;
+`;
+
+export const Container = styled.div`
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    max-width: ${({ theme }) => theme.breakpoints.dekstop};
+  }
 `;

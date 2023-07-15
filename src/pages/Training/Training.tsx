@@ -1,7 +1,7 @@
 import React from "react";
 import { HiddenComponent } from "components/HiddenComponent";
 import { Scoreboard } from "components/Scoreboard";
-import { TrainingBooksSection } from "components/TrainingBooksSection";
+import { BooksList } from "components/BooksList";
 import { StatisticsChart } from "components/StatisticsChart";
 import { RedirectBtn } from "components/RedirectBtn";
 import { BookSelectSection } from "components/BookSelectSection";
@@ -29,7 +29,7 @@ const Training: React.FC = () => {
             <BookSelectSection />
           )}
 
-          <TrainingBooksSection />
+          <BooksList status="training" books={[]} isPlaceholder />
 
           <StatisticsChart />
         </div>
