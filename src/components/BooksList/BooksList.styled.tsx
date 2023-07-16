@@ -6,6 +6,10 @@ export const Section = styled.section`
   &.goingToRead {
     padding-bottom: 128px;
   }
+
+  &.training {
+    padding-top: 0;
+  }
 `;
 
 export const Title = styled.h2`

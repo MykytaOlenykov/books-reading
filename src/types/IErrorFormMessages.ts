@@ -34,7 +34,7 @@ export interface IErrorFormMessages {
   publishYear: Readonly<{
     integer: string;
     minValue: string;
-    maxValue: string;
+    test: string;
     required: string;
   }>;
   pagesTotal: Readonly<{

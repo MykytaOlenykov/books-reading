@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { errorFormMessages } from "constants/";
+import { errorFormMessages, formPatterns } from "constants/";
 
 export const addBookSchema = yup.object({
   title: yup
@@ -19,7 +19,16 @@ export const addBookSchema = yup.object({
     .typeError(errorFormMessages.publishYear.required)
     .integer(errorFormMessages.publishYear.integer)
     .min(1000, errorFormMessages.publishYear.minValue)
-    .max(new Date().getFullYear(), errorFormMessages.publishYear.maxValue)
+    .test(
+      "publishYear-matches",
+      errorFormMessages.publishYear.test,
+      function (value) {
+        if (!value) {
+          return true;
+        }
+        return formPatterns.publishYear.test(String(value));
+      }
+    )
     .required(errorFormMessages.publishYear.required),
   pagesTotal: yup
     .number()
