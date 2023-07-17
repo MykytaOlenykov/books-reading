@@ -14,7 +14,6 @@ export interface IErrorFormMessages {
   password: Readonly<{
     minLength: string;
     maxLength: string;
-    matches: string;
     required: string;
   }>;
   confirmPassword: Readonly<{
