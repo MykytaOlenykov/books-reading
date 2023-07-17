@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { toast } from "react-hot-toast";
 import { useAppDispatch, useAuth } from "hooks";
 import { logIn as logInUser } from "redux/auth/operations";
-import { clearError } from "redux/auth/slice";
-import { errorAPIMessages } from "constants/";
 import { logInSchema } from "schemas";
 import * as S from "./AuthForms.styled";
 
@@ -18,30 +16,18 @@ const initialValues = {
 type FormData = yup.InferType<typeof logInSchema>;
 
 export const LogInForm: React.FC = () => {
-  const { userData, isLoading, isError, error } = useAuth();
+  const { state } = useLocation();
+  const { isLoading } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: { ...initialValues, email: userData.email ?? "" },
+    defaultValues: { ...initialValues, email: state?.email ?? "" },
     resolver: yupResolver(logInSchema),
   });
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (isError) {
-      if (error.status === 403) {
-        toast.error(errorAPIMessages[error.status]);
-        dispatch(clearError());
-        return;
-      }
-
-      toast.error(errorAPIMessages.common);
-      dispatch(clearError());
-    }
-  }, [isError, error, dispatch]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     dispatch(logInUser(data));

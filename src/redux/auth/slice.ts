@@ -16,7 +16,7 @@ export interface IInitialState {
 const handlePending: CaseReducer<IInitialState> = (state) => {
   state.isLoading = true;
   state.isError = false;
-  state.error = { message: null, status: null };
+  state.error = { message: null, status: null, type: null };
 };
 
 const handleRejected: CaseReducer<IInitialState, AnyAction> = (
@@ -33,7 +33,7 @@ const initialState: IInitialState = {
     name: null,
     email: null,
   },
-  error: { message: null, status: null },
+  error: { message: null, status: null, type: null },
   isRegistered: false,
   isLoading: false,
   isError: false,
@@ -45,9 +45,16 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    endSession: (state) => {
+      state.isLoggedIn = false;
+      state.userData = {
+        name: null,
+        email: null,
+      };
+    },
     clearError: (state) => {
       state.isError = false;
-      state.error = { message: null, status: null };
+      state.error = { message: null, status: null, type: null };
     },
     clearIsRegistered: (state) => {
       state.isRegistered = false;
@@ -102,5 +109,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { clearError, clearIsRegistered } = authSlice.actions;
+export const { endSession, clearError, clearIsRegistered } = authSlice.actions;
 export const authReducer = authSlice.reducer;

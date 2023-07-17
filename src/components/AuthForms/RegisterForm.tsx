@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { toast } from "react-hot-toast";
 import { useAppDispatch, useAuth } from "hooks";
 import { register as registerUser } from "redux/auth/operations";
-import { clearError, clearIsRegistered } from "redux/auth/slice";
-import { errorAPIMessages } from "constants/";
 import { registerSchema } from "schemas";
 import * as S from "./AuthForms.styled";
 
@@ -31,28 +27,7 @@ export const RegisterForm: React.FC = () => {
     resolver: yupResolver(registerSchema),
   });
   const dispatch = useAppDispatch();
-  const { userData, isRegistered, isLoading, isError, error } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isError) {
-      if (error.status === 409) {
-        toast.error(errorAPIMessages[error.status]);
-        dispatch(clearError());
-        return;
-      }
-
-      toast.error(errorAPIMessages.common);
-      dispatch(clearError());
-    }
-  }, [isError, error, dispatch]);
-
-  useEffect(() => {
-    if (isRegistered) {
-      navigate("/login");
-      dispatch(clearIsRegistered());
-    }
-  }, [userData, isRegistered, navigate, dispatch]);
+  const { isLoading } = useAuth();
 
   const onSubmit: SubmitHandler<FormData> = ({ name, email, password }) => {
     const normalizedName = name.trim();

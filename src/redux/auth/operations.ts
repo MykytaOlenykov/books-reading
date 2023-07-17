@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { isAxiosError } from "axios";
-import { storageKeys } from "constants/storageKeys";
 import { fetchBooks } from "redux/books/operations";
+import { setBooks } from "redux/books/slice";
 import { AppDispatch } from "redux/store";
 import {
   $api,
@@ -9,6 +9,8 @@ import {
   clearApiAuthHeader,
   $refreshApi,
 } from "services";
+import { errorObjectCreator } from "utils";
+import { storageKeys } from "constants/";
 import { IAuthRequest, IAuthResponse, IRefreshResponse, IUser } from "types";
 
 export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
@@ -22,17 +24,7 @@ export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
 
       return data;
     } catch (error) {
-      if (isAxiosError(error)) {
-        return rejectWithValue({
-          message: error.message,
-          status: error.response?.status,
-        });
-      }
-
-      return rejectWithValue({
-        message: "Server Error",
-        status: 500,
-      });
+      return rejectWithValue(errorObjectCreator({ error }));
     }
   }
 );
@@ -55,7 +47,9 @@ export const logIn = createAsyncThunk<
 
     setApiAuthHeader(data.accessToken);
 
-    await dispatch(fetchBooks());
+    const books = await fetchBooks();
+
+    dispatch(setBooks(books));
 
     return data.userData;
   } catch (error) {
@@ -119,7 +113,9 @@ export const refreshUser = createAsyncThunk<
       "api/users/current"
     );
 
-    await dispatch(fetchBooks());
+    const books = await fetchBooks();
+
+    dispatch(setBooks(books));
 
     return userData;
   } catch (error) {

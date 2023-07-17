@@ -1,30 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { isAxiosError } from "axios";
 import { $api } from "services";
+import { errorObjectCreator } from "utils";
+import { errorTypes } from "constants/";
 import { IBook, IFetchBooksResponse } from "types";
 
-export const fetchBooks = createAsyncThunk<IFetchBooksResponse, void>(
-  "books/fetchBooks",
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await $api.get<IFetchBooksResponse>("api/books");
+export const fetchBooks = async (): Promise<IFetchBooksResponse> => {
+  const { data } = await $api.get<IFetchBooksResponse>("api/books");
 
-      return data;
-    } catch (error) {
-      if (isAxiosError(error)) {
-        return rejectWithValue({
-          message: error.message,
-          status: error.response?.status,
-        });
-      }
-
-      return rejectWithValue({
-        message: "Server Error",
-        status: 500,
-      });
-    }
-  }
-);
+  return data;
+};
 
 export const addBook = createAsyncThunk<
   IBook,
@@ -35,17 +19,13 @@ export const addBook = createAsyncThunk<
 
     return newBook;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue({
-        message: error.message,
-        status: error.response?.status,
-      });
-    }
-
-    return rejectWithValue({
-      message: "Server Error",
-      status: 500,
-    });
+    return rejectWithValue(
+      errorObjectCreator({
+        error,
+        type: errorTypes.addBook,
+        isCheckSessionEnd: true,
+      })
+    );
   }
 });
 
@@ -57,17 +37,13 @@ export const deleteBook = createAsyncThunk<string, string>(
 
       return data._id;
     } catch (error) {
-      if (isAxiosError(error)) {
-        return rejectWithValue({
-          message: error.message,
-          status: error.response?.status,
-        });
-      }
-
-      return rejectWithValue({
-        message: "Server Error",
-        status: 500,
-      });
+      return rejectWithValue(
+        errorObjectCreator({
+          error,
+          type: errorTypes.deleteBook,
+          isCheckSessionEnd: true,
+        })
+      );
     }
   }
 );

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "constants/";
-import { storageKeys } from "constants/storageKeys";
+import { storageKeys } from "constants/";
 
 export const $refreshApi = axios.create({
   baseURL: API_URL,

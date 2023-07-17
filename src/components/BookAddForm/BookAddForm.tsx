@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-hot-toast";
 import { useAppDispatch, useBooks } from "hooks";
 import { addBook } from "redux/books/operations";
-import { clearError } from "redux/books/slice";
-import { errorAPIMessages } from "constants/";
 import { addBookSchema } from "schemas";
 import { IBook } from "types";
 import * as S from "./BookAddForm.styled";
@@ -35,15 +33,8 @@ export const BookAddForm: React.FC = () => {
     resolver: yupResolver(addBookSchema),
   });
   const dispatch = useAppDispatch();
-  const { goingToRead, currentlyReading, finishedReading, isError, isAdding } =
+  const { goingToRead, currentlyReading, finishedReading, isAdding } =
     useBooks();
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(errorAPIMessages.common);
-      dispatch(clearError());
-    }
-  }, [isError, dispatch]);
 
   const onSubmit: SubmitHandler<FormData> = ({
     title,

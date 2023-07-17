@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { useAppDispatch, useBooks } from "hooks";
-import { clearError } from "redux/books/slice";
+import React from "react";
+import { useAppDispatch } from "hooks";
 import { deleteBook } from "redux/books/operations";
-import { errorAPIMessages } from "constants/";
 import { IBook, IBooksStatuses } from "types";
 import * as S from "./BookCard.styled";
 
@@ -14,20 +11,9 @@ interface IProps {
 
 export const BookCard: React.FC<IProps> = ({ book, status }) => {
   const { _id, title, author, publishYear, pagesTotal } = book;
-  const { isError } = useBooks();
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (isError) {
-      setIsDeleting(false);
-      toast.error(errorAPIMessages.common);
-      dispatch(clearError());
-    }
-  }, [isError, dispatch]);
-
   const handleDeleteBook = (): void => {
-    setIsDeleting(true);
     dispatch(deleteBook(_id));
   };
 
@@ -54,11 +40,7 @@ export const BookCard: React.FC<IProps> = ({ book, status }) => {
       </S.List>
 
       {status === "goingToRead" && (
-        <S.Button
-          type="button"
-          onClick={handleDeleteBook}
-          disabled={isDeleting}
-        >
+        <S.Button type="button" onClick={handleDeleteBook}>
           <S.BtnIcon />
         </S.Button>
       )}
