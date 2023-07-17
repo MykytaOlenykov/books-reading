@@ -48,6 +48,12 @@ export const ApiErrorCatcher: React.FC = () => {
         return;
       }
 
+      if (booksError.type === errorTypes.addBook && booksError.status === 409) {
+        toast.error(errorAPIMessages.books_409);
+        dispatch(clearBooksError());
+        return;
+      }
+
       if (
         booksError.type === errorTypes.addBook ||
         booksError.type === errorTypes.deleteBook ||

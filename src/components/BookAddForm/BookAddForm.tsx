@@ -1,11 +1,9 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-hot-toast";
 import { useAppDispatch, useBooks } from "hooks";
 import { addBook } from "redux/books/operations";
 import { addBookSchema } from "schemas";
-import { IBook } from "types";
 import * as S from "./BookAddForm.styled";
 
 const initialValues = {
@@ -33,8 +31,7 @@ export const BookAddForm: React.FC = () => {
     resolver: yupResolver(addBookSchema),
   });
   const dispatch = useAppDispatch();
-  const { goingToRead, currentlyReading, finishedReading, isAdding } =
-    useBooks();
+  const { isAdding } = useBooks();
 
   const onSubmit: SubmitHandler<FormData> = ({
     title,
@@ -49,22 +46,8 @@ export const BookAddForm: React.FC = () => {
       pagesTotal,
     };
 
-    const isValid = validationBook(newBook);
-
-    if (!isValid) {
-      toast.error("У вашій колекції вже є така книга.");
-      return;
-    }
-
     dispatch(addBook(newBook));
     reset();
-  };
-
-  const validationBook = (newBook: Omit<IBook, "_id" | "pagesFinished">) => {
-    return ![...goingToRead, ...currentlyReading, ...finishedReading].some(
-      ({ title, publishYear }) =>
-        title === newBook.title && publishYear === newBook.publishYear
-    );
   };
 
   return (
