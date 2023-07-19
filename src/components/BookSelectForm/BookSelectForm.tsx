@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select from "react-select";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -36,7 +36,7 @@ export const BookSelectForm: React.FC = () => {
   const { startDate, endDate, books } = usePlanning();
   const dispatch = useAppDispatch();
 
-  const parsedStartDate = startDate ? new Date(startDate) : new Date();
+  const parsedStartDate = startDate ? new Date(startDate) : null;
   const parsedEndDate = endDate ? new Date(endDate) : null;
 
   const options = useMemo<IBookOption[]>(

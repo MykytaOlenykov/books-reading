@@ -11,7 +11,7 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  startDate: null,
+  startDate: new Date().toString(),
   endDate: null,
   books: [],
   plan: null,
