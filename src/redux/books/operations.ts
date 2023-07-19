@@ -1,6 +1,5 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { $api } from "services";
-import { errorObjectCreator } from "utils";
+import { errorObjectCreator, createAppAsyncThunk } from "utils";
 import { errorTypes } from "constants/";
 import { IBook, IFetchBooksResponse } from "types";
 
@@ -10,7 +9,7 @@ export const fetchBooks = async (): Promise<IFetchBooksResponse> => {
   return data;
 };
 
-export const addBook = createAsyncThunk<
+export const addBook = createAppAsyncThunk<
   IBook,
   Omit<IBook, "_id" | "pagesFinished">
 >("books/addBook", async (data, { rejectWithValue }) => {
@@ -23,13 +22,13 @@ export const addBook = createAsyncThunk<
       errorObjectCreator({
         error,
         type: errorTypes.addBook,
-        isCheckSessionEnd: true,
+        checkSessionEnd: true,
       })
     );
   }
 });
 
-export const deleteBook = createAsyncThunk<string, string>(
+export const deleteBook = createAppAsyncThunk<string, string>(
   "books/deleteBook",
   async (id, { rejectWithValue }) => {
     try {
@@ -41,7 +40,7 @@ export const deleteBook = createAsyncThunk<string, string>(
         errorObjectCreator({
           error,
           type: errorTypes.deleteBook,
-          isCheckSessionEnd: true,
+          checkSessionEnd: true,
         })
       );
     }

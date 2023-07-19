@@ -28,6 +28,8 @@ export const theme = {
     disabledDay: "#A6ABB9",
     inRangeDay: "#f98233",
     inSelectingRangeDay: "#fab88c",
+    scrollbar: "rgba(177, 181, 194, 0.25)",
+    scrollbarThumb: "#b1b5c2",
   },
   fontFamily: {
     primary: "Montserrat",

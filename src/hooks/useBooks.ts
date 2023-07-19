@@ -6,17 +6,17 @@ import {
   selectError,
   selectIsError,
   selectIsAdding,
+  selectIsDeleting,
   selectIsFirstVisit,
 } from "redux/books/selectors";
 
-export const useBooks = () => {
-  return {
-    goingToRead: useAppSelector(selectGoingToRead),
-    currentlyReading: useAppSelector(selectCurrentlyReading),
-    finishedReading: useAppSelector(selectFinishedReading),
-    error: useAppSelector(selectError),
-    isError: useAppSelector(selectIsError),
-    isAdding: useAppSelector(selectIsAdding),
-    isFirstVisit: useAppSelector(selectIsFirstVisit),
-  };
-};
+export const useBooks = () => ({
+  goingToRead: useAppSelector(selectGoingToRead),
+  currentlyReading: useAppSelector(selectCurrentlyReading),
+  finishedReading: useAppSelector(selectFinishedReading),
+  error: useAppSelector(selectError),
+  isError: useAppSelector(selectIsError),
+  isAdding: useAppSelector(selectIsAdding),
+  isDeleting: useAppSelector(selectIsDeleting),
+  isFirstVisit: useAppSelector(selectIsFirstVisit),
+});

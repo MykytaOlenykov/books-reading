@@ -12,9 +12,13 @@ export const BookCard = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     gap: 12px;
-    padding: 20px 0;
+    padding: 14px 0;
 
     border: none;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    padding: 16px 0;
   }
 `;
 

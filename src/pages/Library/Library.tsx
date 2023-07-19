@@ -4,13 +4,24 @@ import { PrimaryContainer } from "components/Common.styled";
 import { BookAddSection } from "components/BookAddSection";
 import { BooksList } from "components/BooksList";
 import { RedirectBtn } from "components/RedirectBtn";
-import { useResizeScreen, useBooks } from "hooks";
+import { deleteBook } from "redux/books/operations";
+import { useResizeScreen, useBooks, useAppDispatch } from "hooks";
 import * as S from "./Library.styled";
 
 const Library: React.FC = () => {
   const { isMobile } = useResizeScreen();
-  const { goingToRead, currentlyReading, finishedReading, isFirstVisit } =
-    useBooks();
+  const {
+    goingToRead,
+    currentlyReading,
+    finishedReading,
+    isFirstVisit,
+    isDeleting,
+  } = useBooks();
+  const dispatch = useAppDispatch();
+
+  const handleDeleteBook = (bookId: string): void => {
+    dispatch(deleteBook(bookId));
+  };
 
   return (
     <main>
@@ -46,6 +57,8 @@ const Library: React.FC = () => {
             title="Маю намір прочитати"
             status="goingToRead"
             books={goingToRead}
+            onDeleteBook={handleDeleteBook}
+            isDeleting={isDeleting}
           />
         )}
       </PrimaryContainer>

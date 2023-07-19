@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { HiddenComponent } from "components/HiddenComponent";
 import { Scoreboard } from "components/Scoreboard";
 import { BooksList } from "components/BooksList";
 import { StatisticsChart } from "components/StatisticsChart";
 import { RedirectBtn } from "components/RedirectBtn";
 import { BookSelectSection } from "components/BookSelectSection";
-import { useResizeScreen } from "hooks";
+import { deleteBook } from "redux/planning/slice";
+import { useAppDispatch, useBooks, usePlanning, useResizeScreen } from "hooks";
+import { IBook } from "types";
 import * as S from "./Training.styled";
 
 const Training: React.FC = () => {
   const { isMobile, isDesktop } = useResizeScreen();
+  const { goingToRead, currentlyReading } = useBooks();
+  const { books } = usePlanning();
+  const dispatch = useAppDispatch();
+
+  const visibledBooks = useMemo<IBook[]>(
+    () =>
+      [...goingToRead, ...currentlyReading].filter((book) =>
+        books.includes(book._id)
+      ),
+    [goingToRead, currentlyReading, books]
+  );
+
+  const handleDeleteBook = (bookId: string): void => {
+    dispatch(deleteBook(bookId));
+  };
 
   return (
     <S.Main>
@@ -29,7 +46,12 @@ const Training: React.FC = () => {
             <BookSelectSection />
           )}
 
-          <BooksList status="training" books={[]} isPlaceholder />
+          <BooksList
+            status="training"
+            books={visibledBooks}
+            isPlaceholder
+            onDeleteBook={handleDeleteBook}
+          />
 
           <StatisticsChart />
         </div>

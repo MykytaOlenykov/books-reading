@@ -1,4 +1,4 @@
-import { AnyAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { addBook, deleteBook } from "./operations";
 import { IBook, IError, IFetchBooksResponse } from "types";
@@ -10,6 +10,7 @@ export interface IInitialState {
   error: IError;
   isError: boolean;
   isAdding: boolean;
+  isDeleting: string[];
 }
 
 const initialState: IInitialState = {
@@ -19,6 +20,7 @@ const initialState: IInitialState = {
   error: { message: null, status: null, type: null },
   isError: false,
   isAdding: false,
+  isDeleting: [],
 };
 
 export const booksSlice = createSlice({
@@ -37,7 +39,7 @@ export const booksSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addBook.fulfilled, (state, action: PayloadAction<IBook>) => {
+      .addCase(addBook.fulfilled, (state, action) => {
         state.goingToRead = [...state.goingToRead, action.payload];
         state.isAdding = false;
       })
@@ -46,23 +48,40 @@ export const booksSlice = createSlice({
         state.isError = false;
         state.error = { message: null, status: null, type: null };
       })
-      .addCase(addBook.rejected, (state, action: AnyAction) => {
+      .addCase(addBook.rejected, (state, action) => {
         state.isAdding = false;
         state.isError = true;
-        state.error = action.payload;
+        state.error = action.payload ?? {
+          message: null,
+          status: null,
+          type: null,
+        };
       })
-      .addCase(deleteBook.fulfilled, (state, action: PayloadAction<string>) => {
+      .addCase(deleteBook.fulfilled, (state, action) => {
+        const idx = state.isDeleting.findIndex(
+          (bookId) => bookId === action.payload
+        );
+        state.isDeleting.splice(idx, 1);
         state.goingToRead = state.goingToRead.filter(
           ({ _id }) => _id !== action.payload
         );
       })
-      .addCase(deleteBook.pending, (state) => {
+      .addCase(deleteBook.pending, (state, action) => {
+        state.isDeleting.push(action.meta.arg);
         state.isError = false;
         state.error = { message: null, status: null, type: null };
       })
-      .addCase(deleteBook.rejected, (state, action: AnyAction) => {
+      .addCase(deleteBook.rejected, (state, action) => {
+        const idx = state.isDeleting.findIndex(
+          (bookId) => bookId === action.meta.arg
+        );
+        state.isDeleting.splice(idx, 1);
         state.isError = true;
-        state.error = action.payload;
+        state.error = action.payload ?? {
+          message: null,
+          status: null,
+          type: null,
+        };
       });
   },
 });

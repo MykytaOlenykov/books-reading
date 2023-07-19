@@ -27,7 +27,9 @@ export const RegisterForm: React.FC = () => {
     resolver: yupResolver(registerSchema),
   });
   const dispatch = useAppDispatch();
-  const { isLoading } = useAuth();
+  const {
+    isLoading: { register: isDisabled },
+  } = useAuth();
 
   const onSubmit: SubmitHandler<FormData> = ({ name, email, password }) => {
     const normalizedName = name.trim();
@@ -82,7 +84,7 @@ export const RegisterForm: React.FC = () => {
         )}
       </S.Label>
 
-      <S.Button type="submit" disabled={isLoading}>
+      <S.Button type="submit" disabled={isDisabled}>
         Зареєструватися
       </S.Button>
 

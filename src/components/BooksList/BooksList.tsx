@@ -11,6 +11,8 @@ interface IProps {
   books: IBook[];
   title?: string;
   isPlaceholder?: boolean;
+  isDeleting?: string[] | undefined;
+  onDeleteBook?: (bookId: string) => void;
 }
 
 export const BooksList: React.FC<IProps> = ({
@@ -18,8 +20,12 @@ export const BooksList: React.FC<IProps> = ({
   status,
   books,
   isPlaceholder = false,
+  isDeleting,
+  onDeleteBook,
 }) => {
   const { isMobile } = useResizeScreen();
+
+  const isShowPlaceholder = isPlaceholder && books.length === 0 && isMobile;
 
   return (
     <S.Section className={status}>
@@ -27,10 +33,15 @@ export const BooksList: React.FC<IProps> = ({
 
       <BooksListHeader status={status} />
 
-      <S.List>
+      <S.List $isShowPlaceholder={isShowPlaceholder}>
         {books.map((book) => (
           <S.Item key={book._id}>
-            <BookCard book={book} status={status} />
+            <BookCard
+              book={book}
+              status={status}
+              isDeleting={isDeleting}
+              onDeleteBook={onDeleteBook}
+            />
           </S.Item>
         ))}
         {isPlaceholder && !isMobile && (
@@ -40,7 +51,7 @@ export const BooksList: React.FC<IProps> = ({
         )}
       </S.List>
 
-      {isPlaceholder && isMobile && <BookPlaceholder />}
+      {isShowPlaceholder && <BookPlaceholder />}
     </S.Section>
   );
 };

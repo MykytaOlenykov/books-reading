@@ -1,5 +1,3 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { isAxiosError } from "axios";
 import { fetchBooks } from "redux/books/operations";
 import { setBooks } from "redux/books/slice";
 import { AppDispatch } from "redux/store";
@@ -9,11 +7,11 @@ import {
   clearApiAuthHeader,
   $refreshApi,
 } from "services";
-import { errorObjectCreator } from "utils";
+import { errorObjectCreator, createAppAsyncThunk } from "utils";
 import { storageKeys } from "constants/";
 import { IAuthRequest, IAuthResponse, IRefreshResponse, IUser } from "types";
 
-export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
+export const register = createAppAsyncThunk<NonNullable<IUser>, IAuthRequest>(
   "auth/register",
   async (credentials, { rejectWithValue }) => {
     try {
@@ -29,10 +27,9 @@ export const register = createAsyncThunk<NonNullable<IUser>, IAuthRequest>(
   }
 );
 
-export const logIn = createAsyncThunk<
+export const logIn = createAppAsyncThunk<
   IAuthResponse["userData"],
-  Omit<IAuthRequest, "name">,
-  { dispatch: AppDispatch }
+  Omit<IAuthRequest, "name">
 >("auth/logIn", async (credentials, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await $api.post<IAuthResponse>(
@@ -53,21 +50,11 @@ export const logIn = createAsyncThunk<
 
     return data.userData;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue({
-        message: error.message,
-        status: error.response?.status,
-      });
-    }
-
-    return rejectWithValue({
-      message: "Server Error",
-      status: 500,
-    });
+    return rejectWithValue(errorObjectCreator({ error }));
   }
 });
 
-export const logOut = createAsyncThunk<void, void>(
+export const logOut = createAppAsyncThunk<void, void>(
   "auth/logOut",
   async (_, { rejectWithValue }) => {
     try {
@@ -77,22 +64,14 @@ export const logOut = createAsyncThunk<void, void>(
 
       clearApiAuthHeader();
     } catch (error) {
-      if (isAxiosError(error)) {
-        return rejectWithValue({
-          message: error.message,
-          status: error.response?.status,
-        });
-      }
-
-      return rejectWithValue({
-        message: "Server Error",
-        status: 500,
-      });
+      return rejectWithValue(
+        errorObjectCreator({ error, checkSessionEnd: true })
+      );
     }
   }
 );
 
-export const refreshUser = createAsyncThunk<
+export const refreshUser = createAppAsyncThunk<
   IAuthResponse["userData"],
   void,
   { dispatch: AppDispatch }
@@ -119,16 +98,6 @@ export const refreshUser = createAsyncThunk<
 
     return userData;
   } catch (error) {
-    if (isAxiosError(error)) {
-      return rejectWithValue({
-        message: error.message,
-        status: error.response?.status,
-      });
-    }
-
-    return rejectWithValue({
-      message: "Server Error",
-      status: 500,
-    });
+    return rejectWithValue(errorObjectCreator({ error }));
   }
 });

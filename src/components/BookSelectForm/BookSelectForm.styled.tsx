@@ -1,16 +1,23 @@
-import Select, { Props as SelectProps } from "react-select";
 import styled from "styled-components";
-import { IBookOption } from "types";
 import { SecondaryButton } from "components/Common.styled";
 
-export const Form = styled.form`
+export const FormContainer = styled.div`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     flex-wrap: wrap;
   }
 `;
 
-export const InputContainer = styled.div`
+export const Form = styled.form`
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    flex-grow: 1;
+  }
+`;
+
+export const DatePickerContainer = styled.div`
   margin-bottom: 20px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -29,7 +36,7 @@ export const InputContainer = styled.div`
   }
 `;
 
-export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
+export const SelectContainer = styled.div`
   & .select__control {
     min-height: 42px;
 
@@ -113,11 +120,11 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
   & .select__menu-list {
     &::-webkit-scrollbar {
       width: 5px;
-      background-color: rgba(177, 181, 194, 0.25);
+      background-color: ${({ theme }) => theme.colors.scrollbar};
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: #b1b5c2;
+      background-color: ${({ theme }) => theme.colors.scrollbarThumb};
       border-radius: 0;
     }
   }
@@ -129,6 +136,7 @@ export const FormSelect = styled(Select)<SelectProps<IBookOption>>`
     color: ${({ theme }) => theme.colors.primary};
 
     overflow-wrap: break-word;
+    white-space: pre-wrap;
 
     border-top: 1px solid ${({ theme }) => theme.colors.line};
     cursor: pointer;
@@ -164,6 +172,7 @@ export const ErrorText = styled.span`
 export const Button = styled(SecondaryButton)`
   margin-top: 32px;
   min-width: 172px;
+  min-height: 42px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin: 0 0 0 auto;

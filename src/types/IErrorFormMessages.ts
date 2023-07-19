@@ -42,4 +42,7 @@ export interface IErrorFormMessages {
     maxValue: string;
     required: string;
   }>;
+  book: Readonly<{
+    required: string;
+  }>;
 }

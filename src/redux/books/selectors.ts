@@ -15,6 +15,8 @@ export const selectIsError = (state: RootState) => state.books.isError;
 
 export const selectIsAdding = (state: RootState) => state.books.isAdding;
 
+export const selectIsDeleting = (state: RootState) => state.books.isDeleting;
+
 export const selectIsFirstVisit = createSelector(
   [selectGoingToRead, selectCurrentlyReading, selectFinishedReading],
   (goingToRead, currentlyReading, finishedReading) =>

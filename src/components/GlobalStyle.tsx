@@ -7,6 +7,11 @@ interface IProps {
 }
 
 export const GlobalStyle = createGlobalStyle<IProps>`
+  html {
+    width: 100vw;
+    overflow-x: hidden;
+  }
+
   h1,
   h2,
   h3,

@@ -9,7 +9,10 @@ import * as S from "./UserMenu.styled";
 
 export const UserMenu: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, isError } = useAuth();
+  const {
+    isLoading: { logOut: isDisabled },
+    isError,
+  } = useAuth();
   const { isMobile } = useResizeScreen();
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export const UserMenu: React.FC = () => {
   return (
     <S.Container>
       {isMobile && <UserLabel />}
-      <S.LogOutBtn onClick={handleLogOut} type="button" disabled={isLoading}>
+      <S.LogOutBtn onClick={handleLogOut} type="button" disabled={isDisabled}>
         Вихід
       </S.LogOutBtn>
     </S.Container>

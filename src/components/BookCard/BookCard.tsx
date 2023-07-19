@@ -1,46 +1,54 @@
 import React from "react";
-import { useAppDispatch } from "hooks";
-import { deleteBook } from "redux/books/operations";
+import { BookTitle } from "components/BookTitle";
+import { BookData } from "components/BookData";
+import { usePlanning } from "hooks";
 import { IBook, IBooksStatuses } from "types";
 import * as S from "./BookCard.styled";
 
 interface IProps {
   book: IBook;
   status: IBooksStatuses;
+  isDeleting?: string[] | undefined;
+  onDeleteBook?: (bookId: string) => void;
 }
 
-export const BookCard: React.FC<IProps> = ({ book, status }) => {
+export const BookCard: React.FC<IProps> = ({
+  book,
+  status,
+  isDeleting = [],
+  onDeleteBook,
+}) => {
   const { _id, title, author, publishYear, pagesTotal } = book;
-  const dispatch = useAppDispatch();
+  const { books } = usePlanning();
 
-  const handleDeleteBook = (): void => {
-    dispatch(deleteBook(_id));
+  const isShowBtn =
+    status === "goingToRead" ? !books.includes(_id) : status === "training";
+
+  const isDisabled = isDeleting.includes(_id);
+
+  const handleDeleteBook = () => {
+    onDeleteBook?.(_id);
   };
 
   return (
-    <S.Card>
+    <S.Card className={status}>
       <S.BookIcon />
 
-      <S.CardTitle>{title}</S.CardTitle>
-      <S.List>
-        <S.Item>
-          <S.Title>Автор:</S.Title>
-          <S.Descr>{author}</S.Descr>
-        </S.Item>
+      <BookTitle status={status} title={title} />
 
-        <S.Item>
-          <S.Title>Рік:</S.Title>
-          <S.Descr>{publishYear}</S.Descr>
-        </S.Item>
+      <BookData
+        status={status}
+        author={author}
+        publishYear={publishYear}
+        pagesTotal={pagesTotal}
+      />
 
-        <S.Item>
-          <S.Title>Стор.:</S.Title>
-          <S.Descr>{pagesTotal}</S.Descr>
-        </S.Item>
-      </S.List>
-
-      {status === "goingToRead" && (
-        <S.Button type="button" onClick={handleDeleteBook}>
+      {isShowBtn && (
+        <S.Button
+          type="button"
+          onClick={handleDeleteBook}
+          disabled={isDisabled}
+        >
           <S.BtnIcon />
         </S.Button>
       )}

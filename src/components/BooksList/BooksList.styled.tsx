@@ -25,16 +25,47 @@ export const Title = styled.h2`
   }
 `;
 
-export const List = styled.ul`
+export const List = styled.ul<{
+  $isShowPlaceholder: boolean;
+}>`
   .training & {
+    border-top: ${({ theme, $isShowPlaceholder }) =>
+      $isShowPlaceholder ? "none" : `1px solid ${theme.colors.line}`};
+    border-bottom: ${({ theme, $isShowPlaceholder }) =>
+      $isShowPlaceholder ? "none" : `1px solid ${theme.colors.line}`};
+
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      max-height: calc(54px * 4);
+      border-top: none;
       border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+        background-color: ${({ theme }) => theme.colors.scrollbar};
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: ${({ theme }) => theme.colors.scrollbarThumb};
+        border-radius: 0;
+      }
     }
   }
 `;
 
 export const Item = styled.li`
-  &:not(:last-child) {
-    margin-bottom: 16px;
+  .goingToRead &,
+  .currentlyReading &,
+  .finishedReading & {
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  .training & {
+    &:not(:last-child) {
+      border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+    }
   }
 `;

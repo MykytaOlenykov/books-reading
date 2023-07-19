@@ -17,7 +17,9 @@ type FormData = yup.InferType<typeof logInSchema>;
 
 export const LogInForm: React.FC = () => {
   const { state } = useLocation();
-  const { isLoading } = useAuth();
+  const {
+    isLoading: { logIn: isDisabled },
+  } = useAuth();
   const {
     register,
     handleSubmit,
@@ -62,7 +64,7 @@ export const LogInForm: React.FC = () => {
         )}
       </S.Label>
 
-      <S.Button type="submit" disabled={isLoading}>
+      <S.Button type="submit" disabled={isDisabled}>
         Увійти
       </S.Button>
 

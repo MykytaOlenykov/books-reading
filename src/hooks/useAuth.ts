@@ -9,14 +9,12 @@ import {
   selectIsRefreshing,
 } from "redux/auth/selectors";
 
-export const useAuth = () => {
-  return {
-    userData: useAppSelector(selectUserData),
-    error: useAppSelector(selectError),
-    isRegistered: useAppSelector(selectIsRegistered),
-    isLoggedIn: useAppSelector(selectIsLoggedIn),
-    isError: useAppSelector(selectIsError),
-    isLoading: useAppSelector(selectIsLoading),
-    isRefreshing: useAppSelector(selectIsRefreshing),
-  };
-};
+export const useAuth = () => ({
+  userData: useAppSelector(selectUserData),
+  error: useAppSelector(selectError),
+  isRegistered: useAppSelector(selectIsRegistered),
+  isLoggedIn: useAppSelector(selectIsLoggedIn),
+  isError: useAppSelector(selectIsError),
+  isLoading: useAppSelector(selectIsLoading),
+  isRefreshing: useAppSelector(selectIsRefreshing),
+});

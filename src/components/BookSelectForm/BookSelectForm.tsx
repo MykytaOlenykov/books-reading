@@ -1,9 +1,11 @@
 import React, { useMemo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import Select from "react-select";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerLocale } from "react-datepicker";
 import { CustomDatePicker } from "components/CustomDatePicker";
-import { useBooks } from "hooks";
+import { changeStartDate, changeEndDate, addBook } from "redux/planning/slice";
+import { useBooks, usePlanning, useAppDispatch } from "hooks";
 import { selectBookSchema } from "schemas";
 import { IBookOption } from "types";
 import * as S from "./BookSelectForm.styled";
@@ -13,113 +15,130 @@ registerLocale("uk", uk);
 
 const initialValues = {
   book: "",
-  startDate: undefined,
-  endDate: undefined,
 };
 
 type FormData = {
   book: string;
-  startDate: Date;
-  endDate: Date;
 };
 
 export const BookSelectForm: React.FC = () => {
   const {
     handleSubmit,
     control,
-    watch,
+    reset,
     formState: { errors },
+    watch,
   } = useForm<FormData>({
     defaultValues: initialValues,
     resolver: yupResolver(selectBookSchema),
   });
-  const { goingToRead } = useBooks();
+  const { goingToRead, currentlyReading } = useBooks();
+  const { startDate, endDate, books } = usePlanning();
+  const dispatch = useAppDispatch();
+
+  const parsedStartDate = startDate ? new Date(startDate) : null;
+  const parsedEndDate = endDate ? new Date(endDate) : null;
 
   const options = useMemo<IBookOption[]>(
     () =>
-      goingToRead.map((book) => ({
-        value: book._id,
-        label: book.title,
-      })),
-    [goingToRead]
+      [...goingToRead, ...currentlyReading]
+        .map((book) => ({
+          value: book._id,
+          label: `Назва книги: ${book.title}\nАвтор: ${book.author}`,
+        }))
+        .filter((option) => !books.includes(option.value)),
+    [goingToRead, currentlyReading, books]
   );
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const selectedOption: IBookOption | null = (() => {
+    const value = watch("book");
+
+    const option = options.find((option) => {
+      return option.value === value;
+    });
+
+    const normalizedLabel =
+      option?.label.replace("Назва книги: ", "").split("\n")[0] ?? "";
+
+    const newOption: IBookOption = {
+      label: normalizedLabel,
+      value: option?.value ?? "",
+    };
+
+    return option ? newOption : null;
+  })();
+
+  const onSubmit: SubmitHandler<FormData> = ({ book }) => {
+    dispatch(addBook(book));
+    reset();
+  };
+
+  const handleChangeStartDate = (date: Date | null): void => {
+    if (date && parsedEndDate && date > parsedEndDate) {
+      dispatch(changeEndDate(null));
+    }
+
+    dispatch(changeStartDate(date?.toString() ?? null));
+  };
+
+  const handleChangeEndDate = (date: Date | null): void => {
+    dispatch(changeEndDate(date?.toString() ?? null));
   };
 
   return (
-    <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        control={control}
-        name="startDate"
-        render={({ field: { onChange, value } }) => (
-          <S.InputContainer className="startDate">
-            <CustomDatePicker
-              locale="uk"
-              dateFormat="dd.MM.yyyy"
-              onChange={onChange}
-              selected={value}
-              startDate={watch("startDate")}
-              endDate={watch("endDate")}
-              minDate={new Date()}
-              selectsStart
-              placeholderText="Початок"
-            />
+    <S.FormContainer>
+      <S.DatePickerContainer className="startDate">
+        <CustomDatePicker
+          locale="uk"
+          dateFormat="dd.MM.yyyy"
+          onChange={handleChangeStartDate}
+          selected={parsedStartDate}
+          startDate={parsedStartDate}
+          endDate={parsedEndDate}
+          minDate={parsedStartDate}
+          selectsStart
+          placeholderText="Початок"
+        />
+      </S.DatePickerContainer>
 
-            {errors.startDate && (
-              <S.ErrorText>{errors.startDate?.message}</S.ErrorText>
-            )}
-          </S.InputContainer>
-        )}
-      />
-      <Controller
-        control={control}
-        name="endDate"
-        render={({ field: { onChange, value } }) => (
-          <S.InputContainer>
-            <CustomDatePicker
-              locale="uk"
-              dateFormat="dd.MM.yyyy"
-              onChange={onChange}
-              selected={value}
-              startDate={watch("startDate")}
-              endDate={watch("endDate")}
-              minDate={watch("startDate")}
-              selectsEnd
-              placeholderText="Завершення"
-            />
+      <S.DatePickerContainer>
+        <CustomDatePicker
+          locale="uk"
+          dateFormat="dd.MM.yyyy"
+          onChange={handleChangeEndDate}
+          selected={parsedEndDate}
+          startDate={parsedStartDate}
+          endDate={parsedEndDate}
+          minDate={parsedStartDate}
+          selectsEnd
+          placeholderText="Завершення"
+        />
+      </S.DatePickerContainer>
 
-            {errors.startDate && (
-              <S.ErrorText>{errors.startDate?.message}</S.ErrorText>
-            )}
-          </S.InputContainer>
-        )}
-      />
+      <S.Form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          control={control}
+          name="book"
+          render={({ field: { onChange, ref } }) => (
+            <S.SelectContainer>
+              <Select
+                ref={ref}
+                classNamePrefix="select"
+                onChange={(selectedOption) => onChange(selectedOption?.value)}
+                options={options}
+                value={selectedOption}
+                isClearable
+                placeholder="Обрати книги з бібліотеки"
+                noOptionsMessage={() => "Немає доступних книг"}
+              />
 
-      <Controller
-        control={control}
-        name="book"
-        render={({ field: { onChange, value, ref } }) => (
-          <>
-            <S.FormSelect
-              ref={ref}
-              classNamePrefix="select"
-              onChange={onChange}
-              options={options}
-              value={options.find((c) => c.value === value)}
-              isClearable
-              placeholder="Обрати книги з бібліотеки"
-              noOptionsMessage={() => "Немає доступних книг"}
-            />
+              {errors.book && <S.ErrorText>{errors.book?.message}</S.ErrorText>}
+            </S.SelectContainer>
+          )}
+        />
 
-            {errors.book && <S.ErrorText>{errors.book?.message}</S.ErrorText>}
-          </>
-        )}
-      />
-      <S.Button type="submit" disabled={false}>
-        Додати
-      </S.Button>
-    </S.Form>
+        <S.Button type="submit">Додати</S.Button>
+      </S.Form>
+    </S.FormContainer>
   );
 };

@@ -33,6 +33,8 @@ declare module "styled-components" {
       disabledDay: string;
       inRangeDay: string;
       inSelectingRangeDay: string;
+      scrollbar: string;
+      scrollbarThumb: string;
     }>;
     readonly fontFamily: Readonly<{
       primary: string;
