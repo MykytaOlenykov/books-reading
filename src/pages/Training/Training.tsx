@@ -1,10 +1,12 @@
 import React, { useMemo } from "react";
 import { HiddenComponent } from "components/HiddenComponent";
+import { TrainingSidebar } from "components/TrainingSidebar";
 import { Scoreboard } from "components/Scoreboard";
 import { BooksList } from "components/BooksList";
 import { StatisticsChart } from "components/StatisticsChart";
 import { RedirectBtn } from "components/RedirectBtn";
 import { BookSelectSection } from "components/BookSelectSection";
+import { StartTrainingButton } from "components/StartTrainingButton";
 import { deleteBook } from "redux/planning/slice";
 import { useAppDispatch, useBooks, usePlanning, useResizeScreen } from "hooks";
 import { IBook } from "types";
@@ -53,14 +55,12 @@ const Training: React.FC = () => {
             onDeleteBook={handleDeleteBook}
           />
 
+          {visibledBooks.length !== 0 && <StartTrainingButton />}
+
           <StatisticsChart />
         </div>
 
-        {isDesktop && (
-          <S.Aside>
-            <Scoreboard />
-          </S.Aside>
-        )}
+        {isDesktop && <TrainingSidebar />}
       </S.Container>
     </S.Main>
   );

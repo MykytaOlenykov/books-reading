@@ -1,15 +1,21 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { addPlan } from "./operations";
+import { IPlan } from "types";
 
 interface IInitialState {
   startDate: string | null;
   endDate: string | null;
   books: string[];
+  plan: IPlan | null;
+  isAdding: boolean;
 }
 
 const initialState: IInitialState = {
-  startDate: new Date().toString(),
+  startDate: null,
   endDate: null,
   books: [],
+  plan: null,
+  isAdding: false,
 };
 
 const planningSlice = createSlice({
@@ -34,6 +40,14 @@ const planningSlice = createSlice({
       state.endDate = null;
       state.books = [];
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      addPlan.fulfilled,
+      (state, action: PayloadAction<IPlan>) => {
+        state.plan = action.payload;
+      }
+    );
   },
 });
 

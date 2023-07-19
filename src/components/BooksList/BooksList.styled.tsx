@@ -25,19 +25,14 @@ export const Title = styled.h2`
   }
 `;
 
-export const List = styled.ul<{
-  $isShowPlaceholder: boolean;
-}>`
+export const List = styled.ul`
   .training & {
-    border-top: ${({ theme, $isShowPlaceholder }) =>
-      $isShowPlaceholder ? "none" : `1px solid ${theme.colors.line}`};
-    border-bottom: ${({ theme, $isShowPlaceholder }) =>
-      $isShowPlaceholder ? "none" : `1px solid ${theme.colors.line}`};
+    border-top: 1px solid ${({ theme }) => theme.colors.line};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.line};
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       max-height: calc(54px * 4);
       border-top: none;
-      border-bottom: 1px solid ${({ theme }) => theme.colors.line};
 
       overflow-y: scroll;
 

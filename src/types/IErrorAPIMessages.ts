@@ -1,7 +1,7 @@
 export interface IErrorAPIMessages {
-  403: string;
-  409: string;
-  books_409: string;
+  logIn_403: string;
+  register_409: string;
+  addBook_409: string;
   common: string;
   endOfSession: string;
 }

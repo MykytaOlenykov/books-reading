@@ -6,15 +6,10 @@ export const BookCard = styled.div`
 
   padding: 32px 40px;
 
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
-
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     gap: 12px;
     padding: 14px 0;
-
-    border: none;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {

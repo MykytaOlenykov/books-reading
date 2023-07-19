@@ -8,7 +8,7 @@ import {
   $refreshApi,
 } from "services";
 import { errorObjectCreator, createAppAsyncThunk } from "utils";
-import { storageKeys } from "constants/";
+import { errorTypes, storageKeys } from "constants/";
 import { IAuthRequest, IAuthResponse, IRefreshResponse, IUser } from "types";
 
 export const register = createAppAsyncThunk<NonNullable<IUser>, IAuthRequest>(
@@ -22,7 +22,9 @@ export const register = createAppAsyncThunk<NonNullable<IUser>, IAuthRequest>(
 
       return data;
     } catch (error) {
-      return rejectWithValue(errorObjectCreator({ error }));
+      return rejectWithValue(
+        errorObjectCreator({ error, type: errorTypes.register })
+      );
     }
   }
 );
@@ -50,7 +52,9 @@ export const logIn = createAppAsyncThunk<
 
     return data.userData;
   } catch (error) {
-    return rejectWithValue(errorObjectCreator({ error }));
+    return rejectWithValue(
+      errorObjectCreator({ error, type: errorTypes.logIn })
+    );
   }
 });
 
@@ -65,7 +69,11 @@ export const logOut = createAppAsyncThunk<void, void>(
       clearApiAuthHeader();
     } catch (error) {
       return rejectWithValue(
-        errorObjectCreator({ error, checkSessionEnd: true })
+        errorObjectCreator({
+          error,
+          type: errorTypes.logOut,
+          checkSessionEnd: true,
+        })
       );
     }
   }
@@ -98,6 +106,8 @@ export const refreshUser = createAppAsyncThunk<
 
     return userData;
   } catch (error) {
-    return rejectWithValue(errorObjectCreator({ error }));
+    return rejectWithValue(
+      errorObjectCreator({ error, type: errorTypes.refresh })
+    );
   }
 });

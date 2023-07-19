@@ -36,7 +36,7 @@ export const BookSelectForm: React.FC = () => {
   const { startDate, endDate, books } = usePlanning();
   const dispatch = useAppDispatch();
 
-  const parsedStartDate = startDate ? new Date(startDate) : null;
+  const parsedStartDate = startDate ? new Date(startDate) : new Date();
   const parsedEndDate = endDate ? new Date(endDate) : null;
 
   const options = useMemo<IBookOption[]>(

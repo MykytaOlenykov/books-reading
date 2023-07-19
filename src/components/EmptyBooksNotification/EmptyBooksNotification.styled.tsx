@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Info = styled.p`
+export const Text = styled.p`
   padding: 40px 0;
 
   font-weight: 400;

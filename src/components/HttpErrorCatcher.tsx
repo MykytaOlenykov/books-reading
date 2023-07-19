@@ -8,7 +8,7 @@ import {
 import { clearData as clearPlanningData } from "redux/planning/slice";
 import { useAuth, useBooks, useAppDispatch } from "hooks";
 import { onRemoveTokens } from "utils";
-import { errorAPIMessages, errorTypes } from "constants/";
+import { errorTypes } from "constants/";
 
 export const HttpErrorCatcher: React.FC = () => {
   const { isError: isAuthError, error: authError } = useAuth();
@@ -16,27 +16,13 @@ export const HttpErrorCatcher: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAuthError) {
+    if (isAuthError && authError.type !== errorTypes.refresh) {
       if (authError.type === errorTypes.endOfSession) {
-        dispatch(clearAuthError());
         dispatch(endSession());
         onRemoveTokens();
-        return;
       }
 
-      if (authError.status === 409) {
-        toast.error(errorAPIMessages[authError.status]);
-        dispatch(clearAuthError());
-        return;
-      }
-
-      if (authError.status === 403) {
-        toast.error(errorAPIMessages[authError.status]);
-        dispatch(clearAuthError());
-        return;
-      }
-
-      toast.error(errorAPIMessages.common);
+      toast.error(authError.message);
       dispatch(clearAuthError());
     }
   }, [dispatch, isAuthError, authError]);
@@ -44,30 +30,14 @@ export const HttpErrorCatcher: React.FC = () => {
   useEffect(() => {
     if (isBooksError) {
       if (booksError.type === errorTypes.endOfSession) {
-        toast.error(errorAPIMessages.endOfSession);
-        dispatch(clearBooksError());
         dispatch(endSession());
         dispatch(clearBooksData());
         dispatch(clearPlanningData());
         onRemoveTokens();
-        return;
       }
 
-      if (booksError.type === errorTypes.addBook && booksError.status === 409) {
-        toast.error(errorAPIMessages.books_409);
-        dispatch(clearBooksError());
-        return;
-      }
-
-      if (
-        booksError.type === errorTypes.addBook ||
-        booksError.type === errorTypes.deleteBook ||
-        booksError.type === errorTypes.common
-      ) {
-        toast.error(errorAPIMessages.common);
-        dispatch(clearBooksError());
-        return;
-      }
+      toast.error(booksError.message);
+      dispatch(clearBooksError());
     }
   }, [dispatch, isBooksError, booksError]);
 

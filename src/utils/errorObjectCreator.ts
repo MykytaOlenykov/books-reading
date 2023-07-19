@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import { IError } from "types";
-import { errorTypes } from "constants/";
+import { errorAPIMessages, errorTypes } from "constants/";
 
 interface IErrorData {
   error: unknown;
@@ -13,25 +13,35 @@ export const errorObjectCreator = ({
   type = errorTypes.common,
   checkSessionEnd = false,
 }: IErrorData): NonNullable<IError> => {
-  if (isAxiosError(error)) {
-    if (checkSessionEnd && error.response?.status === 401) {
-      return {
-        message: error.message,
-        status: error.response?.status,
-        type: errorTypes.endOfSession,
-      };
-    }
-
+  if (!isAxiosError(error)) {
     return {
-      message: error.message,
+      message: errorAPIMessages.common,
+      status: 500,
+      type,
+    };
+  }
+
+  if (checkSessionEnd && error.response?.status === 401) {
+    return {
+      message: errorAPIMessages.endOfSession,
+      status: error.response?.status,
+      type: errorTypes.endOfSession,
+    };
+  }
+
+  const errorKey = `${type}_${error.response?.status ?? ""}`;
+
+  if (errorKey in errorAPIMessages) {
+    return {
+      message: errorAPIMessages[errorKey as keyof typeof errorAPIMessages],
       status: error.response?.status,
       type,
     };
   }
 
   return {
-    message: "Server Error",
-    status: 500,
+    message: errorAPIMessages.common,
+    status: error.response?.status,
     type,
   };
 };

@@ -25,7 +25,7 @@ export const BooksList: React.FC<IProps> = ({
 }) => {
   const { isMobile } = useResizeScreen();
 
-  const isShowPlaceholder = isPlaceholder && books.length === 0 && isMobile;
+  const isShowPlaceholder = isPlaceholder && (books.length === 0 || !isMobile);
 
   return (
     <S.Section className={status}>
@@ -33,7 +33,7 @@ export const BooksList: React.FC<IProps> = ({
 
       <BooksListHeader status={status} />
 
-      <S.List $isShowPlaceholder={isShowPlaceholder}>
+      <S.List>
         {books.map((book) => (
           <S.Item key={book._id}>
             <BookCard
@@ -44,14 +44,12 @@ export const BooksList: React.FC<IProps> = ({
             />
           </S.Item>
         ))}
-        {isPlaceholder && !isMobile && (
+        {isShowPlaceholder && (
           <S.Item>
             <BookPlaceholder />
           </S.Item>
         )}
       </S.List>
-
-      {isShowPlaceholder && <BookPlaceholder />}
     </S.Section>
   );
 };

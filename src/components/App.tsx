@@ -13,7 +13,7 @@ const RegisterPage = React.lazy(() => import("pages/Register"));
 
 const LogInPage = React.lazy(() => import("pages/LogIn"));
 
-const LibraryPage = React.lazy(() => import("pages/Library/Library"));
+const LibraryPage = React.lazy(() => import("pages/Library"));
 
 const TrainingPage = React.lazy(() => import("pages/Training/Training"));
 

@@ -1,9 +1,15 @@
 import React from "react";
+import { differenceInCalendarDays } from "date-fns";
 import { usePlanning } from "hooks";
 import * as S from "./Scoreboard.styled";
 
 export const Scoreboard: React.FC = () => {
-  const { books } = usePlanning();
+  const { books, startDate, endDate } = usePlanning();
+
+  const parsedStartDate = startDate ? new Date(startDate) : 0;
+  const parsedEndDate = endDate ? new Date(endDate) : parsedStartDate;
+
+  const days = differenceInCalendarDays(parsedEndDate, parsedStartDate);
 
   return (
     <S.Section>
@@ -21,7 +27,7 @@ export const Scoreboard: React.FC = () => {
 
           <li>
             <S.Counter>
-              <S.Value>0</S.Value>
+              <S.Value>{days}</S.Value>
             </S.Counter>
 
             <S.Descr>Кількість днів</S.Descr>

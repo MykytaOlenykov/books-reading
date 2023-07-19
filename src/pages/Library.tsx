@@ -4,9 +4,9 @@ import { PrimaryContainer } from "components/Common.styled";
 import { BookAddSection } from "components/BookAddSection";
 import { BooksList } from "components/BooksList";
 import { RedirectBtn } from "components/RedirectBtn";
+import { EmptyBooksNotification } from "components/EmptyBooksNotification";
 import { deleteBook } from "redux/books/operations";
 import { useResizeScreen, useBooks, useAppDispatch } from "hooks";
-import * as S from "./Library.styled";
 
 const Library: React.FC = () => {
   const { isMobile } = useResizeScreen();
@@ -30,9 +30,7 @@ const Library: React.FC = () => {
           <h1>Бібліотека книг</h1>
         </HiddenComponent>
 
-        {isMobile && isFirstVisit && (
-          <S.Info>Додайте книги, які маєте намір прочитати.</S.Info>
-        )}
+        {isMobile && isFirstVisit && <EmptyBooksNotification />}
 
         {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
 

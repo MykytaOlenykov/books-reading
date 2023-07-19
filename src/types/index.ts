@@ -8,6 +8,8 @@ export * from "./IFetchBooksResponse";
 export * from "./IErrorAPIMessages";
 export * from "./IErrorFormMessages";
 export * from "./IFormPatterns";
+export * from "./IPlan";
+export * from "./IPlanRequest";
 export * from "./IRefreshResponse";
 export * from "./IStorageKeys";
 export * from "./IUser";
