@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AppBar } from "components/AppBar";
 import { PageLoader } from "components/Loaders";
-import { ApiErrorCatcher } from "components/ApiErrorCatcher";
+import { HttpErrorCatcher } from "components/HttpErrorCatcher";
 import { GlobalStyle } from "components/GlobalStyle";
 import { clearIsRegistered } from "redux/auth/slice";
 import { useAppDispatch, useAuth } from "hooks";
@@ -32,7 +32,7 @@ export const Layout: React.FC = () => {
 
       <Toaster position="top-center" reverseOrder={false} />
 
-      <ApiErrorCatcher />
+      <HttpErrorCatcher />
 
       <AppBar />
 

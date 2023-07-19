@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { clearError as clearAuthError, endSession } from "redux/auth/slice";
-import { clearError as clearBooksError } from "redux/books/slice";
+import {
+  clearError as clearBooksError,
+  clearData as clearBooksData,
+} from "redux/books/slice";
+import { clearData as clearPlanningData } from "redux/planning/slice";
 import { useAuth, useBooks, useAppDispatch } from "hooks";
 import { onRemoveTokens } from "utils";
 import { errorAPIMessages, errorTypes } from "constants/";
 
-export const ApiErrorCatcher: React.FC = () => {
+export const HttpErrorCatcher: React.FC = () => {
   const { isError: isAuthError, error: authError } = useAuth();
   const { isError: isBooksError, error: booksError } = useBooks();
   const dispatch = useAppDispatch();
@@ -14,8 +18,7 @@ export const ApiErrorCatcher: React.FC = () => {
   useEffect(() => {
     if (isAuthError) {
       if (authError.type === errorTypes.endOfSession) {
-        toast.error(errorAPIMessages.endOfSession);
-        dispatch(clearBooksError());
+        dispatch(clearAuthError());
         dispatch(endSession());
         onRemoveTokens();
         return;
@@ -44,6 +47,8 @@ export const ApiErrorCatcher: React.FC = () => {
         toast.error(errorAPIMessages.endOfSession);
         dispatch(clearBooksError());
         dispatch(endSession());
+        dispatch(clearBooksData());
+        dispatch(clearPlanningData());
         onRemoveTokens();
         return;
       }

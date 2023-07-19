@@ -36,6 +36,11 @@ export const booksSlice = createSlice({
       state.error = { message: null, status: null, type: null };
       state.isError = false;
     },
+    clearData: (state) => {
+      state.goingToRead = [];
+      state.currentlyReading = [];
+      state.finishedReading = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -86,6 +91,6 @@ export const booksSlice = createSlice({
   },
 });
 
-export const { setBooks, clearError } = booksSlice.actions;
+export const { setBooks, clearError, clearData } = booksSlice.actions;
 
 export const booksReducer = booksSlice.reducer;

@@ -29,10 +29,20 @@ const planningSlice = createSlice({
       const idx = state.books.findIndex((bookId) => bookId === action.payload);
       state.books.splice(idx, 1);
     },
+    clearData: (state) => {
+      state.startDate = null;
+      state.endDate = null;
+      state.books = [];
+    },
   },
 });
 
-export const { changeStartDate, changeEndDate, addBook, deleteBook } =
-  planningSlice.actions;
+export const {
+  changeStartDate,
+  changeEndDate,
+  addBook,
+  deleteBook,
+  clearData,
+} = planningSlice.actions;
 
 export const planningReducer = planningSlice.reducer;

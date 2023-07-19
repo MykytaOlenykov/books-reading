@@ -111,7 +111,7 @@ export const authSlice = createSlice({
       .addCase(logIn.rejected, handleRejected)
       .addCase(logOut.fulfilled, (state) => {
         state.isLoggedIn = false;
-        state.isLoading.logIn = false;
+        state.isLoading.logOut = false;
         state.userData = {
           name: null,
           email: null,

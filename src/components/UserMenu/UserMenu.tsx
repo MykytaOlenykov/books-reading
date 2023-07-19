@@ -1,37 +1,40 @@
-import React, { useEffect } from "react";
-import { toast } from "react-hot-toast";
+import React, { useState } from "react";
+import { Modal } from "components/Modal";
 import { UserLabel } from "components/UserLabel";
-import { useAppDispatch, useAuth, useResizeScreen } from "hooks";
-import { logOut } from "redux/auth/operations";
-import { clearError } from "redux/auth/slice";
-import { errorAPIMessages } from "constants/";
+import { LogOut } from "components/LogOut";
+import { useAuth, useResizeScreen } from "hooks";
 import * as S from "./UserMenu.styled";
 
 export const UserMenu: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const {
     isLoading: { logOut: isDisabled },
-    isError,
   } = useAuth();
   const { isMobile } = useResizeScreen();
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(errorAPIMessages.common);
-      dispatch(clearError());
-    }
-  }, [isError, dispatch]);
+  const handleOpenModal = (): void => {
+    setIsOpenModal(true);
+  };
 
-  const handleLogOut = (): void => {
-    dispatch(logOut());
+  const handleCloseModal = (): void => {
+    setIsOpenModal(false);
   };
 
   return (
     <S.Container>
       {isMobile && <UserLabel />}
-      <S.LogOutBtn onClick={handleLogOut} type="button" disabled={isDisabled}>
+      <S.LogOutBtn
+        onClick={handleOpenModal}
+        type="button"
+        disabled={isDisabled}
+      >
         Вихід
       </S.LogOutBtn>
+      {isOpenModal && (
+        <Modal onCloseModal={handleCloseModal}>
+          <LogOut onCloseModal={handleCloseModal} />
+        </Modal>
+      )}
     </S.Container>
   );
 };

@@ -6,7 +6,7 @@ export const Backdrop = styled.div`
   left: 0;
 
   min-width: 310px;
-  width: 100%;
+  width: 100vw;
   height: 100%;
 
   pointer-events: none;

@@ -35,6 +35,7 @@ declare module "styled-components" {
       inSelectingRangeDay: string;
       scrollbar: string;
       scrollbarThumb: string;
+      backdrop: string;
     }>;
     readonly fontFamily: Readonly<{
       primary: string;
@@ -80,6 +81,9 @@ declare module "styled-components" {
       calendar: Readonly<{
         primary: string;
       }>;
+      modal: {
+        primary: string;
+      };
       common: Readonly<{
         primary: string;
       }>;
@@ -94,7 +98,8 @@ declare module "styled-components" {
       scoreboard: string;
       counter: string;
       title: string;
-      select: Select;
+      select: string;
+      modal: string;
     }>;
     readonly filter: Readonly<{
       btn: string;

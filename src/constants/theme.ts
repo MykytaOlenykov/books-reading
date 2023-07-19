@@ -30,6 +30,7 @@ export const theme = {
     inSelectingRangeDay: "#fab88c",
     scrollbar: "rgba(177, 181, 194, 0.25)",
     scrollbarThumb: "#b1b5c2",
+    backdrop: "rgba(43, 43, 43, 0.10)",
   },
   fontFamily: {
     primary: "Montserrat",
@@ -75,6 +76,9 @@ export const theme = {
     calendar: {
       primary: "12px",
     },
+    modal: {
+      primary: "16px",
+    },
     common: {
       primary: "14px",
     },
@@ -90,6 +94,7 @@ export const theme = {
     counter: "4px 4px 8px 0px rgba(36, 42, 55, 0.15)",
     title: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
     select: "0px 2px 4px 0px  rgba(0, 0, 0, 0.25)",
+    modal: "10px 10px 20px 0px rgba(9, 30, 63, 0.20)",
   },
   filter: {
     btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",
