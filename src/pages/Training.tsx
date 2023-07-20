@@ -47,7 +47,7 @@ const Training: React.FC = () => {
           onDeleteBook={handleDeleteBook}
         />
 
-        {visibledBooks.length !== 0 && <StartTrainingButton />}
+        {!!visibledBooks.length && <StartTrainingButton />}
 
         <StatisticsChart />
       </div>

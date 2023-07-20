@@ -33,10 +33,10 @@ export const theme = {
     backdrop: "rgba(43, 43, 43, 0.10)",
   },
   fontFamily: {
-    primary: "Montserrat",
-    secondary: "Open Sans",
-    logo: "Abril Fatface",
-    googleTextBtn: "Roboto",
+    primary: "'Montserrat', sans-serif",
+    secondary: "'Open Sans', sans-serif",
+    logo: "'Abril Fatface', serif",
+    googleTextBtn: "'Roboto', sans-serif",
   },
   fontSizes: {
     header: {

@@ -8,7 +8,7 @@ export const Section = styled.section`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    padding: 20px 0 0;
+    padding: 40px 0 0;
   }
 `;
 

@@ -1,6 +1,6 @@
-import { IErrorFormMessages } from "types";
+import { ISchemaErrorMessages } from "types";
 
-export const errorFormMessages: Readonly<IErrorFormMessages> = {
+export const schemaErrorMessages: Readonly<ISchemaErrorMessages> = {
   name: {
     minLength: "Ім'я повинно містити принаймні 2 символи.",
     maxLength: "Ім'я повинно містити не більше 255 символів.",
@@ -49,5 +49,18 @@ export const errorFormMessages: Readonly<IErrorFormMessages> = {
   },
   book: {
     required: "Виберіть книгу, яку бажаєте прочитати.",
+  },
+  books: {
+    min: "Необхідно обрати хоча б одну книгу.",
+    max: "Максимально доступна кількість книг у списку - 20",
+    required: "Список книг обов'язковий.",
+  },
+  startDate: {
+    test: "Мінімальна допустима дата початку тренування - сьогоднішня.",
+    required: "Дата початку тренування обов'язкова.",
+  },
+  endDate: {
+    test: "Тренування повинно тривати принаймні один день.",
+    required: "Дата завершення тренування обов'язкова",
   },
 };

@@ -53,6 +53,7 @@ const planningSlice = createSlice({
         duration: null,
         pagesPerDay: null,
       };
+      state.isActive = false;
     },
   },
   extraReducers: (builder) => {
@@ -61,6 +62,7 @@ const planningSlice = createSlice({
         addPlan.fulfilled,
         (state, action: PayloadAction<NonNullable<IPlan>>) => {
           state.data = action.payload;
+          state.isActive = true;
           state.isAdding = false;
         }
       )

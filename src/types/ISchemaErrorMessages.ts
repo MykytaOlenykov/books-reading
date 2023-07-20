@@ -1,4 +1,4 @@
-export interface IErrorFormMessages {
+export interface ISchemaErrorMessages {
   name: Readonly<{
     minLength: string;
     maxLength: string;
@@ -43,6 +43,19 @@ export interface IErrorFormMessages {
     required: string;
   }>;
   book: Readonly<{
+    required: string;
+  }>;
+  books: Readonly<{
+    min: string;
+    max: string;
+    required: string;
+  }>;
+  startDate: Readonly<{
+    test: string;
+    required: string;
+  }>;
+  endDate: Readonly<{
+    test: string;
     required: string;
   }>;
 }

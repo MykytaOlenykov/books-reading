@@ -1,33 +1,33 @@
 import * as yup from "yup";
-import { formPatterns, errorFormMessages } from "constants/";
+import { schemaPatterns, schemaErrorMessages } from "constants/";
 
 export const registerSchema = yup.object({
   name: yup
     .string()
     .trim()
-    .min(2, errorFormMessages.name.minLength)
-    .max(255, errorFormMessages.name.maxLength)
-    .matches(formPatterns.name, errorFormMessages.name.matches)
-    .required(errorFormMessages.name.required),
+    .min(2, schemaErrorMessages.name.minLength)
+    .max(255, schemaErrorMessages.name.maxLength)
+    .matches(schemaPatterns.name, schemaErrorMessages.name.matches)
+    .required(schemaErrorMessages.name.required),
   email: yup
     .string()
-    .min(4, errorFormMessages.email.minLength)
-    .max(255, errorFormMessages.email.maxLength)
-    .matches(formPatterns.email, errorFormMessages.email.matches)
-    .required(errorFormMessages.email.required),
+    .min(4, schemaErrorMessages.email.minLength)
+    .max(255, schemaErrorMessages.email.maxLength)
+    .matches(schemaPatterns.email, schemaErrorMessages.email.matches)
+    .required(schemaErrorMessages.email.required),
   password: yup
     .string()
-    .min(8, errorFormMessages.password.minLength)
-    .max(255, errorFormMessages.password.maxLength)
-    .required(errorFormMessages.password.required),
+    .min(8, schemaErrorMessages.password.minLength)
+    .max(255, schemaErrorMessages.password.maxLength)
+    .required(schemaErrorMessages.password.required),
   confirmPassword: yup
     .string()
     .test(
       "passwords-match",
-      errorFormMessages.confirmPassword.test,
+      schemaErrorMessages.confirmPassword.test,
       function (value) {
         return this.parent.password === value;
       }
     )
-    .required(errorFormMessages.confirmPassword.required),
+    .required(schemaErrorMessages.confirmPassword.required),
 });

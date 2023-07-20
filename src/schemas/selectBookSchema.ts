@@ -1,6 +1,6 @@
 import * as yup from "yup";
-import { errorFormMessages } from "constants/";
+import { schemaErrorMessages } from "constants/";
 
 export const selectBookSchema = yup.object({
-  book: yup.string().required(errorFormMessages.book.required),
+  book: yup.string().required(schemaErrorMessages.book.required),
 });
