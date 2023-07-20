@@ -1,20 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addPlan } from "./operations";
-import { IPlan } from "types";
+import { IError, IPlan } from "types";
 
 interface IInitialState {
-  startDate: string | null;
-  endDate: string | null;
-  books: string[];
-  plan: IPlan | null;
+  data: IPlan;
+  error: IError | undefined;
+  isError: boolean;
+  isActive: boolean;
   isAdding: boolean;
 }
 
 const initialState: IInitialState = {
-  startDate: new Date().toString(),
-  endDate: null,
-  books: [],
-  plan: null,
+  data: {
+    _id: null,
+    startDate: null,
+    endDate: null,
+    books: [],
+    duration: null,
+    pagesPerDay: null,
+  },
+  error: { message: null, status: null, type: null },
+  isError: false,
+  isActive: false,
   isAdding: false,
 };
 
@@ -23,31 +30,50 @@ const planningSlice = createSlice({
   initialState,
   reducers: {
     changeStartDate: (state, action: PayloadAction<string | null>) => {
-      state.startDate = action.payload;
+      state.data.startDate = action.payload;
     },
     changeEndDate: (state, action: PayloadAction<string | null>) => {
-      state.endDate = action.payload;
+      state.data.endDate = action.payload;
     },
     addBook: (state, action: PayloadAction<string>) => {
-      state.books.push(action.payload);
+      state.data.books.push(action.payload);
     },
     deleteBook: (state, action: PayloadAction<string>) => {
-      const idx = state.books.findIndex((bookId) => bookId === action.payload);
-      state.books.splice(idx, 1);
+      const idx = state.data.books.findIndex(
+        (bookId) => bookId === action.payload
+      );
+      state.data.books.splice(idx, 1);
     },
     clearData: (state) => {
-      state.startDate = null;
-      state.endDate = null;
-      state.books = [];
+      state.data = {
+        _id: null,
+        startDate: null,
+        endDate: null,
+        books: [],
+        duration: null,
+        pagesPerDay: null,
+      };
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      addPlan.fulfilled,
-      (state, action: PayloadAction<IPlan>) => {
-        state.plan = action.payload;
-      }
-    );
+    builder
+      .addCase(
+        addPlan.fulfilled,
+        (state, action: PayloadAction<NonNullable<IPlan>>) => {
+          state.data = action.payload;
+          state.isAdding = false;
+        }
+      )
+      .addCase(addPlan.pending, (state) => {
+        state.isAdding = true;
+        state.isError = false;
+        state.error = { message: null, status: null, type: null };
+      })
+      .addCase(addPlan.rejected, (state, action) => {
+        state.isAdding = false;
+        state.isError = true;
+        state.error = action.payload;
+      });
   },
 });
 

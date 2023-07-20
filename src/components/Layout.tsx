@@ -36,9 +36,11 @@ export const Layout: React.FC = () => {
 
       <AppBar />
 
-      <React.Suspense fallback={<PageLoader />}>
-        <Outlet />
-      </React.Suspense>
+      <main>
+        <React.Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </React.Suspense>
+      </main>
     </>
   );
 };

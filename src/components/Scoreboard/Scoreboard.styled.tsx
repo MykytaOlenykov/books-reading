@@ -50,8 +50,9 @@ export const Title = styled.h2`
 export const List = styled.ul`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
-  padding: 44px 0;
+  padding: 44px 24px;
 
   background-color: ${({ theme }) => theme.colors.secondaryBg};
   box-shadow: ${({ theme }) => theme.boxShadow.scoreboard};
@@ -65,7 +66,7 @@ export const List = styled.ul`
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     gap: 20px;
-    padding: 48px 0;
+    padding: 48px 24px;
 
     box-shadow: ${({ theme }) => theme.boxShadow.scoreboard};
   }
@@ -76,7 +77,8 @@ export const Counter = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 14px;
-  width: 100px;
+  padding: 0 12px;
+  min-width: 100px;
   height: 100px;
 
   background-color: ${({ theme }) => theme.colors.counterBg};
@@ -107,6 +109,7 @@ export const Value = styled.p`
 `;
 
 export const Descr = styled.p`
+  margin: 0 auto;
   max-width: 100px;
 
   line-height: 1.21;
@@ -116,6 +119,8 @@ export const Descr = styled.p`
   @media screen and (min-width: calc(${({ theme }) =>
       theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>
       theme.breakpoints.dekstop} - 1px)) {
+    margin: 0;
+
     font-size: ${({ theme }) => theme.fontSizes.training.text};
     line-height: 1.18;
     text-align: start;

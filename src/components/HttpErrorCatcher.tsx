@@ -16,7 +16,7 @@ export const HttpErrorCatcher: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAuthError && authError.type !== errorTypes.refresh) {
+    if (isAuthError && authError && authError.type !== errorTypes.refresh) {
       if (authError.type === errorTypes.endOfSession) {
         dispatch(endSession());
         onRemoveTokens();
@@ -28,7 +28,7 @@ export const HttpErrorCatcher: React.FC = () => {
   }, [dispatch, isAuthError, authError]);
 
   useEffect(() => {
-    if (isBooksError) {
+    if (isBooksError && booksError) {
       if (booksError.type === errorTypes.endOfSession) {
         dispatch(endSession());
         dispatch(clearBooksData());

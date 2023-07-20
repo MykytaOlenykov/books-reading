@@ -6,10 +6,16 @@ import * as S from "./Scoreboard.styled";
 export const Scoreboard: React.FC = () => {
   const { books, startDate, endDate } = usePlanning();
 
-  const parsedStartDate = startDate ? new Date(startDate) : 0;
-  const parsedEndDate = endDate ? new Date(endDate) : parsedStartDate;
+  const parsedStartDate = startDate ? new Date(startDate) : null;
+  const parsedEndDate = endDate ? new Date(endDate) : null;
 
-  const days = differenceInCalendarDays(parsedEndDate, parsedStartDate);
+  const days = (() => {
+    if (!parsedStartDate || !parsedEndDate) {
+      return 0;
+    }
+
+    return differenceInCalendarDays(parsedEndDate, parsedStartDate);
+  })();
 
   return (
     <S.Section>

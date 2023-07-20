@@ -15,7 +15,7 @@ const LogInPage = React.lazy(() => import("pages/LogIn"));
 
 const LibraryPage = React.lazy(() => import("pages/Library"));
 
-const TrainingPage = React.lazy(() => import("pages/Training/Training"));
+const TrainingPage = React.lazy(() => import("pages/Training"));
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -3,11 +3,14 @@ import { createAppAsyncThunk, errorObjectCreator } from "utils";
 import { errorTypes } from "constants/";
 import { IPlan, IPlanRequest } from "types";
 
-export const addPlan = createAppAsyncThunk<IPlan, IPlanRequest>(
+export const addPlan = createAppAsyncThunk<NonNullable<IPlan>, IPlanRequest>(
   "planning/addPlan",
   async (data, { rejectWithValue }) => {
     try {
-      const { data: newPlan } = await $api.post<IPlan>(`api/plans`, data);
+      const { data: newPlan } = await $api.post<NonNullable<IPlan>>(
+        `api/plans`,
+        data
+      );
 
       return newPlan;
     } catch (error) {

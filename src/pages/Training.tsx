@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { HiddenComponent } from "components/HiddenComponent";
+import { TrainingContainer } from "components/TrainingContainer";
 import { TrainingSidebar } from "components/TrainingSidebar";
 import { Scoreboard } from "components/Scoreboard";
 import { BooksList } from "components/BooksList";
@@ -10,7 +10,6 @@ import { StartTrainingButton } from "components/StartTrainingButton";
 import { deleteBook } from "redux/planning/slice";
 import { useAppDispatch, useBooks, usePlanning, useResizeScreen } from "hooks";
 import { IBook } from "types";
-import * as S from "./Training.styled";
 
 const Training: React.FC = () => {
   const { isMobile, isDesktop } = useResizeScreen();
@@ -31,38 +30,30 @@ const Training: React.FC = () => {
   };
 
   return (
-    <S.Main>
-      <S.Container>
-        <div>
-          <section>
-            <HiddenComponent>
-              <h1>Сторінка тренування</h1>
-            </HiddenComponent>
-          </section>
+    <TrainingContainer>
+      <div>
+        {!isDesktop && <Scoreboard />}
 
-          {!isDesktop && <Scoreboard />}
+        {isMobile ? (
+          <RedirectBtn redirectTo="select-book" />
+        ) : (
+          <BookSelectSection />
+        )}
 
-          {isMobile ? (
-            <RedirectBtn redirectTo="select-book" />
-          ) : (
-            <BookSelectSection />
-          )}
+        <BooksList
+          status="training"
+          books={visibledBooks}
+          isPlaceholder
+          onDeleteBook={handleDeleteBook}
+        />
 
-          <BooksList
-            status="training"
-            books={visibledBooks}
-            isPlaceholder
-            onDeleteBook={handleDeleteBook}
-          />
+        {visibledBooks.length !== 0 && <StartTrainingButton />}
 
-          {visibledBooks.length !== 0 && <StartTrainingButton />}
+        <StatisticsChart />
+      </div>
 
-          <StatisticsChart />
-        </div>
-
-        {isDesktop && <TrainingSidebar />}
-      </S.Container>
-    </S.Main>
+      {isDesktop && <TrainingSidebar />}
+    </TrainingContainer>
   );
 };
 

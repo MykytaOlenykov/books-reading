@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select from "react-select";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,6 +7,7 @@ import { CustomDatePicker } from "components/CustomDatePicker";
 import { changeStartDate, changeEndDate, addBook } from "redux/planning/slice";
 import { useBooks, usePlanning, useAppDispatch } from "hooks";
 import { selectBookSchema } from "schemas";
+import { MAX_DATE } from "constants/";
 import { IBookOption } from "types";
 import * as S from "./BookSelectForm.styled";
 import uk from "date-fns/locale/uk";
@@ -38,6 +39,7 @@ export const BookSelectForm: React.FC = () => {
 
   const parsedStartDate = startDate ? new Date(startDate) : null;
   const parsedEndDate = endDate ? new Date(endDate) : null;
+  const minDate = new Date();
 
   const options = useMemo<IBookOption[]>(
     () =>
@@ -95,7 +97,8 @@ export const BookSelectForm: React.FC = () => {
           selected={parsedStartDate}
           startDate={parsedStartDate}
           endDate={parsedEndDate}
-          minDate={parsedStartDate}
+          minDate={minDate}
+          maxDate={MAX_DATE}
           selectsStart
           placeholderText="Початок"
         />
@@ -109,7 +112,8 @@ export const BookSelectForm: React.FC = () => {
           selected={parsedEndDate}
           startDate={parsedStartDate}
           endDate={parsedEndDate}
-          minDate={parsedStartDate}
+          minDate={parsedStartDate ?? minDate}
+          maxDate={MAX_DATE}
           selectsEnd
           placeholderText="Завершення"
         />

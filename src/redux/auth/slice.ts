@@ -5,7 +5,7 @@ import { IError, IUser } from "types";
 
 export interface IInitialState {
   userData: IUser;
-  error: IError;
+  error: IError | undefined;
   isLoading: {
     register: boolean;
     logIn: boolean;

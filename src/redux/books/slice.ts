@@ -7,7 +7,7 @@ export interface IInitialState {
   goingToRead: IBook[];
   currentlyReading: IBook[];
   finishedReading: IBook[];
-  error: IError;
+  error: IError | undefined;
   isError: boolean;
   isAdding: boolean;
   isDeleting: string[];
@@ -56,11 +56,7 @@ export const booksSlice = createSlice({
       .addCase(addBook.rejected, (state, action) => {
         state.isAdding = false;
         state.isError = true;
-        state.error = action.payload ?? {
-          message: null,
-          status: null,
-          type: null,
-        };
+        state.error = action.payload;
       })
       .addCase(deleteBook.fulfilled, (state, action) => {
         const idx = state.isDeleting.findIndex(
@@ -82,11 +78,7 @@ export const booksSlice = createSlice({
         );
         state.isDeleting.splice(idx, 1);
         state.isError = true;
-        state.error = action.payload ?? {
-          message: null,
-          status: null,
-          type: null,
-        };
+        state.error = action.payload;
       });
   },
 });

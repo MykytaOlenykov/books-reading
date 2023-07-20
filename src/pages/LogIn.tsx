@@ -4,11 +4,9 @@ import { LogInForm } from "components/AuthForms";
 import { QuoteCard } from "components/QuoteCard";
 
 const LogIn: React.FC = () => (
-  <main>
-    <AuthSection form={LogInForm} title="Сторінка входу до профілю">
-      <QuoteCard />
-    </AuthSection>
-  </main>
+  <AuthSection form={LogInForm} title="Сторінка входу до профілю">
+    <QuoteCard />
+  </AuthSection>
 );
 
 export default LogIn;

@@ -5,3 +5,4 @@ export * from "./errorAPIMessages";
 export * from "./errorTypes";
 export * from "./apiUrl";
 export * from "./storageKeys";
+export * from "./maxDate";

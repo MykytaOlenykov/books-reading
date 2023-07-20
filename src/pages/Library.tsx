@@ -24,43 +24,41 @@ const Library: React.FC = () => {
   };
 
   return (
-    <main>
-      <PrimaryContainer>
-        <HiddenComponent>
-          <h1>Бібліотека книг</h1>
-        </HiddenComponent>
+    <PrimaryContainer>
+      <HiddenComponent>
+        <h1>Бібліотека книг</h1>
+      </HiddenComponent>
 
-        {isMobile && isFirstVisit && <EmptyBooksNotification />}
+      {isMobile && isFirstVisit && <EmptyBooksNotification />}
 
-        {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
+      {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
 
-        {!!finishedReading.length && (
-          <BooksList
-            title="Прочитано"
-            status="finishedReading"
-            books={finishedReading}
-          />
-        )}
+      {!!finishedReading.length && (
+        <BooksList
+          title="Прочитано"
+          status="finishedReading"
+          books={finishedReading}
+        />
+      )}
 
-        {!!currentlyReading.length && (
-          <BooksList
-            title="Читаю"
-            status="currentlyReading"
-            books={currentlyReading}
-          />
-        )}
+      {!!currentlyReading.length && (
+        <BooksList
+          title="Читаю"
+          status="currentlyReading"
+          books={currentlyReading}
+        />
+      )}
 
-        {!!goingToRead.length && (
-          <BooksList
-            title="Маю намір прочитати"
-            status="goingToRead"
-            books={goingToRead}
-            onDeleteBook={handleDeleteBook}
-            isDeleting={isDeleting}
-          />
-        )}
-      </PrimaryContainer>
-    </main>
+      {!!goingToRead.length && (
+        <BooksList
+          title="Маю намір прочитати"
+          status="goingToRead"
+          books={goingToRead}
+          onDeleteBook={handleDeleteBook}
+          isDeleting={isDeleting}
+        />
+      )}
+    </PrimaryContainer>
   );
 };
 

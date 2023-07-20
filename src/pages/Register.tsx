@@ -4,11 +4,9 @@ import { RegisterForm } from "components/AuthForms";
 import { InfoSection } from "components/InfoSection";
 
 const Register: React.FC = () => (
-  <main>
-    <AuthSection form={RegisterForm} title="Сторінка реєстрації">
-      <InfoSection />
-    </AuthSection>
-  </main>
+  <AuthSection form={RegisterForm} title="Сторінка реєстрації">
+    <InfoSection />
+  </AuthSection>
 );
 
 export default Register;
