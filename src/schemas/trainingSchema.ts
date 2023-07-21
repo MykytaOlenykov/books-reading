@@ -5,7 +5,7 @@ import { schemaErrorMessages } from "constants/";
 export const trainingSchema = yup.object({
   books: yup
     .array()
-    .of(yup.string())
+    .of(yup.string().required(schemaErrorMessages.books.required))
     .min(1, schemaErrorMessages.books.min)
     .max(20, schemaErrorMessages.books.max)
     .required(schemaErrorMessages.books.required),

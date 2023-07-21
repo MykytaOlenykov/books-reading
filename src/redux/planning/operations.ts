@@ -3,6 +3,25 @@ import { createAppAsyncThunk, errorObjectCreator } from "utils";
 import { errorTypes } from "constants/";
 import { IPlan, IPlanRequest } from "types";
 
+export const getPlan = createAppAsyncThunk<NonNullable<IPlan>, void>(
+  "planning/getPlan",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await $api.get<NonNullable<IPlan>>("api/plans");
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        errorObjectCreator({
+          error,
+          type: errorTypes.getPlan,
+          checkSessionEnd: true,
+        })
+      );
+    }
+  }
+);
+
 export const addPlan = createAppAsyncThunk<NonNullable<IPlan>, IPlanRequest>(
   "planning/addPlan",
   async (data, { rejectWithValue }) => {

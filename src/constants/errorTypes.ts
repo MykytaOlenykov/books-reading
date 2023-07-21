@@ -5,6 +5,7 @@ export const errorTypes = {
   refresh: "refresh",
   addBook: "addBook",
   deleteBook: "deleteBook",
+  getPlan: "getPlan",
   addPlan: "addPlan",
   endOfSession: "endOfSession",
   common: "common",

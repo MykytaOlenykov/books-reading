@@ -3,6 +3,5 @@ export interface IPlan {
   startDate: string | null;
   endDate: string | null;
   books: string[];
-  duration: number | null;
   pagesPerDay: number | null;
 }

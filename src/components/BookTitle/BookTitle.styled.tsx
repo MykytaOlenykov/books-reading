@@ -38,6 +38,7 @@ export const Title = styled.h3`
     }
   }
 
+  &.planning,
   &.training {
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       display: -webkit-box;

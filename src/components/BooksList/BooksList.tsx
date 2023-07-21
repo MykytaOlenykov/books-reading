@@ -3,11 +3,11 @@ import { BookCard } from "components/BookCard";
 import { BookPlaceholder } from "components/BookPlaceholder";
 import { BooksListHeader } from "components/BooksListHeader";
 import { useResizeScreen } from "hooks";
-import { IBook, IBooksStatuses } from "types";
+import { IBook, IBookStatus } from "types";
 import * as S from "./BooksList.styled";
 
 interface IProps {
-  status: IBooksStatuses;
+  status: IBookStatus;
   books: IBook[];
   title?: string;
   isPlaceholder?: boolean;

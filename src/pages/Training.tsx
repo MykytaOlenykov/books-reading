@@ -1,60 +1,25 @@
-import React, { useMemo } from "react";
-import { TrainingContainer } from "components/TrainingContainer";
-import { TrainingSidebar } from "components/TrainingSidebar";
-import { Scoreboard } from "components/Scoreboard";
-import { BooksList } from "components/BooksList";
-import { StatisticsChart } from "components/StatisticsChart";
-import { RedirectBtn } from "components/RedirectBtn";
-import { BookSelectSection } from "components/BookSelectSection";
-import { StartTrainingButton } from "components/StartTrainingButton";
-import { deleteBook } from "redux/planning/slice";
-import { useAppDispatch, useBooks, usePlanning, useResizeScreen } from "hooks";
-import { IBook } from "types";
+import React, { useEffect } from "react";
+import { PlanningSection } from "components/PlanningSection";
+import { PageLoader } from "components/Loaders";
+import { getPlan } from "redux/planning/operations";
+import { useAppDispatch, usePlanning } from "hooks";
+import { TrainingSection } from "components/TrainingSection";
 
 const Training: React.FC = () => {
-  const { isMobile, isDesktop } = useResizeScreen();
-  const { goingToRead, currentlyReading } = useBooks();
-  const { books } = usePlanning();
+  const { isLoading, isActive, isLoaded } = usePlanning();
   const dispatch = useAppDispatch();
 
-  const visibledBooks = useMemo<IBook[]>(
-    () =>
-      [...goingToRead, ...currentlyReading].filter((book) =>
-        books.includes(book._id)
-      ),
-    [goingToRead, currentlyReading, books]
-  );
+  useEffect(() => {
+    if (!isLoaded) {
+      dispatch(getPlan());
+    }
+  }, [dispatch, isLoaded]);
 
-  const handleDeleteBook = (bookId: string): void => {
-    dispatch(deleteBook(bookId));
-  };
+  if (isLoading) {
+    return <PageLoader />;
+  }
 
-  return (
-    <TrainingContainer>
-      <div>
-        {!isDesktop && <Scoreboard />}
-
-        {isMobile ? (
-          <RedirectBtn redirectTo="select-book" />
-        ) : (
-          <BookSelectSection />
-        )}
-
-        <BooksList
-          status="training"
-          books={visibledBooks}
-          isPlaceholder
-          onDeleteBook={handleDeleteBook}
-        />
-
-        {!!visibledBooks.length && <StartTrainingButton />}
-
-        <StatisticsChart />
-      </div>
-
-      {isDesktop && <TrainingSidebar />}
-    </TrainingContainer>
-  );
+  return isActive ? <TrainingSection /> : <PlanningSection />;
 };
 
 export default Training;

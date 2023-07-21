@@ -19,11 +19,23 @@ export const Card = styled.div`
     box-shadow: ${({ theme }) => theme.boxShadow.bookCard};
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      padding: 14px 36px 14px 20px;
+      padding: 14px 36px 14px 60px;
     }
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-      padding: 22px 80px 22px 20px;
+      padding: 22px 80px 22px 60px;
+    }
+  }
+
+  &.planning {
+    padding: 20px 34px 20px 34px;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      padding: 14px 74px 14px 40px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      padding: 16px 170px 16px 40px;
     }
   }
 
@@ -31,11 +43,11 @@ export const Card = styled.div`
     padding: 20px 34px 20px 34px;
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      padding: 14px 74px 14px 0;
+      padding: 14px 28px 14px 40px;
     }
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-      padding: 16px 170px 16px 0;
+      padding: 16px 64px 16px 40px;
     }
   }
 `;
@@ -62,9 +74,7 @@ export const Button = styled.button`
     opacity: 0.7;
   }
 
-  .goingToRead &,
-  .currentlyReading &,
-  .finishedReading & {
+  .goingToRead & {
     top: 10px;
     right: 10px;
 
@@ -79,7 +89,7 @@ export const Button = styled.button`
     }
   }
 
-  .training & {
+  .planning & {
     top: 20px;
     right: 0;
 
@@ -106,10 +116,9 @@ export const BookIcon = styled(LibraryIcon)`
   fill: ${({ theme }) => theme.colors.icon};
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    position: static;
+    top: 50%;
 
-    flex-shrink: 0;
-    margin-right: 18px;
+    transform: translateY(-50%);
   }
 
   .goingToRead &,
@@ -118,8 +127,12 @@ export const BookIcon = styled(LibraryIcon)`
     left: 20px;
   }
 
-  .training & {
+  .planning & {
     left: 0;
+  }
+
+  .training & {
+    display: none;
   }
 `;
 

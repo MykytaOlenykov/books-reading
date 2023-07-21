@@ -1,5 +1,9 @@
-export type IBooksStatuses =
-  | "goingToRead"
-  | "currentlyReading"
-  | "finishedReading"
-  | "training";
+import { IBookStatus } from "./IBookStatus";
+
+export interface IBookStatuses {
+  goingToRead: IBookStatus;
+  currentlyReading: IBookStatus;
+  finishedReading: IBookStatus;
+  planning: IBookStatus;
+  training: IBookStatus;
+}

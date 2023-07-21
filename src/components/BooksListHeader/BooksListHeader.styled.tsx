@@ -8,6 +8,7 @@ export const List = styled.ul`
     display: flex;
   }
 
+  &.planning,
   &.training {
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       margin-bottom: 0;
@@ -46,7 +47,7 @@ export const Item = styled.li`
     }
   }
 
-  .training & {
+  .planning & {
     &:nth-child(1) {
       margin-right: 194px;
     }
@@ -57,6 +58,38 @@ export const Item = styled.li`
 
     &:nth-child(3) {
       margin-right: 69px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      &:nth-child(1) {
+        margin-right: 300px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 185px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 73px;
+      }
+    }
+  }
+
+  .training & {
+    &:nth-child(1) {
+      margin-right: 164px;
+    }
+
+    &:nth-child(2) {
+      margin-right: 144px;
+    }
+
+    &:nth-child(3) {
+      margin-right: 66px;
+    }
+
+    &:nth-child(4) {
+      margin-right: 64px;
     }
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {

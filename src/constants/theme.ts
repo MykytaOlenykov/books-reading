@@ -31,6 +31,7 @@ export const theme = {
     scrollbar: "rgba(177, 181, 194, 0.25)",
     scrollbarThumb: "#b1b5c2",
     backdrop: "rgba(43, 43, 43, 0.10)",
+    checkbox: "#A6ABB9",
   },
   fontFamily: {
     primary: "'Montserrat', sans-serif",

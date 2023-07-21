@@ -20,6 +20,12 @@ export const Item = styled.li`
       margin-bottom: 0;
     }
 
+    &:nth-child(2) {
+      width: 40px;
+
+      text-align: end;
+    }
+
     &:nth-child(3) {
       width: 40px;
 
@@ -48,9 +54,6 @@ export const Item = styled.li`
 
       &:nth-child(2) {
         margin-right: 34px;
-        width: 40px;
-
-        text-align: end;
       }
     }
 
@@ -66,7 +69,7 @@ export const Item = styled.li`
     }
   }
 
-  .training & {
+  .planning & {
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       &:nth-child(1) {
         margin-right: 54px;
@@ -75,9 +78,6 @@ export const Item = styled.li`
 
       &:nth-child(2) {
         margin-right: 64px;
-        width: 40px;
-
-        text-align: end;
       }
     }
 
@@ -91,10 +91,55 @@ export const Item = styled.li`
       }
     }
   }
+
+  .training & {
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      &:nth-child(1) {
+        margin-right: 54px;
+        width: 120px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 58px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 62px;
+      }
+
+      &:nth-child(4) {
+        width: 40px;
+
+        text-align: end;
+      }
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      &:nth-child(1) {
+        margin-right: 64px;
+        width: 140px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 62px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 64px;
+      }
+
+      &:nth-child(4) {
+        width: 40px;
+
+        text-align: end;
+      }
+    }
+  }
 `;
 
 export const Title = styled.p`
-  width: 42px;
+  max-width: 43px;
+  flex-grow: 1;
 
   font-size: ${({ theme }) => theme.fontSizes.booksSection.secondary};
   line-height: 1.25;
@@ -119,6 +164,7 @@ export const Descr = styled.p`
     line-height: 1.21;
   }
 
+  .planning &,
   .training & {
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       display: -webkit-box;

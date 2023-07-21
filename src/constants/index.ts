@@ -6,3 +6,4 @@ export * from "./errorTypes";
 export * from "./apiUrl";
 export * from "./storageKeys";
 export * from "./maxDate";
+export * from "./bookStatuses";

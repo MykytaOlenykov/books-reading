@@ -1,12 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { addPlan } from "./operations";
+import { addPlan, getPlan } from "./operations";
 import { IError, IPlan } from "types";
 
 interface IInitialState {
   data: IPlan;
+  finishedBooks: string[];
   error: IError | undefined;
   isError: boolean;
   isActive: boolean;
+  isLoaded: boolean;
+  isLoading: boolean;
   isAdding: boolean;
 }
 
@@ -16,12 +19,14 @@ const initialState: IInitialState = {
     startDate: null,
     endDate: null,
     books: [],
-    duration: null,
     pagesPerDay: null,
   },
+  finishedBooks: [],
   error: { message: null, status: null, type: null },
   isError: false,
   isActive: false,
+  isLoaded: false,
+  isLoading: false,
   isAdding: false,
 };
 
@@ -50,10 +55,10 @@ const planningSlice = createSlice({
         startDate: null,
         endDate: null,
         books: [],
-        duration: null,
         pagesPerDay: null,
       };
       state.isActive = false;
+      state.isLoaded = false;
     },
   },
   extraReducers: (builder) => {
@@ -73,6 +78,26 @@ const planningSlice = createSlice({
       })
       .addCase(addPlan.rejected, (state, action) => {
         state.isAdding = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(
+        getPlan.fulfilled,
+        (state, action: PayloadAction<NonNullable<IPlan>>) => {
+          state.data = action.payload;
+          state.isActive = true;
+          state.isLoaded = true;
+          state.isLoading = false;
+        }
+      )
+      .addCase(getPlan.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.error = { message: null, status: null, type: null };
+      })
+      .addCase(getPlan.rejected, (state, action) => {
+        state.isLoaded = true;
+        state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
       });

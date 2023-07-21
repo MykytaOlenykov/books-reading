@@ -1,13 +1,15 @@
 import React from "react";
 import { toast } from "react-hot-toast";
-import { usePlanning } from "hooks";
+import { useAppDispatch, usePlanning } from "hooks";
 import { trainingSchema } from "schemas";
 import { errorAPIMessages } from "constants/";
 import { formatDate } from "utils";
 import * as S from "./StartTrainingButton.styled";
+import { addPlan } from "redux/planning/operations";
 
 export const StartTrainingButton: React.FC = () => {
-  const { startDate, endDate, books } = usePlanning();
+  const { startDate, endDate, books, isAdding } = usePlanning();
+  const dispatch = useAppDispatch();
 
   const handleStartTraining = async () => {
     try {
@@ -19,7 +21,7 @@ export const StartTrainingButton: React.FC = () => {
 
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-      console.log({ ...data, timezone });
+      dispatch(addPlan({ ...data, timezone }));
     } catch (error) {
       const message =
         error instanceof Error ? error.message : errorAPIMessages.common;
@@ -29,7 +31,7 @@ export const StartTrainingButton: React.FC = () => {
   };
 
   return (
-    <S.Button type="button" onClick={handleStartTraining}>
+    <S.Button type="button" onClick={handleStartTraining} disabled={isAdding}>
       Почати тренування
     </S.Button>
   );

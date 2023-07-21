@@ -1,9 +1,9 @@
 import React from "react";
 import * as S from "./BookTitle.styled";
-import { IBooksStatuses } from "types";
+import { IBookStatus } from "types";
 
 interface IProps {
-  status: IBooksStatuses;
+  status: IBookStatus;
   title: string;
 }
 

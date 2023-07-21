@@ -7,6 +7,7 @@ import { RedirectBtn } from "components/RedirectBtn";
 import { EmptyBooksNotification } from "components/EmptyBooksNotification";
 import { deleteBook } from "redux/books/operations";
 import { useResizeScreen, useBooks, useAppDispatch } from "hooks";
+import { bookStatuses } from "constants/";
 
 const Library: React.FC = () => {
   const { isMobile } = useResizeScreen();
@@ -36,7 +37,7 @@ const Library: React.FC = () => {
       {!!finishedReading.length && (
         <BooksList
           title="Прочитано"
-          status="finishedReading"
+          status={bookStatuses.finishedReading}
           books={finishedReading}
         />
       )}
@@ -44,7 +45,7 @@ const Library: React.FC = () => {
       {!!currentlyReading.length && (
         <BooksList
           title="Читаю"
-          status="currentlyReading"
+          status={bookStatuses.currentlyReading}
           books={currentlyReading}
         />
       )}
@@ -52,7 +53,7 @@ const Library: React.FC = () => {
       {!!goingToRead.length && (
         <BooksList
           title="Маю намір прочитати"
-          status="goingToRead"
+          status={bookStatuses.goingToRead}
           books={goingToRead}
           onDeleteBook={handleDeleteBook}
           isDeleting={isDeleting}

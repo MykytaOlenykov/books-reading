@@ -1,9 +1,10 @@
 import React from "react";
-import { IBooksStatuses } from "types";
+import { bookStatuses } from "constants/";
+import { IBookStatus } from "types";
 import * as S from "./BooksListHeader.styled";
 
 interface IProps {
-  status: IBooksStatuses;
+  status: IBookStatus;
 }
 
 export const BooksListHeader: React.FC<IProps> = ({ status }) => (
@@ -20,5 +21,11 @@ export const BooksListHeader: React.FC<IProps> = ({ status }) => (
     <S.Item>
       <S.Text>Стор.</S.Text>
     </S.Item>
+
+    {status === bookStatuses.training && (
+      <S.Item>
+        <S.Text>Проч.</S.Text>
+      </S.Item>
+    )}
   </S.List>
 );

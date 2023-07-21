@@ -7,6 +7,7 @@ export const Section = styled.section`
     padding-bottom: 128px;
   }
 
+  &.planning,
   &.training {
     padding-top: 0;
   }
@@ -26,6 +27,7 @@ export const Title = styled.h2`
 `;
 
 export const List = styled.ul`
+  .planning &,
   .training & {
     border-top: 1px solid ${({ theme }) => theme.colors.line};
     border-bottom: 1px solid ${({ theme }) => theme.colors.line};
@@ -58,6 +60,7 @@ export const Item = styled.li`
     }
   }
 
+  .planning &,
   .training & {
     &:not(:last-child) {
       border-bottom: 1px solid ${({ theme }) => theme.colors.line};

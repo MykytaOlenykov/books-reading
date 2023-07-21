@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { Checkbox } from "components/Checkbox";
 import { BookTitle } from "components/BookTitle";
 import { BookData } from "components/BookData";
-import { usePlanning } from "hooks";
-import { IBook, IBooksStatuses } from "types";
+import { useBooks, usePlanning } from "hooks";
+import { bookStatuses } from "constants/";
+import { IBook, IBookStatus } from "types";
 import * as S from "./BookCard.styled";
 
 interface IProps {
   book: IBook;
-  status: IBooksStatuses;
+  status: IBookStatus;
   isDeleting?: string[] | undefined;
   onDeleteBook?: (bookId: string) => void;
 }
@@ -18,11 +20,13 @@ export const BookCard: React.FC<IProps> = ({
   isDeleting = [],
   onDeleteBook,
 }) => {
-  const { _id, title, author, publishYear, pagesTotal } = book;
-  const { books } = usePlanning();
+  const { _id, title, author, publishYear, pagesTotal, pagesFinished } = book;
+  const { books, finishedBooks } = usePlanning();
 
   const isShowBtn =
-    status === "goingToRead" ? !books.includes(_id) : status === "training";
+    status === bookStatuses.goingToRead
+      ? !books.includes(_id)
+      : status === bookStatuses.planning;
 
   const isDisabled = isDeleting.includes(_id);
 
@@ -34,6 +38,10 @@ export const BookCard: React.FC<IProps> = ({
     <S.Card className={status}>
       <S.BookIcon />
 
+      {status === bookStatuses.training && (
+        <Checkbox checked={finishedBooks.includes(_id)} />
+      )}
+
       <BookTitle status={status} title={title} />
 
       <BookData
@@ -41,6 +49,7 @@ export const BookCard: React.FC<IProps> = ({
         author={author}
         publishYear={publishYear}
         pagesTotal={pagesTotal}
+        pagesFinished={pagesFinished}
       />
 
       {isShowBtn && (
