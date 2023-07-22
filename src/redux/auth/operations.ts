@@ -1,4 +1,5 @@
 import { fetchBooks } from "redux/books/operations";
+import { getPlan } from "redux/planning/operations";
 import { setBooks } from "redux/books/slice";
 import { AppDispatch } from "redux/store";
 import {
@@ -103,6 +104,7 @@ export const refreshUser = createAppAsyncThunk<
     const books = await fetchBooks();
 
     dispatch(setBooks(books));
+    await dispatch(getPlan());
 
     return userData;
   } catch (error) {

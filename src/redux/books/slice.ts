@@ -59,10 +59,9 @@ export const booksSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(deleteBook.fulfilled, (state, action) => {
-        const idx = state.isDeleting.findIndex(
-          (bookId) => bookId === action.payload
+        state.isDeleting = state.isDeleting.filter(
+          (bookId) => bookId !== action.payload
         );
-        state.isDeleting.splice(idx, 1);
         state.goingToRead = state.goingToRead.filter(
           ({ _id }) => _id !== action.payload
         );
@@ -73,10 +72,9 @@ export const booksSlice = createSlice({
         state.error = { message: null, status: null, type: null };
       })
       .addCase(deleteBook.rejected, (state, action) => {
-        const idx = state.isDeleting.findIndex(
-          (bookId) => bookId === action.meta.arg
+        state.isDeleting = state.isDeleting.filter(
+          (bookId) => bookId !== action.meta.arg
         );
-        state.isDeleting.splice(idx, 1);
         state.isError = true;
         state.error = action.payload;
       });

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { HiddenComponent } from "components/HiddenComponent";
 import { Sidebar } from "components/Sidebar";
 import { Scoreboard } from "components/Scoreboard";
 import { BooksList } from "components/BooksList";
@@ -33,6 +34,10 @@ export const PlanningSection: React.FC = () => {
   return (
     <S.Container>
       <div style={{ width: "100%" }}>
+        <HiddenComponent>
+          <h1>Сторінка планування тренування</h1>
+        </HiddenComponent>
+
         {!isDesktop && <Scoreboard />}
 
         {isMobile ? (

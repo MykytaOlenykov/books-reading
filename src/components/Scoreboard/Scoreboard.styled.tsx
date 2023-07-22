@@ -4,7 +4,7 @@ export const Section = styled.section`
   padding: 20px 0 32px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: 32px 0 20px;
+    padding: 32px 0 40px;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {

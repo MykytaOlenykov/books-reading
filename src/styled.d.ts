@@ -82,9 +82,13 @@ declare module "styled-components" {
       calendar: Readonly<{
         primary: string;
       }>;
-      modal: {
+      modal: Readonly<{
         primary: string;
-      };
+      }>;
+      timer: Readonly<{
+        primary: string;
+        secondary: string;
+      }>;
       common: Readonly<{
         primary: string;
       }>;
@@ -101,6 +105,7 @@ declare module "styled-components" {
       title: string;
       select: string;
       modal: string;
+      timer: string;
     }>;
     readonly filter: Readonly<{
       btn: string;

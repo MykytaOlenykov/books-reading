@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
+import { HiddenComponent } from "components/HiddenComponent";
 import { Sidebar } from "components/Sidebar";
+import { TimeSection } from "components/TimeSection";
 import { Scoreboard } from "components/Scoreboard";
 import { BooksList } from "components/BooksList";
 import { StatisticsChart } from "components/StatisticsChart";
@@ -24,6 +26,12 @@ export const TrainingSection: React.FC = () => {
   return (
     <S.Container>
       <div style={{ width: "100%" }}>
+        <HiddenComponent>
+          <h1>Сторінка тренування</h1>
+        </HiddenComponent>
+
+        <TimeSection />
+
         {!isDesktop && <Scoreboard />}
 
         <BooksList status={bookStatuses.training} books={visibledBooks} />

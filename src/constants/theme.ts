@@ -80,6 +80,10 @@ export const theme = {
     modal: {
       primary: "16px",
     },
+    timer: {
+      primary: "25px",
+      secondary: "12px",
+    },
     common: {
       primary: "14px",
     },
@@ -96,6 +100,7 @@ export const theme = {
     title: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
     select: "0px 2px 4px 0px  rgba(0, 0, 0, 0.25)",
     modal: "10px 10px 20px 0px rgba(9, 30, 63, 0.20)",
+    timer: "4px 4px 8px 0px rgba(36, 42, 55, 0.15)",
   },
   filter: {
     btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",

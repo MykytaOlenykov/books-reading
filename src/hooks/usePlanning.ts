@@ -7,9 +7,7 @@ import {
   selectError,
   selectIsError,
   selectIsActive,
-  selectIsLoaded,
   selectIsAdding,
-  selectIsLoading,
 } from "redux/planning/selectors";
 
 export const usePlanning = () => ({
@@ -20,7 +18,5 @@ export const usePlanning = () => ({
   error: useAppSelector(selectError),
   isError: useAppSelector(selectIsError),
   isActive: useAppSelector(selectIsActive),
-  isLoaded: useAppSelector(selectIsLoaded),
-  isLoading: useAppSelector(selectIsLoading),
   isAdding: useAppSelector(selectIsAdding),
 });

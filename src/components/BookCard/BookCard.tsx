@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Checkbox } from "components/Checkbox";
 import { BookTitle } from "components/BookTitle";
 import { BookData } from "components/BookData";
-import { useBooks, usePlanning } from "hooks";
+import { usePlanning } from "hooks";
 import { bookStatuses } from "constants/";
 import { IBook, IBookStatus } from "types";
 import * as S from "./BookCard.styled";

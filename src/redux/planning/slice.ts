@@ -8,8 +8,6 @@ interface IInitialState {
   error: IError | undefined;
   isError: boolean;
   isActive: boolean;
-  isLoaded: boolean;
-  isLoading: boolean;
   isAdding: boolean;
 }
 
@@ -25,8 +23,6 @@ const initialState: IInitialState = {
   error: { message: null, status: null, type: null },
   isError: false,
   isActive: false,
-  isLoaded: false,
-  isLoading: false,
   isAdding: false,
 };
 
@@ -44,10 +40,9 @@ const planningSlice = createSlice({
       state.data.books.push(action.payload);
     },
     deleteBook: (state, action: PayloadAction<string>) => {
-      const idx = state.data.books.findIndex(
-        (bookId) => bookId === action.payload
+      state.data.books = state.data.books.filter(
+        (bookId) => bookId !== action.payload
       );
-      state.data.books.splice(idx, 1);
     },
     clearData: (state) => {
       state.data = {
@@ -58,7 +53,6 @@ const planningSlice = createSlice({
         pagesPerDay: null,
       };
       state.isActive = false;
-      state.isLoaded = false;
     },
   },
   extraReducers: (builder) => {
@@ -86,18 +80,13 @@ const planningSlice = createSlice({
         (state, action: PayloadAction<NonNullable<IPlan>>) => {
           state.data = action.payload;
           state.isActive = true;
-          state.isLoaded = true;
-          state.isLoading = false;
         }
       )
       .addCase(getPlan.pending, (state) => {
-        state.isLoading = true;
         state.isError = false;
         state.error = { message: null, status: null, type: null };
       })
       .addCase(getPlan.rejected, (state, action) => {
-        state.isLoaded = true;
-        state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
       });
