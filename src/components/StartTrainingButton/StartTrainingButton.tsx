@@ -1,14 +1,23 @@
 import React from "react";
 import { toast } from "react-hot-toast";
-import { useAppDispatch, usePlanning } from "hooks";
+import { addPlan } from "redux/planning/operations";
+import {
+  selectBooks,
+  selectEndDate,
+  selectIsAdding,
+  selectStartDate,
+} from "redux/planning/selectors";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { trainingSchema } from "schemas";
 import { errorAPIMessages } from "constants/";
 import { formatDate } from "utils";
 import * as S from "./StartTrainingButton.styled";
-import { addPlan } from "redux/planning/operations";
 
 export const StartTrainingButton: React.FC = () => {
-  const { startDate, endDate, books, isAdding } = usePlanning();
+  const startDate = useAppSelector(selectStartDate);
+  const endDate = useAppSelector(selectEndDate);
+  const books = useAppSelector(selectBooks);
+  const isAdding = useAppSelector(selectIsAdding);
   const dispatch = useAppDispatch();
 
   const handleStartTraining = async () => {

@@ -1,10 +1,17 @@
 import React from "react";
-import { usePlanning } from "hooks";
+import {
+  selectBooks,
+  selectEndDate,
+  selectStartDate,
+} from "redux/planning/selectors";
+import { useAppSelector } from "hooks";
 import { dateDifferenceInDays } from "utils";
 import * as S from "./Scoreboard.styled";
 
 export const Scoreboard: React.FC = () => {
-  const { books, startDate, endDate } = usePlanning();
+  const books = useAppSelector(selectBooks);
+  const startDate = useAppSelector(selectStartDate);
+  const endDate = useAppSelector(selectEndDate);
 
   const days = dateDifferenceInDays(startDate, endDate);
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth, useBooks } from "hooks";
+import { selectIsFirstVisit } from "redux/books/selectors";
+import { useAuth, useAppSelector } from "hooks";
 
 interface IProps {
   component: React.LazyExoticComponent<React.FC>;
@@ -12,7 +13,7 @@ export const RestrictedRoute: React.FC<IProps> = ({
   redirectTo = "/",
 }) => {
   const { isLoggedIn } = useAuth();
-  const { isFirstVisit } = useBooks();
+  const isFirstVisit = useAppSelector(selectIsFirstVisit);
 
   if (isFirstVisit) {
     redirectTo = "/library/add-book";

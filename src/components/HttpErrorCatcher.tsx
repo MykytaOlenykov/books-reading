@@ -6,13 +6,15 @@ import {
   clearData as clearBooksData,
 } from "redux/books/slice";
 import { clearData as clearPlanningData } from "redux/planning/slice";
-import { useAuth, useBooks, useAppDispatch } from "hooks";
+import { selectError, selectIsError } from "redux/books/selectors";
+import { useAuth, useAppDispatch, useAppSelector } from "hooks";
 import { onRemoveTokens } from "utils";
 import { errorTypes } from "constants/";
 
 export const HttpErrorCatcher: React.FC = () => {
   const { isError: isAuthError, error: authError } = useAuth();
-  const { isError: isBooksError, error: booksError } = useBooks();
+  const isBooksError = useAppSelector(selectIsError);
+  const booksError = useAppSelector(selectError);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

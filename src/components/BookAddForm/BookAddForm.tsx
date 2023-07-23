@@ -1,8 +1,9 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch, useBooks } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { addBook } from "redux/books/operations";
+import { selectIsAdding } from "redux/books/selectors";
 import { addBookSchema } from "schemas";
 import * as S from "./BookAddForm.styled";
 
@@ -31,7 +32,7 @@ export const BookAddForm: React.FC = () => {
     resolver: yupResolver(addBookSchema),
   });
   const dispatch = useAppDispatch();
-  const { isAdding } = useBooks();
+  const isAdding = useAppSelector(selectIsAdding);
 
   const onSubmit: SubmitHandler<FormData> = ({
     title,

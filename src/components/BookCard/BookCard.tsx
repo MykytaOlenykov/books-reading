@@ -2,7 +2,8 @@ import React from "react";
 import { Checkbox } from "components/Checkbox";
 import { BookTitle } from "components/BookTitle";
 import { BookData } from "components/BookData";
-import { usePlanning } from "hooks";
+import { selectBooks, selectFinishedBooks } from "redux/planning/selectors";
+import { useAppSelector } from "hooks";
 import { bookStatuses } from "constants/";
 import { IBook, IBookStatus } from "types";
 import * as S from "./BookCard.styled";
@@ -21,7 +22,8 @@ export const BookCard: React.FC<IProps> = ({
   onDeleteBook,
 }) => {
   const { _id, title, author, publishYear, pagesTotal, pagesFinished } = book;
-  const { books, finishedBooks } = usePlanning();
+  const books = useAppSelector(selectBooks);
+  const finishedBooks = useAppSelector(selectFinishedBooks);
 
   const isShowBtn =
     status === bookStatuses.goingToRead

@@ -17,3 +17,5 @@ export const selectIsError = (state: RootState) => state.planning.isError;
 export const selectIsActive = (state: RootState) => state.planning.isActive;
 
 export const selectIsAdding = (state: RootState) => state.planning.isAdding;
+
+export const selectIsLoading = (state: RootState) => state.planning.isLoading;

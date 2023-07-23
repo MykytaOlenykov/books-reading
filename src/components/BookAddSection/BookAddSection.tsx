@@ -3,11 +3,12 @@ import { useLocation, Navigate } from "react-router-dom";
 import { TutorialModal } from "components/TutorialModal";
 import { Tutorial } from "components/Tutorial";
 import { BookAddForm } from "components/BookAddForm";
-import { useResizeScreen, useBooks } from "hooks";
+import { selectIsFirstVisit } from "redux/books/selectors";
+import { useResizeScreen, useAppSelector } from "hooks";
 import * as S from "./BookAddSection.styled";
 
 export const BookAddSection: React.FC = () => {
-  const { isFirstVisit } = useBooks();
+  const isFirstVisit = useAppSelector(selectIsFirstVisit);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(isFirstVisit);
   const { pathname } = useLocation();
   const { isMobile } = useResizeScreen();

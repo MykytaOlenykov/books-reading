@@ -1,19 +1,31 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { HiddenComponent } from "components/HiddenComponent";
 import { Sidebar } from "components/Sidebar";
 import { TimeSection } from "components/TimeSection";
 import { Scoreboard } from "components/Scoreboard";
 import { BooksList } from "components/BooksList";
 import { StatisticsChart } from "components/StatisticsChart";
-import { useBooks, usePlanning, useResizeScreen } from "hooks";
+import {
+  selectCurrentlyReading,
+  selectGoingToRead,
+} from "redux/books/selectors";
+import { selectBooks, selectStartDate } from "redux/planning/selectors";
+import { useResizeScreen, useAppSelector } from "hooks";
+import { dateDifferenceInDays } from "utils";
 import { bookStatuses } from "constants/";
 import { IBook } from "types";
 import * as S from "./TrainingSection.styled";
+import { TimerBeforeStartTraining } from "components/TimerBeforeStartTraining";
 
 export const TrainingSection: React.FC = () => {
   const { isDesktop } = useResizeScreen();
-  const { goingToRead, currentlyReading } = useBooks();
-  const { books } = usePlanning();
+  const goingToRead = useAppSelector(selectGoingToRead);
+  const currentlyReading = useAppSelector(selectCurrentlyReading);
+  const books = useAppSelector(selectBooks);
+  const startDate = useAppSelector(selectStartDate);
+  const [isStartedTraining, setIsStartedTraining] = useState<boolean>(
+    () => dateDifferenceInDays(new Date().toString(), startDate) === 0
+  );
 
   const visibledBooks = useMemo<IBook[]>(
     () =>
@@ -23,7 +35,11 @@ export const TrainingSection: React.FC = () => {
     [goingToRead, currentlyReading, books]
   );
 
-  return (
+  const handleStartTraining = () => {
+    setIsStartedTraining(true);
+  };
+
+  return isStartedTraining ? (
     <S.Container>
       <div style={{ width: "100%" }}>
         <HiddenComponent>
@@ -45,5 +61,10 @@ export const TrainingSection: React.FC = () => {
         </Sidebar>
       )}
     </S.Container>
+  ) : (
+    <TimerBeforeStartTraining
+      startDate={startDate!}
+      onStartTraining={handleStartTraining}
+    />
   );
 };

@@ -5,12 +5,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { registerLocale } from "react-datepicker";
 import { CustomDatePicker } from "components/CustomDatePicker";
 import { changeStartDate, changeEndDate, addBook } from "redux/planning/slice";
-import { useBooks, usePlanning, useAppDispatch } from "hooks";
+import {
+  selectCurrentlyReading,
+  selectGoingToRead,
+} from "redux/books/selectors";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { selectBookSchema } from "schemas";
 import { MAX_DATE } from "constants/";
 import { IBookOption } from "types";
 import * as S from "./BookSelectForm.styled";
 import uk from "date-fns/locale/uk";
+import {
+  selectBooks,
+  selectEndDate,
+  selectStartDate,
+} from "redux/planning/selectors";
 
 registerLocale("uk", uk);
 
@@ -33,8 +42,12 @@ export const BookSelectForm: React.FC = () => {
     defaultValues: initialValues,
     resolver: yupResolver(selectBookSchema),
   });
-  const { goingToRead, currentlyReading } = useBooks();
-  const { startDate, endDate, books } = usePlanning();
+  const goingToRead = useAppSelector(selectGoingToRead);
+  const currentlyReading = useAppSelector(selectCurrentlyReading);
+  const startDate = useAppSelector(selectStartDate);
+  const endDate = useAppSelector(selectEndDate);
+  const books = useAppSelector(selectBooks);
+
   const dispatch = useAppDispatch();
 
   const parsedStartDate = startDate ? new Date(startDate) : null;

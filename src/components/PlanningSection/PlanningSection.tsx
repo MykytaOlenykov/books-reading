@@ -8,15 +8,21 @@ import { RedirectBtn } from "components/RedirectBtn";
 import { BookSelectSection } from "components/BookSelectSection";
 import { StartTrainingButton } from "components/StartTrainingButton";
 import { deleteBook } from "redux/planning/slice";
-import { useAppDispatch, useBooks, usePlanning, useResizeScreen } from "hooks";
+import {
+  selectCurrentlyReading,
+  selectGoingToRead,
+} from "redux/books/selectors";
+import { selectBooks } from "redux/planning/selectors";
+import { useAppDispatch, useResizeScreen, useAppSelector } from "hooks";
 import { bookStatuses } from "constants/";
 import { IBook } from "types";
 import * as S from "./PlanningSection.styled";
 
 export const PlanningSection: React.FC = () => {
   const { isMobile, isDesktop } = useResizeScreen();
-  const { goingToRead, currentlyReading } = useBooks();
-  const { books } = usePlanning();
+  const goingToRead = useAppSelector(selectGoingToRead);
+  const currentlyReading = useAppSelector(selectCurrentlyReading);
+  const books = useAppSelector(selectBooks);
   const dispatch = useAppDispatch();
 
   const visibledBooks = useMemo<IBook[]>(

@@ -43,3 +43,20 @@ export const addPlan = createAppAsyncThunk<NonNullable<IPlan>, IPlanRequest>(
     }
   }
 );
+
+export const finishTraining = createAppAsyncThunk<void, void>(
+  "planning/finishTraining",
+  async (_, { rejectWithValue }) => {
+    try {
+      await $api.delete(`api/plans`);
+    } catch (error) {
+      return rejectWithValue(
+        errorObjectCreator({
+          error,
+          type: errorTypes.finishTraining,
+          checkSessionEnd: true,
+        })
+      );
+    }
+  }
+);

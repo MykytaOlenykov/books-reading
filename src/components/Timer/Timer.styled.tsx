@@ -33,8 +33,6 @@ export const List = styled.div`
   gap: 10px;
 `;
 
-export const Item = styled.div``;
-
 export const Value = styled.p`
   margin-bottom: 1px;
 

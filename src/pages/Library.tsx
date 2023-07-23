@@ -6,18 +6,23 @@ import { BooksList } from "components/BooksList";
 import { RedirectBtn } from "components/RedirectBtn";
 import { EmptyBooksNotification } from "components/EmptyBooksNotification";
 import { deleteBook } from "redux/books/operations";
-import { useResizeScreen, useBooks, useAppDispatch } from "hooks";
+import {
+  selectCurrentlyReading,
+  selectFinishedReading,
+  selectGoingToRead,
+  selectIsDeleting,
+  selectIsFirstVisit,
+} from "redux/books/selectors";
+import { useResizeScreen, useAppDispatch, useAppSelector } from "hooks";
 import { bookStatuses } from "constants/";
 
 const Library: React.FC = () => {
   const { isMobile } = useResizeScreen();
-  const {
-    goingToRead,
-    currentlyReading,
-    finishedReading,
-    isFirstVisit,
-    isDeleting,
-  } = useBooks();
+  const goingToRead = useAppSelector(selectGoingToRead);
+  const currentlyReading = useAppSelector(selectCurrentlyReading);
+  const finishedReading = useAppSelector(selectFinishedReading);
+  const isFirstVisit = useAppSelector(selectIsFirstVisit);
+  const isDeleting = useAppSelector(selectIsDeleting);
   const dispatch = useAppDispatch();
 
   const handleDeleteBook = (bookId: string): void => {

@@ -7,6 +7,7 @@ export const errorTypes = {
   deleteBook: "deleteBook",
   getPlan: "getPlan",
   addPlan: "addPlan",
+  finishTraining: "finishTraining",
   endOfSession: "endOfSession",
   common: "common",
 };
