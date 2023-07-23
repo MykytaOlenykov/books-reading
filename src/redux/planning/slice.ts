@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addPlan, getPlan, finishTraining } from "./operations";
-import { IError, IPlan } from "types";
+import { IError, IPlan, IBook } from "types";
 
 interface IInitialState {
   data: IPlan;
@@ -38,12 +38,12 @@ const planningSlice = createSlice({
     changeEndDate: (state, action: PayloadAction<string | null>) => {
       state.data.endDate = action.payload;
     },
-    addBook: (state, action: PayloadAction<string>) => {
+    addBook: (state, action: PayloadAction<IBook>) => {
       state.data.books.push(action.payload);
     },
     deleteBook: (state, action: PayloadAction<string>) => {
       state.data.books = state.data.books.filter(
-        (bookId) => bookId !== action.payload
+        (book) => book._id !== action.payload
       );
     },
     clearData: (state) => {
@@ -82,6 +82,16 @@ const planningSlice = createSlice({
         getPlan.fulfilled,
         (state, action: PayloadAction<NonNullable<IPlan>>) => {
           state.data = action.payload;
+          state.finishedBooks = action.payload.books.reduce(
+            (acc: string[], { _id, pagesTotal, pagesFinished }) => {
+              if (pagesTotal === pagesFinished) {
+                acc.push(_id);
+              }
+
+              return acc;
+            },
+            []
+          );
           state.isActive = true;
         }
       )

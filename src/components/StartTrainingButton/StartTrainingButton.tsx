@@ -22,8 +22,10 @@ export const StartTrainingButton: React.FC = () => {
 
   const handleStartTraining = async () => {
     try {
+      const booksIds = books.map(({ _id }) => _id);
+
       const data = await trainingSchema.validate({
-        books,
+        books: booksIds,
         startDate: formatDate(startDate),
         endDate: formatDate(endDate),
       });

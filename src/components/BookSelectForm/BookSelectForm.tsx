@@ -57,11 +57,11 @@ export const BookSelectForm: React.FC = () => {
   const options = useMemo<IBookOption[]>(
     () =>
       [...goingToRead, ...currentlyReading]
+        .filter(({ _id }) => !books.some((book) => book._id === _id))
         .map((book) => ({
           value: book._id,
           label: `Назва книги: ${book.title}\nАвтор: ${book.author}`,
-        }))
-        .filter((option) => !books.includes(option.value)),
+        })),
     [goingToRead, currentlyReading, books]
   );
 
@@ -83,8 +83,12 @@ export const BookSelectForm: React.FC = () => {
     return option ? newOption : null;
   })();
 
-  const onSubmit: SubmitHandler<FormData> = ({ book }) => {
-    dispatch(addBook(book));
+  const onSubmit: SubmitHandler<FormData> = ({ book: bookId }) => {
+    const book = [...goingToRead, ...currentlyReading].find(
+      (book) => book._id === bookId
+    );
+
+    dispatch(addBook(book!));
     reset();
   };
 

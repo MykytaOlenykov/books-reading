@@ -27,7 +27,7 @@ export const BookCard: React.FC<IProps> = ({
 
   const isShowBtn =
     status === bookStatuses.goingToRead
-      ? !books.includes(_id)
+      ? !books.some((book) => book._id === _id)
       : status === bookStatuses.planning;
 
   const isDisabled = isDeleting.includes(_id);

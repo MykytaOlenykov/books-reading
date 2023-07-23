@@ -1,38 +1,23 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { HiddenComponent } from "components/HiddenComponent";
 import { Sidebar } from "components/Sidebar";
 import { TimeSection } from "components/TimeSection";
 import { Scoreboard } from "components/Scoreboard";
 import { BooksList } from "components/BooksList";
 import { StatisticsChart } from "components/StatisticsChart";
-import {
-  selectCurrentlyReading,
-  selectGoingToRead,
-} from "redux/books/selectors";
+import { TimerBeforeStartTraining } from "components/TimerBeforeStartTraining";
 import { selectBooks, selectStartDate } from "redux/planning/selectors";
 import { useResizeScreen, useAppSelector } from "hooks";
 import { dateDifferenceInDays } from "utils";
 import { bookStatuses } from "constants/";
-import { IBook } from "types";
 import * as S from "./TrainingSection.styled";
-import { TimerBeforeStartTraining } from "components/TimerBeforeStartTraining";
 
 export const TrainingSection: React.FC = () => {
   const { isDesktop } = useResizeScreen();
-  const goingToRead = useAppSelector(selectGoingToRead);
-  const currentlyReading = useAppSelector(selectCurrentlyReading);
   const books = useAppSelector(selectBooks);
   const startDate = useAppSelector(selectStartDate);
   const [isStartedTraining, setIsStartedTraining] = useState<boolean>(
     () => dateDifferenceInDays(new Date().toString(), startDate) === 0
-  );
-
-  const visibledBooks = useMemo<IBook[]>(
-    () =>
-      [...goingToRead, ...currentlyReading].filter((book) =>
-        books.includes(book._id)
-      ),
-    [goingToRead, currentlyReading, books]
   );
 
   const handleStartTraining = () => {
@@ -50,7 +35,7 @@ export const TrainingSection: React.FC = () => {
 
         {!isDesktop && <Scoreboard />}
 
-        <BooksList status={bookStatuses.training} books={visibledBooks} />
+        <BooksList status={bookStatuses.training} books={books} />
 
         <StatisticsChart />
       </div>
