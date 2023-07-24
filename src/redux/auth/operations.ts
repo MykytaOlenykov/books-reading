@@ -1,6 +1,7 @@
 import { fetchBooks } from "redux/books/operations";
-import { getPlan } from "redux/planning/operations";
+import { fetchPlan } from "redux/planning/operations";
 import { setBooks } from "redux/books/slice";
+import { setData } from "redux/planning/slice";
 import { AppDispatch } from "redux/store";
 import {
   $api,
@@ -48,8 +49,10 @@ export const logIn = createAppAsyncThunk<
     setApiAuthHeader(data.accessToken);
 
     const books = await fetchBooks();
-
     dispatch(setBooks(books));
+
+    const plan = await fetchPlan();
+    dispatch(setData(plan));
 
     return data.userData;
   } catch (error) {
@@ -102,9 +105,10 @@ export const refreshUser = createAppAsyncThunk<
     );
 
     const books = await fetchBooks();
-
     dispatch(setBooks(books));
-    await dispatch(getPlan());
+
+    const plan = await fetchPlan();
+    dispatch(setData(plan));
 
     return userData;
   } catch (error) {

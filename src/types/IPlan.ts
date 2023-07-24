@@ -5,5 +5,6 @@ export interface IPlan {
   startDate: string | null;
   endDate: string | null;
   books: IBook[];
+  isFinished: boolean | null;
   pagesPerDay: number | null;
 }

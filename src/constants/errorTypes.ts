@@ -5,9 +5,9 @@ export const errorTypes = {
   refresh: "refresh",
   addBook: "addBook",
   deleteBook: "deleteBook",
-  getPlan: "getPlan",
   addPlan: "addPlan",
   finishTraining: "finishTraining",
+  fetchStatistics: "fetchStatistics",
   endOfSession: "endOfSession",
   common: "common",
 };

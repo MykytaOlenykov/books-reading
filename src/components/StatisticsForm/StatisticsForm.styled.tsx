@@ -1,39 +1,65 @@
 import styled from "styled-components";
-import { SecondaryButton } from "components/Common.styled";
-
-export const FormContainer = styled.div`
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: flex;
-    flex-wrap: wrap;
-  }
-`;
+import { PrimaryButton, PrimaryInput } from "components/Common.styled";
 
 export const Form = styled.form`
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: start;
-    flex-grow: 1;
+  @media screen and (min-width: calc(${({ theme }) =>
+      theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>
+      theme.breakpoints.dekstop} - 1px)) {
+    width: calc(50%);
   }
 `;
 
-export const DatePickerContainer = styled.div`
-  margin-bottom: 20px;
+export const Title = styled.p`
+  margin-bottom: 12px;
+
+  font-size: ${({ theme }) => theme.fontSizes.statistics.primary};
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.25;
+  color: ${({ theme }) => theme.colors.primary};
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    margin-bottom: 24px;
-
-    &.startDate {
-      margin-right: 40px;
-    }
+    font-size: ${({ theme }) => theme.fontSizes.common.primary};
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    &.startDate {
-      margin-left: 170px;
-      margin-right: 44px;
-    }
+    font-size: ${({ theme }) => theme.fontSizes.statistics.primary};
   }
+`;
+
+export const Text = styled.p`
+  margin-bottom: 4px;
+
+  font-size: ${({ theme }) => theme.fontSizes.statistics.secondary};
+  line-height: 1.18;
+  color: ${({ theme }) => theme.colors.primaryText};
+`;
+
+export const InputContainer = styled.div`
+  margin-bottom: 20px;
+`;
+
+export const Input = styled(PrimaryInput)`
+  padding: 11px 11px 12px;
+
+  color: ${({ theme }) => theme.colors.inputText};
+
+  background-color: ${({ theme }) => theme.colors.primaryBg};
+  border: 1px solid ${({ theme }) => theme.colors.inputBorder};
+
+  &:focus {
+    color: ${({ theme }) => theme.colors.primary};
+
+    background-color: ${({ theme }) => theme.colors.secondaryBg};
+    border: 1px solid ${({ theme }) => theme.colors.primaryBg};
+    box-shadow: ${({ theme }) => theme.boxShadow.input};
+  }
+`;
+
+export const Button = styled(PrimaryButton)`
+  margin-top: 28px;
+  width: 100%;
 `;
 
 export const ErrorText = styled.span`
@@ -47,20 +73,6 @@ export const ErrorText = styled.span`
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     text-align: center;
-  }
-`;
-
-export const Button = styled(SecondaryButton)`
-  margin-top: 32px;
-  min-width: 172px;
-  min-height: 42px;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    margin: 0 0 0 auto;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    width: 181px;
   }
 `;
 
@@ -81,14 +93,6 @@ export const SelectContainer = styled.div`
       &:hover {
         border-color: ${({ theme }) => theme.colors.primaryBg};
       }
-    }
-
-    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      width: 483px;
-    }
-
-    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-      width: 715px;
     }
   }
 

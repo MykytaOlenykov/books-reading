@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-  padding: 32px 0 128px;
+  padding: 32px 0 0;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: 40px 0 74px;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    padding: 40px 0 0;
+    padding: 40px 0 0px;
   }
 `;
 

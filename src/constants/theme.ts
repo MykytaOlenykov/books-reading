@@ -84,6 +84,10 @@ export const theme = {
       primary: "25px",
       secondary: "12px",
     },
+    statistics: {
+      primary: "12px",
+      secondary: "11px",
+    },
     common: {
       primary: "14px",
     },
@@ -101,6 +105,7 @@ export const theme = {
     select: "0px 2px 4px 0px  rgba(0, 0, 0, 0.25)",
     modal: "10px 10px 20px 0px rgba(9, 30, 63, 0.20)",
     timer: "4px 4px 8px 0px rgba(36, 42, 55, 0.15)",
+    statistics: "0px 2px 3px 0px rgba(9, 30, 63, 0.10)",
   },
   filter: {
     btn: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))",

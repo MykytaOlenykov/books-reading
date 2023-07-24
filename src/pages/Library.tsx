@@ -5,6 +5,7 @@ import { BookAddSection } from "components/BookAddSection";
 import { BooksList } from "components/BooksList";
 import { RedirectBtn } from "components/RedirectBtn";
 import { EmptyBooksNotification } from "components/EmptyBooksNotification";
+import { LibraryContainer } from "components/LibraryContainer";
 import { deleteBook } from "redux/books/operations";
 import {
   selectCurrentlyReading,
@@ -31,39 +32,41 @@ const Library: React.FC = () => {
 
   return (
     <PrimaryContainer>
-      <HiddenComponent>
-        <h1>Бібліотека книг</h1>
-      </HiddenComponent>
+      <LibraryContainer>
+        <HiddenComponent>
+          <h1>Бібліотека книг</h1>
+        </HiddenComponent>
 
-      {isMobile && isFirstVisit && <EmptyBooksNotification />}
+        {isMobile && isFirstVisit && <EmptyBooksNotification />}
 
-      {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
+        {isMobile ? <RedirectBtn redirectTo="add-book" /> : <BookAddSection />}
 
-      {!!finishedReading.length && (
-        <BooksList
-          title="Прочитано"
-          status={bookStatuses.finishedReading}
-          books={finishedReading}
-        />
-      )}
+        {!!finishedReading.length && (
+          <BooksList
+            title="Прочитано"
+            status={bookStatuses.finishedReading}
+            books={finishedReading}
+          />
+        )}
 
-      {!!currentlyReading.length && (
-        <BooksList
-          title="Читаю"
-          status={bookStatuses.currentlyReading}
-          books={currentlyReading}
-        />
-      )}
+        {!!currentlyReading.length && (
+          <BooksList
+            title="Читаю"
+            status={bookStatuses.currentlyReading}
+            books={currentlyReading}
+          />
+        )}
 
-      {!!goingToRead.length && (
-        <BooksList
-          title="Маю намір прочитати"
-          status={bookStatuses.goingToRead}
-          books={goingToRead}
-          onDeleteBook={handleDeleteBook}
-          isDeleting={isDeleting}
-        />
-      )}
+        {!!goingToRead.length && (
+          <BooksList
+            title="Маю намір прочитати"
+            status={bookStatuses.goingToRead}
+            books={goingToRead}
+            onDeleteBook={handleDeleteBook}
+            isDeleting={isDeleting}
+          />
+        )}
+      </LibraryContainer>
     </PrimaryContainer>
   );
 };

@@ -15,3 +15,6 @@ export * from "./IRefreshResponse";
 export * from "./IStorageKeys";
 export * from "./IUser";
 export * from "./ITime";
+export * from "./IStatistic";
+export * from "./IStatisticRequest";
+export * from "./IStatisticResponse";

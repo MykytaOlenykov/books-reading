@@ -89,6 +89,10 @@ declare module "styled-components" {
         primary: string;
         secondary: string;
       }>;
+      statistics: Readonly<{
+        primary: string;
+        secondary: string;
+      }>;
       common: Readonly<{
         primary: string;
       }>;
@@ -106,6 +110,7 @@ declare module "styled-components" {
       select: string;
       modal: string;
       timer: string;
+      statistics: string;
     }>;
     readonly filter: Readonly<{
       btn: string;

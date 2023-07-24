@@ -30,9 +30,7 @@ export const StartTrainingButton: React.FC = () => {
         endDate: formatDate(endDate),
       });
 
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-      dispatch(addPlan({ ...data, timezone }));
+      dispatch(addPlan(data));
     } catch (error) {
       const message =
         error instanceof Error ? error.message : errorAPIMessages.common;

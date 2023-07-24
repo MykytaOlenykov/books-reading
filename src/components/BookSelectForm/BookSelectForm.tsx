@@ -9,17 +9,17 @@ import {
   selectCurrentlyReading,
   selectGoingToRead,
 } from "redux/books/selectors";
+import {
+  selectBooks,
+  selectEndDate,
+  selectStartDate,
+} from "redux/planning/selectors";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { selectBookSchema } from "schemas";
 import { MAX_DATE } from "constants/";
 import { IBookOption } from "types";
 import * as S from "./BookSelectForm.styled";
 import uk from "date-fns/locale/uk";
-import {
-  selectBooks,
-  selectEndDate,
-  selectStartDate,
-} from "redux/planning/selectors";
 
 registerLocale("uk", uk);
 

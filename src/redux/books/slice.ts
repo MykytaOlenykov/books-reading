@@ -32,6 +32,20 @@ export const booksSlice = createSlice({
       state.currentlyReading = action.payload.currentlyReading;
       state.finishedReading = action.payload.finishedReading;
     },
+    updateBook: (state, action: PayloadAction<IBook>) => {
+      state.goingToRead = state.goingToRead.filter(
+        ({ _id }) => _id !== action.payload._id
+      );
+      state.currentlyReading = state.currentlyReading.filter(
+        ({ _id }) => _id !== action.payload._id
+      );
+
+      if (action.payload.pagesTotal === action.payload.pagesFinished) {
+        state.finishedReading = [...state.finishedReading, action.payload];
+      } else {
+        state.currentlyReading = [...state.currentlyReading, action.payload];
+      }
+    },
     clearError: (state) => {
       state.error = { message: null, status: null, type: null };
       state.isError = false;
@@ -81,6 +95,7 @@ export const booksSlice = createSlice({
   },
 });
 
-export const { setBooks, clearError, clearData } = booksSlice.actions;
+export const { setBooks, updateBook, clearError, clearData } =
+  booksSlice.actions;
 
 export const booksReducer = booksSlice.reducer;

@@ -3,10 +3,6 @@ import styled from "styled-components";
 export const Section = styled.section`
   padding-top: 20px;
 
-  &.goingToRead {
-    padding-bottom: 128px;
-  }
-
   &.planning,
   &.training {
     padding-top: 0;

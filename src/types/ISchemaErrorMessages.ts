@@ -58,4 +58,12 @@ export interface ISchemaErrorMessages {
     test: string;
     required: string;
   }>;
+  statisticBook: Readonly<{
+    required: string;
+  }>;
+  pages: Readonly<{
+    min: string;
+    integer: string;
+    required: string;
+  }>;
 }
