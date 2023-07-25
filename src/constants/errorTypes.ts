@@ -1,4 +1,4 @@
-export const errorTypes = {
+export const errorTypes = Object.freeze({
   register: "register",
   logIn: "logIn",
   logOut: "logOut",
@@ -6,8 +6,9 @@ export const errorTypes = {
   addBook: "addBook",
   deleteBook: "deleteBook",
   addPlan: "addPlan",
-  finishTraining: "finishTraining",
-  fetchStatistics: "fetchStatistics",
+  changeStatus: "changeStatus",
+  cancelTraining: "cancelTraining",
+  addStatistic: "addStatistic",
   endOfSession: "endOfSession",
   common: "common",
-};
+});

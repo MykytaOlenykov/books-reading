@@ -131,6 +131,10 @@ export const BookIcon = styled(LibraryIcon)`
     fill: ${({ theme }) => theme.colors.accent};
   }
 
+  .finishedReading & {
+    fill: ${({ theme }) => theme.colors.finishedBook};
+  }
+
   .planning & {
     left: 0;
   }

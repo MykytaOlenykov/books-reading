@@ -32,6 +32,7 @@ export const theme = {
     scrollbarThumb: "#b1b5c2",
     backdrop: "rgba(43, 43, 43, 0.10)",
     checkbox: "#A6ABB9",
+    finishedBook: "#6D7A8D",
   },
   fontFamily: {
     primary: "'Montserrat', sans-serif",

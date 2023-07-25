@@ -37,6 +37,7 @@ declare module "styled-components" {
       scrollbarThumb: string;
       backdrop: string;
       checkbox: string;
+      finishedBook: string;
     }>;
     readonly fontFamily: Readonly<{
       primary: string;

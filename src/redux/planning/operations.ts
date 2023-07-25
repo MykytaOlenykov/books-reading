@@ -42,8 +42,32 @@ export const addPlan = createAppAsyncThunk<NonNullable<IPlan>, IPlanRequest>(
   }
 );
 
-export const finishTraining = createAppAsyncThunk<void, void>(
-  "planning/finishTraining",
+export const changeStatus = createAppAsyncThunk<string, string>(
+  "planning/changeStatus",
+  async (data, { rejectWithValue }) => {
+    try {
+      const { data: newStatus } = await $api.patch<{ status: string }>(
+        `api/plans`,
+        {
+          status: data,
+        }
+      );
+
+      return newStatus.status;
+    } catch (error) {
+      return rejectWithValue(
+        errorObjectCreator({
+          error,
+          type: errorTypes.changeStatus,
+          checkSessionEnd: true,
+        })
+      );
+    }
+  }
+);
+
+export const cancelTraining = createAppAsyncThunk<void, void>(
+  "planning/cancelTraining",
   async (_, { rejectWithValue, dispatch }) => {
     try {
       await $api.delete(`api/plans`);
@@ -53,7 +77,7 @@ export const finishTraining = createAppAsyncThunk<void, void>(
       return rejectWithValue(
         errorObjectCreator({
           error,
-          type: errorTypes.finishTraining,
+          type: errorTypes.cancelTraining,
           checkSessionEnd: true,
         })
       );

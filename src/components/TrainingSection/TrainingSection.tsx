@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HiddenComponent } from "components/HiddenComponent";
 import { Sidebar } from "components/Sidebar";
 import { TimeSection } from "components/TimeSection";
@@ -14,7 +14,6 @@ import {
   selectStatus,
 } from "redux/planning/selectors";
 import { useResizeScreen, useAppSelector } from "hooks";
-import { dateDifferenceInDays } from "utils";
 import { bookStatuses, planningStatuses } from "constants/";
 import * as S from "./TrainingSection.styled";
 
@@ -24,14 +23,16 @@ export const TrainingSection: React.FC = () => {
   const status = useAppSelector(selectStatus);
   const startDate = useAppSelector(selectStartDate);
   const [isStartedTraining, setIsStartedTraining] = useState<boolean>(
-    () => dateDifferenceInDays(new Date().toString(), startDate) <= 0
+    () => status !== planningStatuses.idle
   );
 
   const isShowCancelTrainingButton = status === planningStatuses.active;
 
-  const handleStartTraining = () => {
-    setIsStartedTraining(true);
-  };
+  useEffect(() => {
+    if (status === planningStatuses.active) {
+      setIsStartedTraining(true);
+    }
+  }, [status]);
 
   return isStartedTraining ? (
     <S.Container>
@@ -65,9 +66,6 @@ export const TrainingSection: React.FC = () => {
       )}
     </S.Container>
   ) : (
-    <TimerBeforeStartTraining
-      startDate={startDate!}
-      onStartTraining={handleStartTraining}
-    />
+    <TimerBeforeStartTraining startDate={startDate!} />
   );
 };

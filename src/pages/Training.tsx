@@ -6,8 +6,10 @@ import { useAppSelector } from "hooks";
 import { planningStatuses } from "constants/";
 
 const Training: React.FC = () => {
-  const status = useAppSelector(selectStatus);
-  const isShowTraining = !!status && status !== planningStatuses.idle;
+  const status = useAppSelector(selectStatus) ?? "";
+  const isShowTraining = (Object.values(planningStatuses) as string[]).includes(
+    status
+  );
 
   return isShowTraining ? <TrainingSection /> : <PlanningSection />;
 };

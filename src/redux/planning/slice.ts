@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { addPlan, finishTraining } from "./operations";
+import { addPlan, cancelTraining, changeStatus } from "./operations";
 import { IError, IPlan, IBook, IStatisticResponse } from "types";
 
 interface IInitialState {
@@ -109,7 +109,21 @@ const planningSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      .addCase(finishTraining.fulfilled, (state) => {
+      .addCase(
+        changeStatus.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          state.data.status = action.payload;
+        }
+      )
+      .addCase(changeStatus.pending, (state) => {
+        state.isError = false;
+        state.error = { message: null, status: null, type: null };
+      })
+      .addCase(changeStatus.rejected, (state, action) => {
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(cancelTraining.fulfilled, (state) => {
         state.data = {
           _id: null,
           startDate: null,
@@ -121,12 +135,12 @@ const planningSlice = createSlice({
         state.finishedBooks = [];
         state.isLoading = false;
       })
-      .addCase(finishTraining.pending, (state) => {
+      .addCase(cancelTraining.pending, (state) => {
         state.isError = false;
         state.error = { message: null, status: null, type: null };
         state.isLoading = true;
       })
-      .addCase(finishTraining.rejected, (state, action) => {
+      .addCase(cancelTraining.rejected, (state, action) => {
         state.isError = true;
         state.error = action.payload;
         state.isLoading = false;

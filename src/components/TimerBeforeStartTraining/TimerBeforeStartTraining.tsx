@@ -2,20 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import { differenceInSeconds } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
 import { Timer } from "components/Timer";
+import { CancelTrainingButton } from "components/CancelTrainingButton";
 import { calcDurationTime } from "utils";
 import { PrimaryContainer } from "components/Common.styled";
 import * as S from "./TimerBeforeStartTraining.styled";
-import { CancelTrainingButton } from "components/CancelTrainingButton";
 
 interface IProps {
   startDate: string;
-  onStartTraining: () => void;
 }
 
-export const TimerBeforeStartTraining: React.FC<IProps> = ({
-  startDate,
-  onStartTraining,
-}) => {
+export const TimerBeforeStartTraining: React.FC<IProps> = ({ startDate }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const intervalId = useRef<NodeJS.Timer>();
 
@@ -34,7 +30,6 @@ export const TimerBeforeStartTraining: React.FC<IProps> = ({
       const difference = differenceInSeconds(startDateUtc, currentDateUtc);
 
       if (difference <= 0) {
-        onStartTraining();
         clearInterval(intervalId.current);
       }
 
@@ -44,7 +39,7 @@ export const TimerBeforeStartTraining: React.FC<IProps> = ({
     return () => {
       clearInterval(intervalId.current);
     };
-  }, [startDate, onStartTraining]);
+  }, [startDate]);
 
   return (
     <PrimaryContainer>

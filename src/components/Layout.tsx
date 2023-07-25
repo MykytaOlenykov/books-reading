@@ -4,6 +4,8 @@ import { Toaster } from "react-hot-toast";
 import { AppBar } from "components/AppBar";
 import { PageLoader } from "components/Loaders";
 import { HttpErrorCatcher } from "components/HttpErrorCatcher";
+import { TimeoverNotification } from "./TimeoverNotification";
+import { TrainingStartNotification } from "./TrainingStartNotification";
 import { GlobalStyle } from "components/GlobalStyle";
 import { clearIsRegistered } from "redux/auth/slice";
 import { useAppDispatch, useAuth } from "hooks";
@@ -33,6 +35,9 @@ export const Layout: React.FC = () => {
       <Toaster position="top-center" reverseOrder={false} />
 
       <HttpErrorCatcher />
+
+      <TimeoverNotification />
+      <TrainingStartNotification />
 
       <AppBar />
 

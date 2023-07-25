@@ -29,7 +29,7 @@ export const addStatistic = createAppAsyncThunk<IStatistic, IStatisticRequest>(
       return rejectWithValue(
         errorObjectCreator({
           error,
-          type: errorTypes.fetchStatistics,
+          type: errorTypes.addStatistic,
           checkSessionEnd: true,
         })
       );

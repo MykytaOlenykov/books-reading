@@ -136,6 +136,7 @@ export const SelectContainer = styled.div`
   }
 
   & .select__menu {
+    z-index: 2;
     background-color: ${({ theme }) => theme.colors.secondaryBg};
     border: none;
     border-radius: 0;

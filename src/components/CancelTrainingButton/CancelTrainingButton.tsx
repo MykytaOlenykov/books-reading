@@ -1,5 +1,5 @@
 import React from "react";
-import { finishTraining } from "redux/planning/operations";
+import { cancelTraining } from "redux/planning/operations";
 import { selectIsLoading } from "redux/planning/selectors";
 import { useAppDispatch, useAppSelector } from "hooks";
 import * as S from "./CancelTrainingButton.styled";
@@ -9,7 +9,7 @@ export const CancelTrainingButton: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const handleCancelTraining = (): void => {
-    dispatch(finishTraining());
+    dispatch(cancelTraining());
   };
 
   return (

@@ -130,3 +130,10 @@ export const Descr = styled.p`
   font-weight: 400;
   line-height: 1.21;
 `;
+
+export const Info = styled.p`
+  font-weight: 400;
+  line-height: 1.21;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.primaryText};
+`;
