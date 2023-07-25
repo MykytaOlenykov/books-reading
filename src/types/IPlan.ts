@@ -1,10 +1,10 @@
-import { IBook } from "./IBook";
+import { IBook } from "types";
 
 export interface IPlan {
   _id: string | null;
   startDate: string | null;
   endDate: string | null;
   books: IBook[];
-  isFinished: boolean | null;
+  status: string | null;
   pagesPerDay: number | null;
 }

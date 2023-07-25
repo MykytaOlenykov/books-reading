@@ -129,14 +129,14 @@ export const Counter = styled.div`
   }
 `;
 
-export const Value = styled.p<{ $isActive?: boolean }>`
+export const Value = styled.p<{ $isAccent?: boolean }>`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.training.counterPrimary};
   line-height: 0.84;
   text-align: center;
-  color: ${({ theme, $isActive }) =>
-    $isActive ? theme.colors.accent : theme.colors.number};
+  color: ${({ theme, $isAccent }) =>
+    $isAccent ? theme.colors.accent : theme.colors.number};
 
   @media screen and (min-width: calc(${({ theme }) =>
       theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>

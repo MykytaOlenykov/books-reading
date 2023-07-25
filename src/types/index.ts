@@ -18,3 +18,4 @@ export * from "./ITime";
 export * from "./IStatistic";
 export * from "./IStatisticRequest";
 export * from "./IStatisticResponse";
+export * from "./IPlanResponse";

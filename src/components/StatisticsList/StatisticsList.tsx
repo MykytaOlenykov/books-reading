@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import { format } from "date-fns";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Loader } from "components/Loaders";
-import { selectIsLoading, selectStats } from "redux/statistics/selectors";
+import { selectStats } from "redux/statistics/selectors";
 import { useAppSelector } from "hooks";
 import * as S from "./StatisticsList.styled";
 
@@ -17,7 +16,6 @@ interface IStatsList {
 
 export const StatisticsList: React.FC = () => {
   const stats = useAppSelector(selectStats);
-  const isLoading = useAppSelector(selectIsLoading);
 
   const statsList = useMemo<IStatsList[]>(
     () =>
@@ -33,10 +31,6 @@ export const StatisticsList: React.FC = () => {
         .reverse(),
     [stats]
   );
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <S.Container>

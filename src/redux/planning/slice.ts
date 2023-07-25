@@ -1,13 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addPlan, finishTraining } from "./operations";
-import { IError, IPlan, IBook } from "types";
+import { IError, IPlan, IBook, IStatisticResponse } from "types";
 
 interface IInitialState {
   data: IPlan;
   finishedBooks: string[];
   error: IError | undefined;
   isError: boolean;
-  isActive: boolean;
   isAdding: boolean;
   isLoading: boolean;
 }
@@ -18,13 +17,12 @@ const initialState: IInitialState = {
     startDate: null,
     endDate: null,
     books: [],
-    isFinished: null,
+    status: null,
     pagesPerDay: null,
   },
   finishedBooks: [],
   error: { message: null, status: null, type: null },
   isError: false,
-  isActive: false,
   isAdding: false,
   isLoading: false,
 };
@@ -60,14 +58,21 @@ const planningSlice = createSlice({
           },
           []
         );
-        state.isActive = true;
       }
     },
-    updateBook: (state, action: PayloadAction<IBook>) => {
-      const { _id, pagesTotal, pagesFinished } = action.payload;
+    updateData: (
+      state,
+      action: PayloadAction<Omit<IStatisticResponse, "stats">>
+    ) => {
+      const {
+        book: { _id, pagesTotal, pagesFinished },
+        planStatus,
+      } = action.payload;
+
+      state.data.status = planStatus;
 
       const idx = state.data.books.findIndex((book) => book._id === _id);
-      state.data.books.splice(idx, 1, action.payload);
+      state.data.books.splice(idx, 1, action.payload.book);
 
       if (pagesTotal === pagesFinished) {
         state.finishedBooks = [...state.finishedBooks, _id];
@@ -79,10 +84,9 @@ const planningSlice = createSlice({
         startDate: null,
         endDate: null,
         books: [],
-        isFinished: null,
+        status: null,
         pagesPerDay: null,
       };
-      state.isActive = false;
       state.finishedBooks = [];
     },
   },
@@ -92,7 +96,6 @@ const planningSlice = createSlice({
         addPlan.fulfilled,
         (state, action: PayloadAction<NonNullable<IPlan>>) => {
           state.data = action.payload;
-          state.isActive = true;
           state.isAdding = false;
         }
       )
@@ -112,11 +115,10 @@ const planningSlice = createSlice({
           startDate: null,
           endDate: null,
           books: [],
-          isFinished: null,
+          status: null,
           pagesPerDay: null,
         };
         state.finishedBooks = [];
-        state.isActive = false;
         state.isLoading = false;
       })
       .addCase(finishTraining.pending, (state) => {
@@ -138,7 +140,7 @@ export const {
   addBook,
   deleteBook,
   setData,
-  updateBook,
+  updateData,
   clearData,
 } = planningSlice.actions;
 

@@ -3,11 +3,12 @@ import {
   selectBooks,
   selectEndDate,
   selectFinishedBooks,
-  selectIsActive,
+  selectStatus,
   selectStartDate,
 } from "redux/planning/selectors";
 import { useAppSelector } from "hooks";
 import { dateDifferenceInDays } from "utils";
+import { planningStatuses } from "constants/";
 import * as S from "./Scoreboard.styled";
 
 export const Scoreboard: React.FC = () => {
@@ -15,12 +16,14 @@ export const Scoreboard: React.FC = () => {
   const startDate = useAppSelector(selectStartDate);
   const endDate = useAppSelector(selectEndDate);
   const finishedBooks = useAppSelector(selectFinishedBooks);
-  const isActive = useAppSelector(selectIsActive);
+  const status = useAppSelector(selectStatus);
+
+  const isShowHowMuchToRead = !!status && status !== planningStatuses.idle;
 
   const days = dateDifferenceInDays(startDate, endDate);
 
   return (
-    <S.Section className={isActive ? "isActive" : ""}>
+    <S.Section className={isShowHowMuchToRead ? "isActive" : ""}>
       <S.Container>
         <S.Title>Моя мета прочитати</S.Title>
 
@@ -41,10 +44,12 @@ export const Scoreboard: React.FC = () => {
             <S.Descr>Кількість днів</S.Descr>
           </S.Item>
 
-          {isActive && (
+          {isShowHowMuchToRead && (
             <S.Item>
               <S.Counter>
-                <S.Value $isActive={isActive}>{finishedBooks.length}</S.Value>
+                <S.Value $isAccent={isShowHowMuchToRead}>
+                  {books.length - finishedBooks.length}
+                </S.Value>
               </S.Counter>
 
               <S.Descr>Залишилось книжок</S.Descr>

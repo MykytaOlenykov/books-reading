@@ -22,7 +22,8 @@ export const BooksListHeader: React.FC<IProps> = ({ status }) => (
       <S.Text>Стор.</S.Text>
     </S.Item>
 
-    {status === bookStatuses.training && (
+    {(status === bookStatuses.training ||
+      status === bookStatuses.currentlyReading) && (
       <S.Item>
         <S.Text>Проч.</S.Text>
       </S.Item>

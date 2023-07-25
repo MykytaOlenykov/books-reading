@@ -3,14 +3,15 @@ import { differenceInSeconds } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
 import { HiddenComponent } from "components/HiddenComponent";
 import { Timer } from "components/Timer";
-import { selectEndDate } from "redux/planning/selectors";
+import { selectEndDate, selectStatus } from "redux/planning/selectors";
 import { useAppSelector } from "hooks";
 import { calcStartOfNextYear, calcDurationTime } from "utils";
-import { defaultTime } from "constants/";
+import { defaultTime, planningStatuses } from "constants/";
 import * as S from "./TimeSection.styled";
 
 export const TimeSection: React.FC = () => {
   const endDate = useAppSelector(selectEndDate);
+  const status = useAppSelector(selectStatus);
   const [startOfNextYear, setStartOfNextYear] = useState<Date>(() =>
     calcStartOfNextYear()
   );
@@ -20,11 +21,23 @@ export const TimeSection: React.FC = () => {
   const [currentDateForTrainingTime, setCurrentDateForTrainingTime] =
     useState<Date>(new Date());
 
-  const [isStoppedTrainingTimer, setIsStoppedTrainingTimer] =
-    useState<boolean>(false);
+  const [isStoppedTrainingTimer, setIsStoppedTrainingTimer] = useState<boolean>(
+    () =>
+      status === planningStatuses.finished ||
+      status === planningStatuses.timeover
+  );
 
   const timerToEndOfYearIntervalId = useRef<NodeJS.Timer>();
   const trainingTimerIntervalId = useRef<NodeJS.Timer>();
+
+  useEffect(() => {
+    if (
+      status === planningStatuses.finished ||
+      status === planningStatuses.timeover
+    ) {
+      setIsStoppedTrainingTimer(true);
+    }
+  }, [status]);
 
   useEffect(() => {
     timerToEndOfYearIntervalId.current = setInterval(() => {
@@ -49,6 +62,10 @@ export const TimeSection: React.FC = () => {
   }, [startOfNextYear]);
 
   useEffect(() => {
+    if (isStoppedTrainingTimer) {
+      return;
+    }
+
     trainingTimerIntervalId.current = setInterval(() => {
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -71,7 +88,7 @@ export const TimeSection: React.FC = () => {
     return () => {
       clearInterval(trainingTimerIntervalId.current);
     };
-  }, [endDate]);
+  }, [endDate, isStoppedTrainingTimer]);
 
   const timeToEndOfYear = calcDurationTime(
     currentDateForTimeToEndOfYear,

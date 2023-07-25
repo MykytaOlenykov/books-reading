@@ -44,11 +44,10 @@ export const Item = styled.li`
   }
 
   .goingToRead &,
-  .currentlyReading &,
   .finishedReading & {
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       &:nth-child(1) {
-        margin-right: 34px;
+        margin-right: 32px;
         width: 168px;
       }
 
@@ -65,6 +64,47 @@ export const Item = styled.li`
 
       &:nth-child(2) {
         margin-right: 64px;
+      }
+    }
+  }
+
+  .currentlyReading & {
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      &:nth-child(1) {
+        margin-right: 34px;
+        width: 96px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 28px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 36px;
+      }
+
+      &:nth-child(4) {
+        width: 40px;
+        text-align: end;
+      }
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      &:nth-child(1) {
+        margin-right: 64px;
+        width: 184px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 64px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 72px;
+      }
+
+      &:nth-child(4) {
+        width: 48px;
       }
     }
   }

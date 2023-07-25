@@ -3,6 +3,17 @@ import styled from "styled-components";
 export const Section = styled.section`
   padding-top: 20px;
 
+  &.currentlyReading,
+  &.finishedReading {
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      padding-bottom: 20px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      padding-bottom: 12px;
+    }
+  }
+
   &.planning,
   &.training {
     padding-top: 0;

@@ -1,14 +1,14 @@
+import { clearData } from "redux/statistics/slice";
 import { $api } from "services";
 import { createAppAsyncThunk, errorObjectCreator } from "utils";
 import { errorTypes } from "constants/";
-import { IPlan, IPlanRequest } from "types";
-import { clearData } from "redux/statistics/slice";
+import { IPlan, IPlanRequest, IPlanResponse } from "types";
 
-export const fetchPlan = async (): Promise<NonNullable<IPlan> | null> => {
+export const fetchPlan = async (): Promise<IPlanResponse | null> => {
   try {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const { data } = await $api.get<NonNullable<IPlan>>(
+    const { data } = await $api.get<IPlanResponse>(
       `api/plans?timezone=${timezone}`
     );
 

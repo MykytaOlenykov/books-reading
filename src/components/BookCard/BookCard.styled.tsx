@@ -127,6 +127,10 @@ export const BookIcon = styled(LibraryIcon)`
     left: 20px;
   }
 
+  .currentlyReading & {
+    fill: ${({ theme }) => theme.colors.accent};
+  }
+
   .planning & {
     left: 0;
   }

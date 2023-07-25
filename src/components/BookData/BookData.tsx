@@ -34,7 +34,8 @@ export const BookData: React.FC<IProps> = ({
       <S.Descr>{pagesTotal}</S.Descr>
     </S.Item>
 
-    {status === bookStatuses.training && (
+    {(status === bookStatuses.training ||
+      status === bookStatuses.currentlyReading) && (
       <S.Item>
         <S.Title>Проч.:</S.Title>
         <S.Descr>{pagesFinished}</S.Descr>

@@ -1,7 +1,8 @@
 import { fetchBooks } from "redux/books/operations";
 import { fetchPlan } from "redux/planning/operations";
 import { setBooks } from "redux/books/slice";
-import { setData } from "redux/planning/slice";
+import { setData as setPlanData } from "redux/planning/slice";
+import { setData as setStatsData } from "redux/statistics/slice";
 import { AppDispatch } from "redux/store";
 import {
   $api,
@@ -52,7 +53,21 @@ export const logIn = createAppAsyncThunk<
     dispatch(setBooks(books));
 
     const plan = await fetchPlan();
-    dispatch(setData(plan));
+    dispatch(
+      setPlanData(
+        plan
+          ? {
+              _id: plan._id,
+              startDate: plan.startDate,
+              endDate: plan.endDate,
+              books: plan.books,
+              status: plan.status,
+              pagesPerDay: plan.pagesPerDay,
+            }
+          : null
+      )
+    );
+    dispatch(setStatsData(plan ? plan.stats : []));
 
     return data.userData;
   } catch (error) {
@@ -108,7 +123,21 @@ export const refreshUser = createAppAsyncThunk<
     dispatch(setBooks(books));
 
     const plan = await fetchPlan();
-    dispatch(setData(plan));
+    dispatch(
+      setPlanData(
+        plan
+          ? {
+              _id: plan._id,
+              startDate: plan.startDate,
+              endDate: plan.endDate,
+              books: plan.books,
+              status: plan.status,
+              pagesPerDay: plan.pagesPerDay,
+            }
+          : null
+      )
+    );
+    dispatch(setStatsData(plan ? plan.stats : []));
 
     return userData;
   } catch (error) {

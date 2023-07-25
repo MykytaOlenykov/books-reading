@@ -47,6 +47,34 @@ export const Item = styled.li`
     }
   }
 
+  .currentlyReading & {
+    &:nth-child(2) {
+      margin-right: 100px;
+    }
+
+    &:nth-child(3) {
+      margin-right: 36px;
+    }
+
+    &:nth-child(4) {
+      margin-right: 32px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      &:nth-child(2) {
+        margin-right: 224px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 80px;
+      }
+
+      &:nth-child(4) {
+        margin-right: 80px;
+      }
+    }
+  }
+
   .planning & {
     &:nth-child(1) {
       margin-right: 194px;

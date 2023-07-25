@@ -1,13 +1,15 @@
 import React from "react";
 import { PlanningSection } from "components/PlanningSection";
 import { TrainingSection } from "components/TrainingSection";
-import { selectIsActive } from "redux/planning/selectors";
+import { selectStatus } from "redux/planning/selectors";
 import { useAppSelector } from "hooks";
+import { planningStatuses } from "constants/";
 
 const Training: React.FC = () => {
-  const isActive = useAppSelector(selectIsActive);
+  const status = useAppSelector(selectStatus);
+  const isShowTraining = !!status && status !== planningStatuses.idle;
 
-  return isActive ? <TrainingSection /> : <PlanningSection />;
+  return isShowTraining ? <TrainingSection /> : <PlanningSection />;
 };
 
 export default Training;
