@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 // const MOBILE_SCREEN = 320;
 const TABLET_SCREEN = 768;
-const DESKTOP_SCREEN = 1280;
+const DESKTOP_SCREEN = 1312;
 
 export const useResizeScreen = () => {
   const [isMobile, setMobile] = useState(true);

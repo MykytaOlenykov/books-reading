@@ -72,7 +72,9 @@ export const theme = {
       title: "20px",
       counterPrimary: "45px",
       counterSecondary: "40px",
-      text: "11px",
+      counterText: "35px",
+      textPrimary: "11px",
+      textSecondary: "12px",
     },
     calendar: {
       primary: "12px",
@@ -117,6 +119,6 @@ export const theme = {
   breakpoints: {
     mobile: "320px",
     tablet: "768px",
-    dekstop: "1280px",
+    dekstop: "1312px",
   },
 };

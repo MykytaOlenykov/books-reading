@@ -77,7 +77,9 @@ declare module "styled-components" {
         title: string;
         counterPrimary: string;
         counterSecondary: string;
-        text: string;
+        counterText: string;
+        textPrimary: string;
+        textSecondary: string;
       }>;
       calendar: Readonly<{
         primary: string;

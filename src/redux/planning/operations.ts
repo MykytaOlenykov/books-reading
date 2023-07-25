@@ -2,6 +2,7 @@ import { $api } from "services";
 import { createAppAsyncThunk, errorObjectCreator } from "utils";
 import { errorTypes } from "constants/";
 import { IPlan, IPlanRequest } from "types";
+import { clearData } from "redux/statistics/slice";
 
 export const fetchPlan = async (): Promise<NonNullable<IPlan> | null> => {
   try {
@@ -43,9 +44,11 @@ export const addPlan = createAppAsyncThunk<NonNullable<IPlan>, IPlanRequest>(
 
 export const finishTraining = createAppAsyncThunk<void, void>(
   "planning/finishTraining",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       await $api.delete(`api/plans`);
+
+      dispatch(clearData());
     } catch (error) {
       return rejectWithValue(
         errorObjectCreator({

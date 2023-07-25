@@ -12,7 +12,6 @@ export const PrimaryContainer = styled.div`
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-    padding: 0 16px;
     max-width: ${({ theme }) => theme.breakpoints.dekstop};
   }
 `;

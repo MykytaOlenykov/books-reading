@@ -50,6 +50,7 @@ export const Title = styled.h2`
 export const List = styled.ul`
   display: flex;
   justify-content: center;
+  align-items: start;
   flex-wrap: wrap;
   gap: 20px;
   padding: 44px 24px;
@@ -70,12 +71,35 @@ export const List = styled.ul`
 
     box-shadow: ${({ theme }) => theme.boxShadow.scoreboard};
   }
+
+  .isActive & {
+    row-gap: 20px;
+    column-gap: 4px;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      gap: 12px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      row-gap: 20px;
+      column-gap: 4px;
+      padding: 80px 24px;
+    }
+  }
+`;
+
+export const Item = styled.li`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 export const Counter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 14px;
   padding: 0 12px;
   min-width: 100px;
@@ -90,21 +114,47 @@ export const Counter = styled.div`
     margin-bottom: 4px;
     height: 60px;
   }
+
+  .isActive & {
+    padding: 0 10px;
+    min-width: 63px;
+    height: 63px;
+
+    @media screen and (min-width: calc(${({ theme }) =>
+        theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>
+        theme.breakpoints.dekstop} - 1px)) {
+      min-width: 100px;
+      height: 60px;
+    }
+  }
 `;
 
-export const Value = styled.p`
+export const Value = styled.p<{ $isActive?: boolean }>`
   font-family: ${({ theme }) => theme.fontFamily.secondary};
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.training.counterPrimary};
   line-height: 0.84;
   text-align: center;
-  color: ${({ theme }) => theme.colors.number};
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.accent : theme.colors.number};
 
   @media screen and (min-width: calc(${({ theme }) =>
       theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>
       theme.breakpoints.dekstop} - 1px)) {
     font-size: ${({ theme }) => theme.fontSizes.training.counterSecondary};
     line-height: 0.95;
+  }
+
+  .isActive & {
+    font-size: ${({ theme }) => theme.fontSizes.training.counterText};
+    line-height: 1.09;
+
+    @media screen and (min-width: calc(${({ theme }) =>
+        theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>
+        theme.breakpoints.dekstop} - 1px)) {
+      font-size: ${({ theme }) => theme.fontSizes.training.counterSecondary};
+      line-height: 0.95;
+    }
   }
 `;
 
@@ -119,10 +169,25 @@ export const Descr = styled.p`
   @media screen and (min-width: calc(${({ theme }) =>
       theme.breakpoints.tablet})) and (max-width: calc(${({ theme }) =>
       theme.breakpoints.dekstop} - 1px)) {
-    margin: 0;
-
-    font-size: ${({ theme }) => theme.fontSizes.training.text};
+    font-size: ${({ theme }) => theme.fontSizes.training.textPrimary};
     line-height: 1.18;
-    text-align: start;
+  }
+
+  .isActive & {
+    max-width: 74px;
+
+    font-size: ${({ theme }) => theme.fontSizes.training.textPrimary};
+    line-height: 1.18;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      max-width: 100px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      max-width: 74px;
+
+      font-size: ${({ theme }) => theme.fontSizes.training.textSecondary};
+      line-height: 1.25;
+    }
   }
 `;

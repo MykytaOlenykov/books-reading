@@ -23,7 +23,12 @@ const initialState: IInitialState = {
 const statisticsSlice = createSlice({
   name: "statistics",
   initialState,
-  reducers: {},
+  reducers: {
+    clearData: (state) => {
+      state.stats = [];
+      state.isSentReq = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -71,5 +76,7 @@ const statisticsSlice = createSlice({
       });
   },
 });
+
+export const { clearData } = statisticsSlice.actions;
 
 export const statisticsReducer = statisticsSlice.reducer;

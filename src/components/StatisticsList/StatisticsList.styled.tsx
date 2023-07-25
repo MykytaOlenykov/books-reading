@@ -8,6 +8,26 @@ export const Container = styled.div`
   }
 `;
 
+export const SwiperContainer = styled.div`
+  user-select: none;
+
+  & .swiper {
+    max-height: calc(17px * 5 + 4px * 4);
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      max-height: calc(17px * 10 + 4px * 9);
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      max-height: calc(17px * 5 + 4px * 4);
+    }
+  }
+
+  & .swiper-slide {
+    height: 17px !important;
+  }
+`;
+
 export const Title = styled.h3`
   position: relative;
   margin-bottom: 4px;
@@ -73,13 +93,9 @@ export const Title = styled.h3`
   }
 `;
 
-export const Item = styled.li`
+export const Item = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-
-  &:not(:last-child) {
-    margin-bottom: 4px;
-  }
 `;
 
 export const Date = styled.p`
