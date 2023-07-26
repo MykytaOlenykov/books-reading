@@ -34,7 +34,7 @@ export const BookAddForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const isAdding = useAppSelector(selectIsAdding);
 
-  const onSubmit: SubmitHandler<FormData> = ({
+  const onSubmit: SubmitHandler<FormData> = async ({
     title,
     author,
     publishYear,
@@ -47,8 +47,11 @@ export const BookAddForm: React.FC = () => {
       pagesTotal,
     };
 
-    dispatch(addBook(newBook));
-    reset();
+    const { meta } = await dispatch(addBook(newBook));
+
+    if (meta.requestStatus === "fulfilled") {
+      reset();
+    }
   };
 
   return (
