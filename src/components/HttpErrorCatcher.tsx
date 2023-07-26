@@ -1,20 +1,43 @@
 import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { changeStatus } from "redux/planning/operations";
 import { clearError as clearAuthError, endSession } from "redux/auth/slice";
 import {
   clearError as clearBooksError,
   clearData as clearBooksData,
 } from "redux/books/slice";
-import { clearData as clearPlanningData } from "redux/planning/slice";
-import { selectError, selectIsError } from "redux/books/selectors";
+import {
+  clearError as clearPlanningError,
+  clearData as clearPlanningData,
+} from "redux/planning/slice";
+import {
+  clearError as clearStatisticsError,
+  clearData as clearStatisticsData,
+} from "redux/statistics/slice";
+import {
+  selectError as selectBooksError,
+  selectIsError as selectBooksIsError,
+} from "redux/books/selectors";
+import {
+  selectError as selectPlanningError,
+  selectIsError as selectPlanningIsError,
+} from "redux/planning/selectors";
+import {
+  selectError as selectStatisticsError,
+  selectIsError as selectStatisticsIsError,
+} from "redux/statistics/selectors";
 import { useAuth, useAppDispatch, useAppSelector } from "hooks";
 import { onRemoveTokens } from "utils";
-import { errorTypes } from "constants/";
+import { errorTypes, planningStatuses } from "constants/";
 
 export const HttpErrorCatcher: React.FC = () => {
   const { isError: isAuthError, error: authError } = useAuth();
-  const isBooksError = useAppSelector(selectIsError);
-  const booksError = useAppSelector(selectError);
+  const isBooksError = useAppSelector(selectBooksIsError);
+  const booksError = useAppSelector(selectBooksError);
+  const isPlanningError = useAppSelector(selectPlanningIsError);
+  const planningError = useAppSelector(selectPlanningError);
+  const isStatisticsError = useAppSelector(selectStatisticsIsError);
+  const statisticsError = useAppSelector(selectStatisticsError);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,6 +58,7 @@ export const HttpErrorCatcher: React.FC = () => {
         dispatch(endSession());
         dispatch(clearBooksData());
         dispatch(clearPlanningData());
+        dispatch(clearStatisticsData());
         onRemoveTokens();
       }
 
@@ -42,6 +66,43 @@ export const HttpErrorCatcher: React.FC = () => {
       dispatch(clearBooksError());
     }
   }, [dispatch, isBooksError, booksError]);
+
+  useEffect(() => {
+    if (isPlanningError && planningError) {
+      if (planningError.type === errorTypes.endOfSession) {
+        dispatch(endSession());
+        dispatch(clearBooksData());
+        dispatch(clearPlanningData());
+        dispatch(clearStatisticsData());
+        onRemoveTokens();
+      }
+
+      toast.error(planningError.message);
+      dispatch(clearPlanningError());
+    }
+  }, [dispatch, isPlanningError, planningError]);
+
+  useEffect(() => {
+    if (isStatisticsError && statisticsError) {
+      if (statisticsError.type === errorTypes.endOfSession) {
+        dispatch(endSession());
+        dispatch(clearBooksData());
+        dispatch(clearPlanningData());
+        dispatch(clearStatisticsData());
+        onRemoveTokens();
+      }
+
+      if (statisticsError.status === 409) {
+        dispatch(changeStatus(planningStatuses.timeover));
+      }
+
+      if (statisticsError.status !== 409) {
+        toast.error(statisticsError.message);
+      }
+
+      dispatch(clearStatisticsError());
+    }
+  }, [dispatch, isStatisticsError, statisticsError]);
 
   return null;
 };

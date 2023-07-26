@@ -46,8 +46,10 @@ export const changeStatus = createAppAsyncThunk<string, string>(
   "planning/changeStatus",
   async (data, { rejectWithValue }) => {
     try {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
       const { data: newStatus } = await $api.patch<{ status: string }>(
-        `api/plans`,
+        `api/plans?timezone=${timezone}`,
         {
           status: data,
         }
@@ -66,18 +68,20 @@ export const changeStatus = createAppAsyncThunk<string, string>(
   }
 );
 
-export const cancelTraining = createAppAsyncThunk<void, void>(
-  "planning/cancelTraining",
+export const finishTraining = createAppAsyncThunk<void, void>(
+  "planning/finishTraining",
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      await $api.delete(`api/plans`);
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      await $api.delete(`api/plans?timezone=${timezone}`);
 
       dispatch(clearData());
     } catch (error) {
       return rejectWithValue(
         errorObjectCreator({
           error,
-          type: errorTypes.cancelTraining,
+          type: errorTypes.finishTraining,
           checkSessionEnd: true,
         })
       );

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { addPlan, cancelTraining, changeStatus } from "./operations";
+import { addPlan, finishTraining, changeStatus } from "./operations";
 import { IError, IPlan, IBook, IStatisticResponse } from "types";
 
 interface IInitialState {
@@ -8,6 +8,7 @@ interface IInitialState {
   error: IError | undefined;
   isError: boolean;
   isAdding: boolean;
+  isChangingStatus: boolean;
   isLoading: boolean;
 }
 
@@ -24,6 +25,7 @@ const initialState: IInitialState = {
   error: { message: null, status: null, type: null },
   isError: false,
   isAdding: false,
+  isChangingStatus: false,
   isLoading: false,
 };
 
@@ -89,6 +91,10 @@ const planningSlice = createSlice({
       };
       state.finishedBooks = [];
     },
+    clearError: (state) => {
+      state.error = { message: null, status: null, type: null };
+      state.isError = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -113,17 +119,20 @@ const planningSlice = createSlice({
         changeStatus.fulfilled,
         (state, action: PayloadAction<string>) => {
           state.data.status = action.payload;
+          state.isChangingStatus = false;
         }
       )
       .addCase(changeStatus.pending, (state) => {
         state.isError = false;
         state.error = { message: null, status: null, type: null };
+        state.isChangingStatus = true;
       })
       .addCase(changeStatus.rejected, (state, action) => {
         state.isError = true;
         state.error = action.payload;
+        state.isChangingStatus = false;
       })
-      .addCase(cancelTraining.fulfilled, (state) => {
+      .addCase(finishTraining.fulfilled, (state) => {
         state.data = {
           _id: null,
           startDate: null,
@@ -135,12 +144,12 @@ const planningSlice = createSlice({
         state.finishedBooks = [];
         state.isLoading = false;
       })
-      .addCase(cancelTraining.pending, (state) => {
+      .addCase(finishTraining.pending, (state) => {
         state.isError = false;
         state.error = { message: null, status: null, type: null };
         state.isLoading = true;
       })
-      .addCase(cancelTraining.rejected, (state, action) => {
+      .addCase(finishTraining.rejected, (state, action) => {
         state.isError = true;
         state.error = action.payload;
         state.isLoading = false;
@@ -156,6 +165,7 @@ export const {
   setData,
   updateData,
   clearData,
+  clearError,
 } = planningSlice.actions;
 
 export const planningReducer = planningSlice.reducer;

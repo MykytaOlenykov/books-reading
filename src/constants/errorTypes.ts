@@ -7,7 +7,7 @@ export const errorTypes = Object.freeze({
   deleteBook: "deleteBook",
   addPlan: "addPlan",
   changeStatus: "changeStatus",
-  cancelTraining: "cancelTraining",
+  finishTraining: "finishTraining",
   addStatistic: "addStatistic",
   endOfSession: "endOfSession",
   common: "common",

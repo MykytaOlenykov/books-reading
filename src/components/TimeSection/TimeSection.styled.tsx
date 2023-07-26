@@ -9,7 +9,7 @@ export const Container = styled.div`
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     gap: 32px;
-    padding: 40px 0 32px;
+    padding: 40px 0 8px;
   }
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {

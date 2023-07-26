@@ -19,8 +19,16 @@ export const Modal: React.FC<IProps> = ({ onCloseModal, children }) => {
 
     document.addEventListener("keydown", handleKeyDown);
 
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+
+    window.onscroll = function () {
+      window.scrollTo(scrollLeft, scrollTop);
+    };
+
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      window.onscroll = null;
     };
   }, [onCloseModal]);
 

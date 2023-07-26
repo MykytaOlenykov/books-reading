@@ -7,3 +7,8 @@ export const Container = styled.div`
   max-width: 290px;
   width: 100%;
 `;
+
+export const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;

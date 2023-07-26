@@ -26,6 +26,10 @@ const statisticsSlice = createSlice({
     clearData: (state) => {
       state.stats = [];
     },
+    clearError: (state) => {
+      state.error = { message: null, status: null, type: null };
+      state.isError = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -57,6 +61,6 @@ const statisticsSlice = createSlice({
   },
 });
 
-export const { setData, clearData } = statisticsSlice.actions;
+export const { setData, clearData, clearError } = statisticsSlice.actions;
 
 export const statisticsReducer = statisticsSlice.reducer;

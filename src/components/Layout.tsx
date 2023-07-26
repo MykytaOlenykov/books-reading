@@ -7,12 +7,15 @@ import { HttpErrorCatcher } from "components/HttpErrorCatcher";
 import { TimeoverNotification } from "./TimeoverNotification";
 import { TrainingStartNotification } from "./TrainingStartNotification";
 import { GlobalStyle } from "components/GlobalStyle";
+import { selectUpdatedBook } from "redux/books/selectors";
 import { clearIsRegistered } from "redux/auth/slice";
-import { useAppDispatch, useAuth } from "hooks";
+import { clearUpdatedBook } from "redux/books/slice";
+import { useAppSelector, useAppDispatch, useAuth } from "hooks";
 
 export const Layout: React.FC = () => {
   const { pathname } = useLocation();
   const { userData, isRegistered } = useAuth();
+  const updatedBook = useAppSelector(selectUpdatedBook);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -27,6 +30,14 @@ export const Layout: React.FC = () => {
       }
     }
   }, [userData, isRegistered, pathname, navigate, dispatch]);
+
+  useEffect(() => {
+    if (!updatedBook || pathname === "/training") {
+      return;
+    }
+
+    dispatch(clearUpdatedBook());
+  }, [updatedBook, dispatch, pathname]);
 
   return (
     <>

@@ -7,6 +7,7 @@ export interface IInitialState {
   goingToRead: IBook[];
   currentlyReading: IBook[];
   finishedReading: IBook[];
+  updatedBook: IBook | null;
   error: IError | undefined;
   isError: boolean;
   isAdding: boolean;
@@ -17,6 +18,7 @@ const initialState: IInitialState = {
   goingToRead: [],
   currentlyReading: [],
   finishedReading: [],
+  updatedBook: null,
   error: { message: null, status: null, type: null },
   isError: false,
   isAdding: false,
@@ -40,6 +42,8 @@ export const booksSlice = createSlice({
         ({ _id }) => _id !== action.payload._id
       );
 
+      state.updatedBook = action.payload;
+
       if (action.payload.pagesTotal === action.payload.pagesFinished) {
         state.finishedReading = [...state.finishedReading, action.payload];
       } else {
@@ -54,6 +58,9 @@ export const booksSlice = createSlice({
       state.goingToRead = [];
       state.currentlyReading = [];
       state.finishedReading = [];
+    },
+    clearUpdatedBook: (state) => {
+      state.updatedBook = null;
     },
   },
   extraReducers: (builder) => {
@@ -95,7 +102,7 @@ export const booksSlice = createSlice({
   },
 });
 
-export const { setBooks, updateBook, clearError, clearData } =
+export const { setBooks, updateBook, clearError, clearData, clearUpdatedBook } =
   booksSlice.actions;
 
 export const booksReducer = booksSlice.reducer;

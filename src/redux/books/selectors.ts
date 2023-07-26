@@ -9,6 +9,8 @@ export const selectCurrentlyReading = (state: RootState) =>
 export const selectFinishedReading = (state: RootState) =>
   state.books.finishedReading;
 
+export const selectUpdatedBook = (state: RootState) => state.books.updatedBook;
+
 export const selectError = (state: RootState) => state.books.error;
 
 export const selectIsError = (state: RootState) => state.books.isError;

@@ -13,7 +13,16 @@ export const Container = styled(PrimaryContainer)`
 `;
 
 export const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding-top: 32px;
+    padding-bottom: 8px;
+  }
+
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    padding-top: 0;
     padding-bottom: 40px;
   }
 `;

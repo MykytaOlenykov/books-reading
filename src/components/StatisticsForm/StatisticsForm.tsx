@@ -8,6 +8,7 @@ import { selectBooks } from "redux/planning/selectors";
 import { addStatistic } from "redux/statistics/operations";
 import { selectIsAdding } from "redux/statistics/selectors";
 import { useAppDispatch, useAppSelector } from "hooks";
+import { formatDate } from "utils";
 import { statisticsSchema } from "schemas";
 import { IBookOption } from "types";
 import * as S from "./StatisticsForm.styled";
@@ -89,7 +90,7 @@ export const StatisticsForm: React.FC = () => {
     const data = {
       book: bookId,
       pagesRead: pages,
-      date: format(new Date(), "yyyy-MM-dd"),
+      date: formatDate(new Date())!,
       time: format(new Date(), "HH-mm-ss"),
     };
 

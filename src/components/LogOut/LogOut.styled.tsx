@@ -15,8 +15,10 @@ export const BtnContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 24px;
   }
 `;
 

@@ -20,7 +20,7 @@ export const TrainingStartNotification: React.FC = () => {
   const intervalId = useRef<NodeJS.Timer>();
 
   useEffect(() => {
-    if (!status) {
+    if (!status || status !== planningStatuses.idle) {
       setIsStopped(true);
     }
 

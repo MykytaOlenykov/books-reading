@@ -20,7 +20,11 @@ export const TimeoverNotification: React.FC = () => {
   const intervalId = useRef<NodeJS.Timer>();
 
   useEffect(() => {
-    if (!status) {
+    if (
+      !status ||
+      status === planningStatuses.finished ||
+      status === planningStatuses.timeover
+    ) {
       setIsStopped(true);
     }
 
@@ -31,6 +35,7 @@ export const TimeoverNotification: React.FC = () => {
 
   useEffect(() => {
     if (isStopped) {
+      clearInterval(intervalId.current);
       return;
     }
 
@@ -51,7 +56,7 @@ export const TimeoverNotification: React.FC = () => {
         setIsStopped(true);
         clearInterval(intervalId.current);
       }
-    }, 30000);
+    }, 1000);
 
     return () => {
       clearInterval(intervalId.current);

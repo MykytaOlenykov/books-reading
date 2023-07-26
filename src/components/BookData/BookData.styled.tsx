@@ -123,7 +123,7 @@ export const Item = styled.li`
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
       &:nth-child(1) {
-        margin-right: 72px;
+        margin-right: 64px;
       }
 
       &:nth-child(2) {
