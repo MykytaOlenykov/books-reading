@@ -13,13 +13,21 @@ export const TimeoverNotification: React.FC = () => {
   const endDate = useAppSelector(selectEndDate);
   const status = useAppSelector(selectStatus);
   const [isStopped, setIsStopped] = useState<boolean>(
-    () =>
-      status === planningStatuses.finished ||
-      status === planningStatuses.timeover
+    () => status !== planningStatuses.active
   );
   const dispatch = useAppDispatch();
 
   const intervalId = useRef<NodeJS.Timer>();
+
+  useEffect(() => {
+    if (!status) {
+      setIsStopped(true);
+    }
+
+    if (status === planningStatuses.active) {
+      setIsStopped(false);
+    }
+  }, [status]);
 
   useEffect(() => {
     if (isStopped) {
@@ -43,7 +51,7 @@ export const TimeoverNotification: React.FC = () => {
         setIsStopped(true);
         clearInterval(intervalId.current);
       }
-    }, 60000);
+    }, 30000);
 
     return () => {
       clearInterval(intervalId.current);

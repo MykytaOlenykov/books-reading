@@ -77,8 +77,6 @@ export const TimeSection: React.FC = () => {
 
       const difference = differenceInSeconds(endDateUtc, startDateUtc);
 
-      console.log(1);
-
       if (difference <= 0) {
         setIsStoppedTrainingTimer(true);
         clearInterval(trainingTimerIntervalId.current);

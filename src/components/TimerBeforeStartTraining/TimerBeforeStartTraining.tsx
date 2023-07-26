@@ -3,7 +3,10 @@ import { differenceInSeconds } from "date-fns";
 import { zonedTimeToUtc } from "date-fns-tz";
 import { Timer } from "components/Timer";
 import { CancelTrainingButton } from "components/CancelTrainingButton";
+import { selectStatus } from "redux/planning/selectors";
+import { useAppSelector } from "hooks";
 import { calcDurationTime } from "utils";
+import { planningStatuses, defaultTime } from "constants/";
 import { PrimaryContainer } from "components/Common.styled";
 import * as S from "./TimerBeforeStartTraining.styled";
 
@@ -13,11 +16,21 @@ interface IProps {
 
 export const TimerBeforeStartTraining: React.FC<IProps> = ({ startDate }) => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const status = useAppSelector(selectStatus);
+  const [isStopped, setIsStopped] = useState<boolean>(
+    () => status !== planningStatuses.idle
+  );
   const intervalId = useRef<NodeJS.Timer>();
 
-  const time = calcDurationTime(currentDate, new Date(`${startDate}T00:00:00`));
+  const time = isStopped
+    ? defaultTime
+    : calcDurationTime(currentDate, new Date(`${startDate}T00:00:00`));
 
   useEffect(() => {
+    if (isStopped) {
+      return;
+    }
+
     intervalId.current = setInterval(() => {
       const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -30,6 +43,7 @@ export const TimerBeforeStartTraining: React.FC<IProps> = ({ startDate }) => {
       const difference = differenceInSeconds(startDateUtc, currentDateUtc);
 
       if (difference <= 0) {
+        setIsStopped(true);
         clearInterval(intervalId.current);
       }
 
@@ -39,7 +53,7 @@ export const TimerBeforeStartTraining: React.FC<IProps> = ({ startDate }) => {
     return () => {
       clearInterval(intervalId.current);
     };
-  }, [startDate]);
+  }, [startDate, isStopped]);
 
   return (
     <PrimaryContainer>
