@@ -1,6 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  isRejectedWithValue,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { addBook, deleteBook, addBookReview } from "./operations";
+import { logOut } from "redux/auth/operations";
+import { errorTypes } from "constants/";
 import { IBook, IError, IFetchBooksResponse } from "types";
 
 export interface IInitialState {
@@ -54,11 +59,6 @@ export const booksSlice = createSlice({
       state.error = { message: null, status: null, type: null };
       state.isError = false;
     },
-    clearData: (state) => {
-      state.goingToRead = [];
-      state.currentlyReading = [];
-      state.finishedReading = [];
-    },
     clearUpdatedBook: (state) => {
       state.updatedBook = null;
     },
@@ -99,15 +99,12 @@ export const booksSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      .addCase(
-        addBookReview.fulfilled,
-        (state, action: PayloadAction<IBook>) => {
-          const idx = state.finishedReading.findIndex(
-            ({ _id }) => _id === action.payload._id
-          );
-          state.finishedReading.splice(idx, 1, action.payload);
-        }
-      )
+      .addCase(addBookReview.fulfilled, (state, action) => {
+        const idx = state.finishedReading.findIndex(
+          ({ _id }) => _id === action.payload._id
+        );
+        state.finishedReading.splice(idx, 1, action.payload);
+      })
       .addCase(addBookReview.pending, (state) => {
         state.isError = false;
         state.error = { message: null, status: null, type: null };
@@ -115,11 +112,28 @@ export const booksSlice = createSlice({
       .addCase(addBookReview.rejected, (state, action) => {
         state.isError = true;
         state.error = action.payload;
-      });
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.goingToRead = [];
+        state.currentlyReading = [];
+        state.finishedReading = [];
+        state.updatedBook = null;
+      })
+      .addMatcher<PayloadAction<IError>>(
+        isRejectedWithValue,
+        (state, action) => {
+          if (action.payload.type === errorTypes.endOfSession) {
+            state.goingToRead = [];
+            state.currentlyReading = [];
+            state.finishedReading = [];
+            state.updatedBook = null;
+          }
+        }
+      );
   },
 });
 
-export const { setBooks, updateBook, clearError, clearData, clearUpdatedBook } =
+export const { setBooks, updateBook, clearError, clearUpdatedBook } =
   booksSlice.actions;
 
 export const booksReducer = booksSlice.reducer;

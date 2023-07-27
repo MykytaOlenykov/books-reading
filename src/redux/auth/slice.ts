@@ -1,6 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CaseReducer, AnyAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  isRejectedWithValue,
+  CaseReducer,
+  AnyAction,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { register, logIn, logOut, refreshUser } from "./operations";
+import { errorTypes } from "constants/";
 import { IError, IUser } from "types";
 
 export interface IInitialState {
@@ -78,13 +84,6 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    endSession: (state) => {
-      state.isLoggedIn = false;
-      state.userData = {
-        name: null,
-        email: null,
-      };
-    },
     clearError: (state) => {
       state.isError = false;
       state.error = { message: null, status: null, type: null };
@@ -129,9 +128,21 @@ export const authSlice = createSlice({
       })
       .addCase(refreshUser.rejected, (state) => {
         state.isRefreshing = false;
-      });
+      })
+      .addMatcher<PayloadAction<IError>>(
+        isRejectedWithValue,
+        (state, action) => {
+          if (action.payload.type === errorTypes.endOfSession) {
+            state.isLoggedIn = false;
+            state.userData = {
+              name: null,
+              email: null,
+            };
+          }
+        }
+      );
   },
 });
 
-export const { endSession, clearError, clearIsRegistered } = authSlice.actions;
+export const { clearError, clearIsRegistered } = authSlice.actions;
 export const authReducer = authSlice.reducer;

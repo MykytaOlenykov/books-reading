@@ -1,9 +1,6 @@
 import React from "react";
 import { ModalText } from "components/ModalText";
 import { logOut } from "redux/auth/operations";
-import { clearData as clearBooksData } from "redux/books/slice";
-import { clearData as clearPlanningData } from "redux/planning/slice";
-import { clearData as clearStatisticsData } from "redux/statistics/slice";
 import { useAppDispatch } from "hooks";
 import * as S from "./LogOut.styled";
 
@@ -14,12 +11,9 @@ interface IProps {
 export const LogOut: React.FC<IProps> = ({ onCloseModal }) => {
   const dispatch = useAppDispatch();
 
-  const handleLogOut = async (): Promise<void> => {
+  const handleLogOut = (): void => {
     onCloseModal();
-    await dispatch(logOut());
-    dispatch(clearBooksData());
-    dispatch(clearPlanningData());
-    dispatch(clearStatisticsData());
+    dispatch(logOut());
   };
 
   return (

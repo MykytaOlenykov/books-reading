@@ -1,5 +1,11 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  createSlice,
+  isRejectedWithValue,
+} from "@reduxjs/toolkit";
 import { addPlan, finishTraining, changeStatus } from "./operations";
+import { logOut } from "redux/auth/operations";
+import { errorTypes } from "constants/";
 import { IError, IPlan, IBook, IStatisticResponse } from "types";
 
 interface IInitialState {
@@ -80,17 +86,6 @@ const planningSlice = createSlice({
         state.finishedBooks = [...state.finishedBooks, _id];
       }
     },
-    clearData: (state) => {
-      state.data = {
-        _id: null,
-        startDate: null,
-        endDate: null,
-        books: [],
-        status: null,
-        pagesPerDay: null,
-      };
-      state.finishedBooks = [];
-    },
     clearError: (state) => {
       state.error = { message: null, status: null, type: null };
       state.isError = false;
@@ -98,13 +93,10 @@ const planningSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(
-        addPlan.fulfilled,
-        (state, action: PayloadAction<NonNullable<IPlan>>) => {
-          state.data = action.payload;
-          state.isAdding = false;
-        }
-      )
+      .addCase(addPlan.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.isAdding = false;
+      })
       .addCase(addPlan.pending, (state) => {
         state.isAdding = true;
         state.isError = false;
@@ -115,13 +107,10 @@ const planningSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
       })
-      .addCase(
-        changeStatus.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          state.data.status = action.payload;
-          state.isChangingStatus = false;
-        }
-      )
+      .addCase(changeStatus.fulfilled, (state, action) => {
+        state.data.status = action.payload;
+        state.isChangingStatus = false;
+      })
       .addCase(changeStatus.pending, (state) => {
         state.isError = false;
         state.error = { message: null, status: null, type: null };
@@ -153,7 +142,34 @@ const planningSlice = createSlice({
         state.isError = true;
         state.error = action.payload;
         state.isLoading = false;
-      });
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.data = {
+          _id: null,
+          startDate: null,
+          endDate: null,
+          books: [],
+          status: null,
+          pagesPerDay: null,
+        };
+        state.finishedBooks = [];
+      })
+      .addMatcher<PayloadAction<IError>>(
+        isRejectedWithValue,
+        (state, action) => {
+          if (action.payload.type === errorTypes.endOfSession) {
+            state.data = {
+              _id: null,
+              startDate: null,
+              endDate: null,
+              books: [],
+              status: null,
+              pagesPerDay: null,
+            };
+            state.finishedBooks = [];
+          }
+        }
+      );
   },
 });
 
@@ -164,7 +180,6 @@ export const {
   deleteBook,
   setData,
   updateData,
-  clearData,
   clearError,
 } = planningSlice.actions;
 

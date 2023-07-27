@@ -1,19 +1,10 @@
 import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { changeStatus } from "redux/planning/operations";
-import { clearError as clearAuthError, endSession } from "redux/auth/slice";
-import {
-  clearError as clearBooksError,
-  clearData as clearBooksData,
-} from "redux/books/slice";
-import {
-  clearError as clearPlanningError,
-  clearData as clearPlanningData,
-} from "redux/planning/slice";
-import {
-  clearError as clearStatisticsError,
-  clearData as clearStatisticsData,
-} from "redux/statistics/slice";
+import { clearError as clearAuthError } from "redux/auth/slice";
+import { clearError as clearBooksError } from "redux/books/slice";
+import { clearError as clearPlanningError } from "redux/planning/slice";
+import { clearError as clearStatisticsError } from "redux/statistics/slice";
 import {
   selectError as selectBooksError,
   selectIsError as selectBooksIsError,
@@ -43,7 +34,6 @@ export const HttpErrorCatcher: React.FC = () => {
   useEffect(() => {
     if (isAuthError && authError && authError.type !== errorTypes.refresh) {
       if (authError.type === errorTypes.endOfSession) {
-        dispatch(endSession());
         onRemoveTokens();
       }
 
@@ -55,10 +45,6 @@ export const HttpErrorCatcher: React.FC = () => {
   useEffect(() => {
     if (isBooksError && booksError) {
       if (booksError.type === errorTypes.endOfSession) {
-        dispatch(endSession());
-        dispatch(clearBooksData());
-        dispatch(clearPlanningData());
-        dispatch(clearStatisticsData());
         onRemoveTokens();
       }
 
@@ -70,10 +56,6 @@ export const HttpErrorCatcher: React.FC = () => {
   useEffect(() => {
     if (isPlanningError && planningError) {
       if (planningError.type === errorTypes.endOfSession) {
-        dispatch(endSession());
-        dispatch(clearBooksData());
-        dispatch(clearPlanningData());
-        dispatch(clearStatisticsData());
         onRemoveTokens();
       }
 
@@ -85,10 +67,6 @@ export const HttpErrorCatcher: React.FC = () => {
   useEffect(() => {
     if (isStatisticsError && statisticsError) {
       if (statisticsError.type === errorTypes.endOfSession) {
-        dispatch(endSession());
-        dispatch(clearBooksData());
-        dispatch(clearPlanningData());
-        dispatch(clearStatisticsData());
         onRemoveTokens();
       }
 

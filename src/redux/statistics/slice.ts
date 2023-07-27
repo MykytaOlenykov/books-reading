@@ -1,5 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  isRejectedWithValue,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import { addStatistic } from "./operations";
+import { logOut } from "redux/auth/operations";
+import { errorTypes } from "constants/";
 import { IError, IStatistic } from "types";
 
 interface IInitialState {
@@ -33,21 +39,18 @@ const statisticsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(
-        addStatistic.fulfilled,
-        (state, action: PayloadAction<IStatistic>) => {
-          const idx = state.stats.findIndex(
-            ({ _id }) => _id === action.payload._id
-          );
-          state.isAdding = false;
+      .addCase(addStatistic.fulfilled, (state, action) => {
+        const idx = state.stats.findIndex(
+          ({ _id }) => _id === action.payload._id
+        );
+        state.isAdding = false;
 
-          if (!!~idx) {
-            state.stats[idx].currentDateStats = action.payload.currentDateStats;
-          } else {
-            state.stats = [...state.stats, action.payload];
-          }
+        if (!!~idx) {
+          state.stats[idx].currentDateStats = action.payload.currentDateStats;
+        } else {
+          state.stats = [...state.stats, action.payload];
         }
-      )
+      })
       .addCase(addStatistic.pending, (state) => {
         state.isAdding = true;
         state.isError = false;
@@ -57,7 +60,18 @@ const statisticsSlice = createSlice({
         state.isAdding = false;
         state.isError = true;
         state.error = action.payload;
-      });
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.stats = [];
+      })
+      .addMatcher<PayloadAction<IError>>(
+        isRejectedWithValue,
+        (state, action) => {
+          if (action.payload.type === errorTypes.endOfSession) {
+            state.stats = [];
+          }
+        }
+      );
   },
 });
 
