@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 import { $refreshApi } from "services/refreshApi";
-import { API_URL } from "constants/";
+import { API_URL, storageKeys } from "constants/";
 import { IRefreshResponse } from "types";
 
 interface MyAxiosRequestConfig extends AxiosRequestConfig {
@@ -41,6 +41,11 @@ $api.interceptors.response.use(
 
         return $api.request(originalReq!);
       } catch (error) {
+        if (isAxiosError(error) && error.response?.status === 401) {
+          clearApiAuthHeader();
+          localStorage.removeItem(storageKeys.REFRESH_TOKEN_KEY_LS);
+        }
+
         throw error;
       }
     }

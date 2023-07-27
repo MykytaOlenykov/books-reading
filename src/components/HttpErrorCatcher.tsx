@@ -18,7 +18,6 @@ import {
   selectIsError as selectStatisticsIsError,
 } from "redux/statistics/selectors";
 import { useAuth, useAppDispatch, useAppSelector } from "hooks";
-import { onRemoveTokens } from "utils";
 import { errorTypes, planningStatuses } from "constants/";
 
 export const HttpErrorCatcher: React.FC = () => {
@@ -33,10 +32,6 @@ export const HttpErrorCatcher: React.FC = () => {
 
   useEffect(() => {
     if (isAuthError && authError && authError.type !== errorTypes.refresh) {
-      if (authError.type === errorTypes.endOfSession) {
-        onRemoveTokens();
-      }
-
       toast.error(authError.message);
       dispatch(clearAuthError());
     }
@@ -44,10 +39,6 @@ export const HttpErrorCatcher: React.FC = () => {
 
   useEffect(() => {
     if (isBooksError && booksError) {
-      if (booksError.type === errorTypes.endOfSession) {
-        onRemoveTokens();
-      }
-
       toast.error(booksError.message);
       dispatch(clearBooksError());
     }
@@ -55,10 +46,6 @@ export const HttpErrorCatcher: React.FC = () => {
 
   useEffect(() => {
     if (isPlanningError && planningError) {
-      if (planningError.type === errorTypes.endOfSession) {
-        onRemoveTokens();
-      }
-
       toast.error(planningError.message);
       dispatch(clearPlanningError());
     }
@@ -66,10 +53,6 @@ export const HttpErrorCatcher: React.FC = () => {
 
   useEffect(() => {
     if (isStatisticsError && statisticsError) {
-      if (statisticsError.type === errorTypes.endOfSession) {
-        onRemoveTokens();
-      }
-
       if (statisticsError.status === 409) {
         dispatch(changeStatus(planningStatuses.timeover));
       }
