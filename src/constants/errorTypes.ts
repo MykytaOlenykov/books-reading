@@ -5,6 +5,7 @@ export const errorTypes = Object.freeze({
   refresh: "refresh",
   addBook: "addBook",
   deleteBook: "deleteBook",
+  addBookReview: "addBookReview",
   addPlan: "addPlan",
   changeStatus: "changeStatus",
   finishTraining: "finishTraining",

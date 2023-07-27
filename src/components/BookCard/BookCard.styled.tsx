@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "components/Common.styled";
 import { ReactComponent as LibraryIcon } from "assets/icons/library-icon.svg";
 import { ReactComponent as DeleteIcon } from "assets/icons/delete-icon.svg";
 
@@ -20,6 +21,18 @@ export const Card = styled.div`
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       padding: 14px 36px 14px 60px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      padding: 22px 80px 22px 60px;
+    }
+  }
+
+  &.finishedReading {
+    padding: 20px 34px 92px 54px;
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      padding: 14px 20px 14px 60px;
     }
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
@@ -52,7 +65,7 @@ export const Card = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const DeleteButton = styled.button`
   position: absolute;
 
   padding: 0;
@@ -149,4 +162,47 @@ export const BtnIcon = styled(DeleteIcon)`
   height: 18px;
 
   fill: currentColor;
+`;
+
+export const ReviewButton = styled(Button)`
+  position: absolute;
+  left: 72px;
+  bottom: 32px;
+
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 11px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  min-width: 127px;
+  min-height: 42px;
+
+  color: ${({ theme }) => theme.colors.lightText};
+  text-align: center;
+  line-height: 1.21;
+
+  background-color: ${({ theme }) => theme.colors.finishedBook};
+  border: none;
+
+  transition: box-shadow ${({ theme }) => theme.timingFunction.btn} linear;
+
+  &:hover,
+  &:focus {
+    box-shadow: ${({ theme }) => theme.boxShadow.btn};
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    position: static;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 80px;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    padding-left: 24px;
+    padding-right: 24px;
+    min-width: 130px;
+  }
 `;

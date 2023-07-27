@@ -68,8 +68,7 @@ export const TrainingSection: React.FC = () => {
     }
 
     if (
-      status !== planningStatuses.timeover &&
-      status !== planningStatuses.finished &&
+      status === planningStatuses.active &&
       updatedBook.pagesTotal === updatedBook.pagesFinished
     ) {
       setIsOpenBookInfoModal(true);

@@ -28,5 +28,11 @@ export const BooksListHeader: React.FC<IProps> = ({ status }) => (
         <S.Text>Проч.</S.Text>
       </S.Item>
     )}
+
+    {status === bookStatuses.finishedReading && (
+      <S.Item>
+        <S.Text>Рейтинг</S.Text>
+      </S.Item>
+    )}
   </S.List>
 );

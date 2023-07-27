@@ -35,7 +35,6 @@ export const TimeoverNotification: React.FC = () => {
 
   useEffect(() => {
     if (isStopped) {
-      clearInterval(intervalId.current);
       return;
     }
 

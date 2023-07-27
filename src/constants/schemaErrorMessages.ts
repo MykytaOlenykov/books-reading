@@ -71,4 +71,10 @@ export const schemaErrorMessages: Readonly<ISchemaErrorMessages> = {
     integer: "Кількість сторінок повинна бути цілим числом.",
     required: "Кількість сторінок є обов'язковим полем.",
   },
+  rating: {
+    required: "Рейтинг книги обов'язковий.",
+  },
+  feedback: {
+    max: "Ви перевищили максимальну кількість символів.",
+  },
 };

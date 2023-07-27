@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { addBook, deleteBook } from "./operations";
+import { addBook, deleteBook, addBookReview } from "./operations";
 import { IBook, IError, IFetchBooksResponse } from "types";
 
 export interface IInitialState {
@@ -96,6 +96,23 @@ export const booksSlice = createSlice({
         state.isDeleting = state.isDeleting.filter(
           (bookId) => bookId !== action.meta.arg
         );
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(
+        addBookReview.fulfilled,
+        (state, action: PayloadAction<IBook>) => {
+          const idx = state.finishedReading.findIndex(
+            ({ _id }) => _id === action.payload._id
+          );
+          state.finishedReading.splice(idx, 1, action.payload);
+        }
+      )
+      .addCase(addBookReview.pending, (state) => {
+        state.isError = false;
+        state.error = { message: null, status: null, type: null };
+      })
+      .addCase(addBookReview.rejected, (state, action) => {
         state.isError = true;
         state.error = action.payload;
       });

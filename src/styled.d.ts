@@ -96,6 +96,9 @@ declare module "styled-components" {
         primary: string;
         secondary: string;
       }>;
+      feedbackCounter: Readonly<{
+        primary: string;
+      }>;
       common: Readonly<{
         primary: string;
       }>;

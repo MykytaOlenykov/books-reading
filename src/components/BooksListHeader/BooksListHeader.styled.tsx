@@ -75,6 +75,42 @@ export const Item = styled.li`
     }
   }
 
+  .finishedReading & {
+    &:nth-child(1) {
+      margin-right: 124px;
+    }
+
+    &:nth-child(2) {
+      margin-right: 84px;
+    }
+
+    &:nth-child(3) {
+      margin-right: 36px;
+    }
+
+    &:nth-child(4) {
+      margin-right: 32px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      &:nth-child(1) {
+        margin-right: 269px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 226px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 73px;
+      }
+
+      &:nth-child(4) {
+        margin-right: 110px;
+      }
+    }
+  }
+
   .planning & {
     &:nth-child(1) {
       margin-right: 194px;

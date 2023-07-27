@@ -124,7 +124,7 @@ export const StatisticsForm: React.FC = () => {
               options={options}
               value={selectedOption}
               isClearable
-              placeholder="Обрати книгу"
+              placeholder="..."
               noOptionsMessage={() => "Немає доступних книг"}
             />
 

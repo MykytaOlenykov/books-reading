@@ -5,4 +5,6 @@ export interface IBook {
   publishYear: number;
   pagesTotal: number;
   pagesFinished: number;
+  rating: number | null;
+  feedback: string | null;
 }

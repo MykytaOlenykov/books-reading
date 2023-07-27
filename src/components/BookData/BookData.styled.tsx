@@ -1,15 +1,26 @@
 import styled from "styled-components";
+import { ReactComponent as StarIcon } from "assets/icons/star.svg";
 
 export const List = styled.ul`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     align-items: center;
   }
+
+  .finishedReading & {
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      margin-right: 32px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      margin-right: 60px;
+    }
+  }
 `;
 
 export const Item = styled.li`
   display: flex;
-  gap: 40px;
+  gap: 20px;
 
   &:not(:last-child) {
     margin-bottom: 14px;
@@ -43,8 +54,7 @@ export const Item = styled.li`
     }
   }
 
-  .goingToRead &,
-  .finishedReading & {
+  .goingToRead & {
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       &:nth-child(1) {
         margin-right: 32px;
@@ -105,6 +115,38 @@ export const Item = styled.li`
 
       &:nth-child(4) {
         width: 48px;
+      }
+    }
+  }
+
+  .finishedReading & {
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      &:nth-child(1) {
+        margin-right: 24px;
+        width: 87px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 34px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 34px;
+      }
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      &:nth-child(1) {
+        margin-right: 46px;
+        width: 200px;
+      }
+
+      &:nth-child(2) {
+        margin-right: 62px;
+      }
+
+      &:nth-child(3) {
+        margin-right: 112px;
       }
     }
   }
@@ -178,8 +220,7 @@ export const Item = styled.li`
 `;
 
 export const Title = styled.p`
-  max-width: 43px;
-  flex-grow: 1;
+  min-width: 60px;
 
   font-size: ${({ theme }) => theme.fontSizes.booksSection.secondary};
   line-height: 1.25;
@@ -217,4 +258,37 @@ export const Descr = styled.p`
       -webkit-line-clamp: 1;
     }
   }
+`;
+
+export const Rating = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    gap: 3px;
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+    gap: 4px;
+  }
+`;
+
+export const IconThumb = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Icon = styled(StarIcon)<{
+  $isActive: boolean;
+  $isSelected: boolean;
+}>`
+  width: 17px;
+  height: 17px;
+
+  fill: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.accent : "none"};
+  stroke: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.accent : theme.colors.icon};
 `;

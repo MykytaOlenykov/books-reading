@@ -66,4 +66,10 @@ export interface ISchemaErrorMessages {
     integer: string;
     required: string;
   }>;
+  rating: Readonly<{
+    required: string;
+  }>;
+  feedback: Readonly<{
+    max: string;
+  }>;
 }

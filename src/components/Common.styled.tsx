@@ -36,7 +36,7 @@ export const PrimaryInput = styled.input`
   }
 `;
 
-const Button = styled.button`
+export const Button = styled.button`
   display: block;
   margin-right: auto;
   margin-left: auto;

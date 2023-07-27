@@ -27,14 +27,23 @@ export const Title = styled.h3`
   }
 
   &.goingToRead,
-  &.currentlyReading,
-  &.finishedReading {
+  &.currentlyReading {
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       max-width: 262px;
     }
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
       max-width: 500px;
+    }
+  }
+
+  &.finishedReading {
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      max-width: 135px;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
+      max-width: 260px;
     }
   }
 

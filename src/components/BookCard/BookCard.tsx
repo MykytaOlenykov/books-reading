@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Checkbox } from "components/Checkbox";
 import { BookTitle } from "components/BookTitle";
 import { BookData } from "components/BookData";
@@ -7,6 +7,9 @@ import { useAppSelector } from "hooks";
 import { bookStatuses } from "constants/";
 import { IBook, IBookStatus } from "types";
 import * as S from "./BookCard.styled";
+import { Modal } from "components/Modal";
+import { BookReviewForm } from "components/BookReviewForm";
+import { BookReview } from "components/BookReview";
 
 interface IProps {
   book: IBook;
@@ -21,19 +24,40 @@ export const BookCard: React.FC<IProps> = ({
   isDeleting = [],
   onDeleteBook,
 }) => {
-  const { _id, title, author, publishYear, pagesTotal, pagesFinished } = book;
+  const {
+    _id,
+    title,
+    author,
+    publishYear,
+    pagesTotal,
+    pagesFinished,
+    rating,
+    feedback,
+  } = book;
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const books = useAppSelector(selectBooks);
   const finishedBooks = useAppSelector(selectFinishedBooks);
 
-  const isShowBtn =
+  const isShowDeleteBtn =
     status === bookStatuses.goingToRead
       ? !books.some((book) => book._id === _id)
       : status === bookStatuses.planning;
 
   const isDisabled = isDeleting.includes(_id);
 
-  const handleDeleteBook = () => {
+  const bookHasReview =
+    typeof rating === "number" && typeof feedback === "string";
+
+  const handleDeleteBook = (): void => {
     onDeleteBook?.(_id);
+  };
+
+  const handleCloseModal = (): void => {
+    setIsOpenModal(false);
+  };
+
+  const handleShowModal = (): void => {
+    setIsOpenModal(true);
   };
 
   return (
@@ -52,16 +76,37 @@ export const BookCard: React.FC<IProps> = ({
         publishYear={publishYear}
         pagesTotal={pagesTotal}
         pagesFinished={pagesFinished}
+        rating={rating}
       />
 
-      {isShowBtn && (
-        <S.Button
+      {isShowDeleteBtn && (
+        <S.DeleteButton
           type="button"
           onClick={handleDeleteBook}
           disabled={isDisabled}
         >
           <S.BtnIcon />
-        </S.Button>
+        </S.DeleteButton>
+      )}
+
+      {status === bookStatuses.finishedReading && (
+        <S.ReviewButton type="button" onClick={handleShowModal}>
+          Резюме
+        </S.ReviewButton>
+      )}
+
+      {isOpenModal && (
+        <Modal onCloseModal={handleCloseModal}>
+          {bookHasReview ? (
+            <BookReview
+              rating={rating}
+              feedback={feedback}
+              onCloseModal={handleCloseModal}
+            />
+          ) : (
+            <BookReviewForm bookId={_id} onCloseModal={handleCloseModal} />
+          )}
+        </Modal>
       )}
     </S.Card>
   );

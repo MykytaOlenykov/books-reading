@@ -91,6 +91,9 @@ export const theme = {
       primary: "12px",
       secondary: "11px",
     },
+    feedbackCounter: {
+      primary: "12px",
+    },
     common: {
       primary: "14px",
     },

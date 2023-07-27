@@ -19,3 +19,4 @@ export * from "./IStatistic";
 export * from "./IStatisticRequest";
 export * from "./IStatisticResponse";
 export * from "./IPlanResponse";
+export * from "./IReviewRequest";

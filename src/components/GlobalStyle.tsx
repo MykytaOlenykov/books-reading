@@ -10,6 +10,16 @@ export const GlobalStyle = createGlobalStyle<IProps>`
   html {
     width: 100vw;
     overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+     width: 5px;
+     background-color: ${({ theme }) => theme.colors.scrollbar};
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.colors.scrollbarThumb};
+      border-radius: 0;
+    }
   }
 
   h1,
@@ -42,6 +52,6 @@ export const GlobalStyle = createGlobalStyle<IProps>`
     color:  ${({ theme }) => theme.colors.primary};
 
     background-color:  ${({ theme, isSecondaryBg }) =>
-      isSecondaryBg ? theme.colors.secondaryBg : theme.colors.primaryBg}
+      isSecondaryBg ? theme.colors.secondaryBg : theme.colors.primaryBg}   
   }
 `;
