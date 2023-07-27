@@ -3,12 +3,10 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerLocale } from "react-datepicker";
 import Select from "react-select";
-import { format } from "date-fns";
 import { selectBooks } from "redux/planning/selectors";
 import { addStatistic } from "redux/statistics/operations";
 import { selectIsAdding } from "redux/statistics/selectors";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { formatDate } from "utils";
 import { statisticsSchema } from "schemas";
 import { IBookOption } from "types";
 import * as S from "./StatisticsForm.styled";
@@ -90,8 +88,6 @@ export const StatisticsForm: React.FC = () => {
     const data = {
       book: bookId,
       pagesRead: pages,
-      date: formatDate(new Date())!,
-      time: format(new Date(), "HH-mm-ss"),
     };
 
     dispatch(addStatistic(data));
