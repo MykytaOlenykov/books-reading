@@ -38,6 +38,8 @@ declare module "styled-components" {
       backdrop: string;
       checkbox: string;
       finishedBook: string;
+      chartLine: string;
+      chartValueBg: string;
     }>;
     readonly fontFamily: Readonly<{
       primary: string;

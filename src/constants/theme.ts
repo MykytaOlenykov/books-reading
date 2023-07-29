@@ -33,6 +33,8 @@ export const theme = {
     backdrop: "rgba(43, 43, 43, 0.10)",
     checkbox: "#A6ABB9",
     finishedBook: "#6D7A8D",
+    chartLine: "#091E3F",
+    chartValueBg: "#F5F7FA",
   },
   fontFamily: {
     primary: "'Montserrat', sans-serif",

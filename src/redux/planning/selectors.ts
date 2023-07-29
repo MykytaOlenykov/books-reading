@@ -9,6 +9,9 @@ export const selectBooks = (state: RootState) => state.planning.data.books;
 
 export const selectStatus = (state: RootState) => state.planning.data.status;
 
+export const selectPagesPerDay = (state: RootState) =>
+  state.planning.data.pagesPerDay;
+
 export const selectFinishedBooks = (state: RootState) =>
   state.planning.finishedBooks;
 
