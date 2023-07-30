@@ -53,11 +53,11 @@ export const HttpErrorCatcher: React.FC = () => {
 
   useEffect(() => {
     if (isStatisticsError && statisticsError) {
-      if (statisticsError.status === 409) {
+      if (statisticsError.status === 400) {
         dispatch(changeStatus(planningStatuses.timeover));
       }
 
-      if (statisticsError.status !== 409) {
+      if (statisticsError.status !== 400 && statisticsError.status !== 409) {
         toast.error(statisticsError.message);
       }
 
