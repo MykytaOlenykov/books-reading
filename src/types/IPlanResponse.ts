@@ -5,7 +5,7 @@ export interface IPlanResponse {
   startDate: string;
   endDate: string;
   books: IBook[];
-  stats: IStatistic[];
+  statistics: IStatistic[];
   status: string;
   pagesPerDay: number;
 }

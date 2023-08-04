@@ -70,7 +70,7 @@ const planningSlice = createSlice({
     },
     updateData: (
       state,
-      action: PayloadAction<Omit<IStatisticResponse, "stats">>
+      action: PayloadAction<Omit<IStatisticResponse, "statistics">>
     ) => {
       const {
         book: { _id, pagesTotal, pagesFinished },

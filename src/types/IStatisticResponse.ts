@@ -1,7 +1,7 @@
 import { IBook, IStatistic } from "types";
 
 export interface IStatisticResponse {
-  stats: IStatistic;
+  statistics: IStatistic;
   book: IBook;
   planStatus: string;
 }

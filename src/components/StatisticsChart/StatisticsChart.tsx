@@ -137,6 +137,7 @@ export const StatisticsChart: React.FC = () => {
         ticks: {
           autoSkip: true,
           maxRotation: 0,
+          precision: 0,
           color: theme.colors.primary,
         },
         border: {

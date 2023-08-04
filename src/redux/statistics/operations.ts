@@ -12,7 +12,7 @@ export const addStatistic = createAppAsyncThunk<IStatistic, IStatisticRequest>(
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
       const { data: newData } = await $api.patch<IStatisticResponse>(
-        `api/plans/stats?timezone=${timezone}`,
+        `api/plans/statistics?timezone=${timezone}`,
         data
       );
 
@@ -24,7 +24,7 @@ export const addStatistic = createAppAsyncThunk<IStatistic, IStatisticRequest>(
         })
       );
 
-      return newData.stats;
+      return newData.statistics;
     } catch (error) {
       return rejectWithValue(
         errorObjectCreator({

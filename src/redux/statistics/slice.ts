@@ -9,14 +9,14 @@ import { errorTypes } from "constants/";
 import { IError, IStatistic } from "types";
 
 interface IInitialState {
-  stats: IStatistic[];
+  data: IStatistic[];
   error: IError | undefined;
   isError: boolean;
   isAdding: boolean;
 }
 
 const initialState: IInitialState = {
-  stats: [],
+  data: [],
   error: { message: null, status: null, type: null },
   isError: false,
   isAdding: false,
@@ -27,10 +27,10 @@ const statisticsSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action: PayloadAction<IStatistic[]>) => {
-      state.stats = action.payload;
+      state.data = action.payload;
     },
     clearData: (state) => {
-      state.stats = [];
+      state.data = [];
     },
     clearError: (state) => {
       state.error = { message: null, status: null, type: null };
@@ -40,15 +40,15 @@ const statisticsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addStatistic.fulfilled, (state, action) => {
-        const idx = state.stats.findIndex(
+        const idx = state.data.findIndex(
           ({ _id }) => _id === action.payload._id
         );
         state.isAdding = false;
 
         if (!!~idx) {
-          state.stats[idx].currentDateStats = action.payload.currentDateStats;
+          state.data[idx].currentDateStats = action.payload.currentDateStats;
         } else {
-          state.stats = [...state.stats, action.payload];
+          state.data = [...state.data, action.payload];
         }
       })
       .addCase(addStatistic.pending, (state) => {
@@ -62,13 +62,13 @@ const statisticsSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(logOut.fulfilled, (state) => {
-        state.stats = [];
+        state.data = [];
       })
       .addMatcher<PayloadAction<IError>>(
         isRejectedWithValue,
         (state, action) => {
           if (action.payload.type === errorTypes.endOfSession) {
-            state.stats = [];
+            state.data = [];
           }
         }
       );

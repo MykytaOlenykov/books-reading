@@ -67,7 +67,7 @@ export const logIn = createAppAsyncThunk<
           : null
       )
     );
-    dispatch(setStatsData(plan ? plan.stats : []));
+    dispatch(setStatsData(plan ? plan.statistics : []));
 
     return data.userData;
   } catch (error) {
@@ -137,7 +137,7 @@ export const refreshUser = createAppAsyncThunk<
           : null
       )
     );
-    dispatch(setStatsData(plan ? plan.stats : []));
+    dispatch(setStatsData(plan ? plan.statistics : []));
 
     return userData;
   } catch (error) {
