@@ -55,7 +55,7 @@ export const TimeoverNotification: React.FC = () => {
         setIsStopped(true);
         clearInterval(intervalId.current);
       }
-    }, 1000);
+    }, 30000);
 
     return () => {
       clearInterval(intervalId.current);
