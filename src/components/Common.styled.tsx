@@ -26,7 +26,6 @@ export const PrimaryInput = styled.input`
 
   border-radius: 0;
   outline: none;
-  touch-action: manipulation;
 
   &::placeholder {
     font-family: ${({ theme }) => theme.fontFamily.primary};

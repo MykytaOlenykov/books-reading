@@ -42,7 +42,6 @@ export const Container = styled.div`
       background-color: ${({ theme }) => theme.colors.primaryBg};
       border: 1px solid ${({ theme }) => theme.colors.inputBorder};
       border-radius: 0;
-      touch-action: manipulation;
 
       &::placeholder {
         font-family: ${({ theme }) => theme.fontFamily.primary};
