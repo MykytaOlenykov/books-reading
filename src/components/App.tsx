@@ -6,6 +6,7 @@ import { RestrictedRoute } from "components/RestrictedRoute";
 import { BookAddSection } from "components/BookAddSection";
 import { BookSelectSection } from "components/BookSelectSection";
 import { PageLoader } from "components/Loaders";
+import { NotFound } from "./NotFound";
 import { useAppDispatch, useAuth } from "hooks";
 import { refreshUser } from "redux/auth/operations";
 
@@ -64,6 +65,7 @@ export const App: React.FC = () => {
           path="login"
           element={<RestrictedRoute component={LogInPage} />}
         />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   ) : (
