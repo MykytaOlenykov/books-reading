@@ -45,7 +45,7 @@ const statisticsSlice = createSlice({
         );
         state.isAdding = false;
 
-        if (!!~idx) {
+        if (idx !== -1) {
           state.data[idx].currentDateStats = action.payload.currentDateStats;
         } else {
           state.data = [...state.data, action.payload];
