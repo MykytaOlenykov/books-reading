@@ -91,7 +91,6 @@ export const Button = styled(SecondaryButton)`
   padding-left: 12px;
   padding-right: 12px;
   min-width: 98px;
-  min-height: 42px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     min-width: 130px;
@@ -103,7 +102,6 @@ export const SubmitButton = styled(PrimaryButton)`
   padding-left: 12px;
   padding-right: 12px;
   min-width: 98px;
-  min-height: 42px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     min-width: 130px;

@@ -32,11 +32,11 @@ export const Card = styled.div`
     padding: 20px 34px 92px 54px;
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      padding: 14px 20px 14px 60px;
+      padding: 11px 20px 11px 60px;
     }
 
     @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
-      padding: 22px 80px 22px 60px;
+      padding: 11px 80px 11px 60px;
     }
   }
 
@@ -176,7 +176,6 @@ export const ReviewButton = styled(Button)`
   padding-left: 24px;
   padding-right: 24px;
   min-width: 127px;
-  min-height: 42px;
 
   color: ${({ theme }) => theme.colors.lightText};
   text-align: center;

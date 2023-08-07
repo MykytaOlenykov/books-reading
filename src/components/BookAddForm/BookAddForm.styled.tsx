@@ -86,6 +86,7 @@ export const ErrorText = styled.span`
 
 export const Button = styled(SecondaryButton)`
   min-width: 172px;
+  min-height: 42px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.dekstop}) {
     margin: 0;

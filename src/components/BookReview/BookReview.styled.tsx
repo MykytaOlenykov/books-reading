@@ -73,7 +73,6 @@ export const Button = styled(SecondaryButton)`
   padding-left: 12px;
   padding-right: 12px;
   min-width: 98px;
-  min-height: 42px;
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 28px;
