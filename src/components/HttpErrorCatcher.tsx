@@ -31,7 +31,7 @@ export const HttpErrorCatcher: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAuthError && authError && authError.type !== errorTypes.refresh) {
+    if (isAuthError && authError) {
       toast.error(authError.message);
       dispatch(clearAuthError());
     }

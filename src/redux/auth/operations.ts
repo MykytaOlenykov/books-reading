@@ -142,7 +142,11 @@ export const refreshUser = createAppAsyncThunk<
     return userData;
   } catch (error) {
     return rejectWithValue(
-      errorObjectCreator({ error, type: errorTypes.refresh })
+      errorObjectCreator({
+        error,
+        type: errorTypes.refresh,
+        checkSessionEnd: true,
+      })
     );
   }
 });
